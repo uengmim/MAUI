@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:MauiApp1.Models"
+             x:Class="MauiApp1.Views.AboutPage"
+             Title="AboutPage"> <!--루트개체-->
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Back" Clicked="Back_Clicked" IconImageSource="{OnPlatform 'bback.png', iOS='icon_notes_ios.png', MacCatalyst='icon_notes_ios.png'}" />
+    </ContentPage.ToolbarItems>
+    
+    <ContentPage.BindingContext>
+        <models:About />
+    </ContentPage.BindingContext>
+
+    <VerticalStackLayout Spacing="10" Margin="10"> <!--자식개체-->
+        <HorizontalStackLayout Spacing="10">
+            <Image Source="dotnet_bot.png"
+                   SemanticProperties.Description="The dot net bot waving hello!"
+                   HeightRequest="64" />
+            <Label FontSize="22" FontAttributes="Bold" Text="{Binding Title}" VerticalOptions="End" />
+            <Label FontSize="22" Text="{Binding Version}" VerticalOptions="End" />
+        </HorizontalStackLayout>
+
+        <Label Text="{Binding Message}" />
+        <Button Text="Learn more..." Clicked="LearnMore_Clicked" />
+    </VerticalStackLayout>
+</ContentPage>
