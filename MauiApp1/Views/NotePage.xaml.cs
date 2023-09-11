@@ -48,20 +48,29 @@ public partial class NotePage : ContentPage
     {
         if (BindingContext is Models.Note note)
             File.WriteAllText(note.FileName, TextEditor.Text);
-
+        if(TextEditor.Text == null || TextEditor.Text == "")
+        {
+            await DisplayAlert("Alert", "메모를 입력해주세요!", "OK");
+            return;
+        }
         await Shell.Current.GoToAsync("..");
     }
 
     private async void DeleteButton_Clicked(object sender, EventArgs e)
     {
-        if (BindingContext is Models.Note note)
-        {
-            // Delete the file.
-            if (File.Exists(note.FileName))
-                File.Delete(note.FileName);
-        }
 
-        await Shell.Current.GoToAsync("..");
+        bool answer = await DisplayAlert("Alert", "정말 삭제하시겠습니까?", "Yes", "No");
+        if (answer)
+        {
+            if (BindingContext is Models.Note note)
+            {
+                // Delete the file.
+                if (File.Exists(note.FileName))
+                    File.Delete(note.FileName);
+            }
+
+            await Shell.Current.GoToAsync("..");
+        }
     }
 
 

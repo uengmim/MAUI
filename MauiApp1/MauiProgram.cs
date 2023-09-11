@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using MauiApp1.ViewModel;
+using MauiApp1.Views;
+using Microsoft.Extensions.Logging;
 
 namespace MauiApp1;
 
@@ -17,6 +19,8 @@ public static class MauiProgram
 
 #if DEBUG
 		builder.Logging.AddDebug();
+		builder.Services.AddSingleton<MainPage>();
+		builder.Services.AddSingleton<MainViewModel>();
 #endif
 
 		return builder.Build();
