@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MauiApp1.Views.CameraPage"
+             xmlns:cv="clr-namespace:Camera.MAUI;assembly=Camera.MAUI"
+             Title="Camera">
+
+    <ScrollView>
+        <VerticalStackLayout
+            Padding="20,0"
+            Spacing="5"
+            VerticalOptions="Center">
+            <cv:CameraView
+                x:Name="cameraView"
+                Margin="0"
+                CamerasLoaded="cameraView_CamerasLoaded"
+                FlashMode="Auto"
+                HeightRequest="250"
+                WidthRequest="250" />
+
+            <Button
+                x:Name="taskPhotoButton"
+                Clicked="taskPhotoButton_Clicked"
+                Text="Take Photo" />
+
+            <HorizontalStackLayout>
+                <Switch
+                    x:Name="mirrorWsitch"
+                    IsToggled="False"
+                    OnColor="Black"
+                    ThumbColor="Purple"
+                    Toggled="mirrorWsitch_Toggled" />
+                <Label Text="Mirror" VerticalTextAlignment="Center" />
+            </HorizontalStackLayout>
+
+            <Image
+                x:Name="photoImage"
+                HeightRequest="220"
+                WidthRequest="220" />
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

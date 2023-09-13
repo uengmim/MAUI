@@ -12,5 +12,7 @@ public partial class AppShell : Shell
 
         Routing.RegisterRoute(nameof(Views.AllNotesPage), typeof(Views.AllNotesPage));
 
+        Routing.RegisterRoute(nameof(Views.CameraPage), typeof(Views.CameraPage));
+
     }
 }

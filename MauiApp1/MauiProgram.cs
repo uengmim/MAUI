@@ -1,4 +1,5 @@
-﻿using MauiApp1.ViewModel;
+﻿using Camera.MAUI;
+using MauiApp1.ViewModel;
 using MauiApp1.Views;
 using Microsoft.Extensions.Logging;
 
@@ -11,7 +12,8 @@ public static class MauiProgram
 		var builder = MauiApp.CreateBuilder();
 		builder
 			.UseMauiApp<App>()
-			.ConfigureFonts(fonts =>
+            .UseMauiCameraView()
+            .ConfigureFonts(fonts =>
 			{
 				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
 				fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");

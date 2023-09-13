@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:MauiApp1.Models"
+             x:Class="MauiApp1.Views.LoginPage"
+             xmlns:viewModel="clr-namespace:MauiApp1.ViewModel"> <!--루트개체-->
+
+    <ContentPage.BindingContext>
+        <viewModel:LoginPageModel />
+    </ContentPage.BindingContext>
+    
+    <Shell.TabBarIsVisible>false</Shell.TabBarIsVisible>
+    <Shell.NavBarIsVisible>false</Shell.NavBarIsVisible>
+
+    <StackLayout BackgroundColor="#285083">
+
+        <Frame BackgroundColor="Transparent" BorderColor="Transparent" Margin="40">
+            <StackLayout>
+                <Label LineBreakMode="WordWrap" HorizontalOptions="Center">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="TT" TextColor="White" FontAttributes="Bold"  FontSize="50"/>
+                            <Span Text="lock" FontSize="25" TextColor="LightGray"/>
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+                <Label LineBreakMode="WordWrap" HorizontalOptions="Center">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="Login" TextColor="LightGray"  FontSize="30"/>
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+            </StackLayout>
+        </Frame>
+
+        <Frame BorderColor="#376199" Margin="20,10" Padding="0" BackgroundColor="#376199">
+            <StackLayout BackgroundColor="#376199" VerticalOptions="Center">
+
+                <Frame Margin="15" Padding="0" BackgroundColor="#376199" CornerRadius="10" BorderColor="White" HeightRequest="45">
+                    <Entry Background="#376199" Margin="10,1" Placeholder="아이디를 입력해주세요." PlaceholderColor="LightGray" Text="{Binding LoginInfo.LoginId}" VerticalOptions="Center" TextColor="White"/>
+                </Frame>
+
+                <Frame Margin="15" Padding="0" BackgroundColor="#376199" CornerRadius="10" BorderColor="White" HeightRequest="45">
+                    <Entry Background="#376199" Margin="10,1" Placeholder="비밀번호를 입력해주세요." PlaceholderColor="LightGray" Text="{Binding LoginInfo.LoginPw}" VerticalOptions="Center" TextColor="White" IsPassword="True" MaxLength="10"/>
+                </Frame>
+
+                <Button Text="로그인" TextColor="White" FontSize="15" BackgroundColor="#1295DB" HorizontalOptions="FillAndExpand" Margin="15,15" HeightRequest="40" FontAttributes="Bold"
+                        Command="{Binding LoginCommand}" CommandParameter="AllNotesPage"/>
+
+            </StackLayout>
+        </Frame>
+        <Label Text="Create acount?" HorizontalOptions="Center" TextColor="White" FontAttributes="Bold">
+            <Label.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding MemberJoinCommand}" CommandParameter="AllNotesPage"/>
+            </Label.GestureRecognizers>
+        </Label>
+
+    </StackLayout>
+</ContentPage>
