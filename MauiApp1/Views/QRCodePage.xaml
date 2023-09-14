@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MauiApp1.Views.QRCodePage"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+              xmlns:local="clr-namespace:Camera.MAUI.Test"
+             xmlns:cv="clr-namespace:Camera.MAUI;assembly=Camera.MAUI"
+             Title="QRCode">
+    <ContentPage.BindingContext>
+        <local:QRCodeViewModel />
+    </ContentPage.BindingContext>
+    <ScrollView>
+        <Grid>
+            <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
+                <cv:CameraView x:Name="cameraView" WidthRequest="300" HeightRequest="200" BarCodeOptions="{Binding BarCodeOptions}" BarCodeResults="{Binding BarCodeResults, Mode=OneWayToSource}"
+                               Cameras="{Binding Cameras, Mode=OneWayToSource}" Camera="{Binding Camera}" AutoStartPreview="{Binding AutoStartPreview}" NumCamerasDetected="{Binding NumCameras, Mode=OneWayToSource}"
+                               AutoSnapShotAsImageSource="True" AutoSnapShotFormat="PNG" TakeAutoSnapShot="{Binding TakeSnapshot}" AutoSnapShotSeconds="{Binding SnapshotSeconds}"
+                               Microphones="{Binding Microphones, Mode=OneWayToSource}" Microphone="{Binding Microphone}" NumMicrophonesDetected="{Binding NumMicrophones, Mode=OneWayToSource}" 
+                               AutoRecordingFile="{Binding RecordingFile}" AutoStartRecording="{Binding AutoStartRecording}"/>
+
+
+                <HorizontalStackLayout HorizontalOptions="Center">
+
+                    <Label Text="QR Detec." VerticalOptions="Center" TextColor="Black"/>
+                    <CheckBox BindingContext="{x:Reference cameraView}" VerticalOptions="Center" Color="Black" IsChecked="{Binding BarCodeDetectionEnabled}"/>
+                </HorizontalStackLayout>
+
+                <HorizontalStackLayout HorizontalOptions="Center" Margin="2" Spacing="2">
+                    <Label Text="Zoom" VerticalOptions="Center" TextColor="Black"/>
+                    <Stepper BindingContext="{x:Reference cameraView}" Minimum="{Binding MinZoomFactor}" Maximum="7" Increment="0.5" Value="{Binding ZoomFactor,Mode=TwoWay}" />
+                </HorizontalStackLayout>
+                <HorizontalStackLayout HorizontalOptions="Center" Margin="5">
+                    <Button Text="Start Camera" Command="{Binding StartCamera}" />
+                    <Button Text="Stop Camera" Command="{Binding StopCamera}" />
+                </HorizontalStackLayout>
+ 
+                <Label Text="{Binding BarcodeText}" TextColor="Black" FontAttributes="Bold" HorizontalOptions="Center" />
+            </VerticalStackLayout>
+        </Grid>
+    </ScrollView>
+
+</ContentPage>

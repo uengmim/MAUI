@@ -14,5 +14,7 @@ public partial class AppShell : Shell
 
         Routing.RegisterRoute(nameof(Views.CameraPage), typeof(Views.CameraPage));
 
+        Routing.RegisterRoute(nameof(Views.QRCodePage), typeof(Views.QRCodePage));
+
     }
 }

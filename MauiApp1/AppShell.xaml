@@ -49,6 +49,11 @@
             Title="Camera"
             ContentTemplate="{DataTemplate views:CameraPage}"
             Icon="{OnPlatform 'camera.png', iOS='camera.png', MacCatalyst='camera.png'}" />
+
+        <ShellContent
+            Title="QRCode"
+            ContentTemplate="{DataTemplate views:QRCodePage}"
+            Icon="{OnPlatform 'camera.png', iOS='camera.png', MacCatalyst='camera.png'}" />
     </FlyoutItem>
 
 </Shell>

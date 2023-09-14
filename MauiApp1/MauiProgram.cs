@@ -23,8 +23,10 @@ public static class MauiProgram
 		builder.Logging.AddDebug();
 		builder.Services.AddSingleton<MainPage>();
 		builder.Services.AddSingleton<MainViewModel>();
+        builder.Services.AddSingleton<QRCodePage>();
+
 #endif
 
-		return builder.Build();
+        return builder.Build();
 	}
 }
