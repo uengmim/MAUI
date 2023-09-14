@@ -44,11 +44,11 @@
         <ShellContent
             Title="Test"
             ContentTemplate="{DataTemplate views:MainPage}"
-            Icon="{OnPlatform 'icon_notes.png', iOS='icon_notes_ios.png', MacCatalyst='icon_notes_ios.png'}" />
+            Icon="{OnPlatform 'check.png', iOS='check.png', MacCatalyst='check.png'}" />
         <ShellContent
             Title="Camera"
             ContentTemplate="{DataTemplate views:CameraPage}"
-            Icon="{OnPlatform 'icon_notes.png', iOS='icon_notes_ios.png', MacCatalyst='icon_notes_ios.png'}" />
+            Icon="{OnPlatform 'camera.png', iOS='camera.png', MacCatalyst='camera.png'}" />
     </FlyoutItem>
 
 </Shell>

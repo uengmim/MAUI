@@ -50,6 +50,7 @@
 
 	<ItemGroup>
 		<PackageReference Include="Camera.MAUI" Version="1.4.4" />
+		<PackageReference Include="BarcodeQRCodeSDK" Version="2.3.4" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.0.0-preview3" />
 	</ItemGroup>

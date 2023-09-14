@@ -27,10 +27,10 @@
                 <Switch
                     x:Name="mirrorWsitch"
                     IsToggled="False"
-                    OnColor="Black"
-                    ThumbColor="Purple"
+                    OnColor="White"
+                    ThumbColor="Black"
                     Toggled="mirrorWsitch_Toggled" />
-                <Label Text="Mirror" VerticalTextAlignment="Center" />
+                <Label Text="거울모드" VerticalTextAlignment="Center" />
             </HorizontalStackLayout>
 
             <Image
