@@ -5,38 +5,52 @@
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
               xmlns:local="clr-namespace:Camera.MAUI.Test"
              xmlns:cv="clr-namespace:Camera.MAUI;assembly=Camera.MAUI"
-             Title="QRCode">
+             Title="문서회수 BOX">
     <ContentPage.BindingContext>
         <local:QRCodeViewModel />
     </ContentPage.BindingContext>
-    <ScrollView>
-        <Grid>
-            <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
-                <cv:CameraView x:Name="cameraView" WidthRequest="300" HeightRequest="200" BarCodeOptions="{Binding BarCodeOptions}" BarCodeResults="{Binding BarCodeResults, Mode=OneWayToSource}"
+    <StackLayout BackgroundColor="#285083">
+
+        <Frame BackgroundColor="Transparent" BorderColor="Transparent">
+            <StackLayout>
+                <Label LineBreakMode="WordWrap" HorizontalOptions="Center">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="TT" TextColor="White" FontAttributes="Bold"  FontSize="50"/>
+                            <Span Text="lock" FontSize="25" TextColor="LightGray"/>
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+            </StackLayout>
+        </Frame>
+        <Frame BorderColor="#376199" Margin="20,10" Padding="0" BackgroundColor="#376199">
+            <StackLayout BackgroundColor="#376199" VerticalOptions="Center">
+            <cv:CameraView x:Name="cameraView" WidthRequest="450" HeightRequest="350" BarCodeOptions="{Binding BarCodeOptions}" BarCodeResults="{Binding BarCodeResults, Mode=OneWayToSource}"
                                Cameras="{Binding Cameras, Mode=OneWayToSource}" Camera="{Binding Camera}" AutoStartPreview="{Binding AutoStartPreview}" NumCamerasDetected="{Binding NumCameras, Mode=OneWayToSource}"
                                AutoSnapShotAsImageSource="True" AutoSnapShotFormat="PNG" TakeAutoSnapShot="{Binding TakeSnapshot}" AutoSnapShotSeconds="{Binding SnapshotSeconds}"
-                               Microphones="{Binding Microphones, Mode=OneWayToSource}" Microphone="{Binding Microphone}" NumMicrophonesDetected="{Binding NumMicrophones, Mode=OneWayToSource}" 
-                               AutoRecordingFile="{Binding RecordingFile}" AutoStartRecording="{Binding AutoStartRecording}"/>
-
-
-                <HorizontalStackLayout HorizontalOptions="Center">
-
-                    <Label Text="QR Detec." VerticalOptions="Center" TextColor="Black"/>
-                    <CheckBox BindingContext="{x:Reference cameraView}" VerticalOptions="Center" Color="Black" IsChecked="{Binding BarCodeDetectionEnabled}"/>
-                </HorizontalStackLayout>
+                         Margin="10,10,10,10"/>
 
                 <HorizontalStackLayout HorizontalOptions="Center" Margin="2" Spacing="2">
                     <Label Text="Zoom" VerticalOptions="Center" TextColor="Black"/>
                     <Stepper BindingContext="{x:Reference cameraView}" Minimum="{Binding MinZoomFactor}" Maximum="7" Increment="0.5" Value="{Binding ZoomFactor,Mode=TwoWay}" />
                 </HorizontalStackLayout>
-                <HorizontalStackLayout HorizontalOptions="Center" Margin="5">
-                    <Button Text="Start Camera" Command="{Binding StartCamera}" />
-                    <Button Text="Stop Camera" Command="{Binding StopCamera}" />
-                </HorizontalStackLayout>
- 
-                <Label Text="{Binding BarcodeText}" TextColor="Black" FontAttributes="Bold" HorizontalOptions="Center" />
-            </VerticalStackLayout>
-        </Grid>
-    </ScrollView>
 
+            </StackLayout>
+        
+        
+        </Frame>
+
+        <Frame BorderColor="#376199" Margin="20,10" Padding="0" BackgroundColor="#376199">
+            <StackLayout BackgroundColor="#376199" VerticalOptions="Center">
+
+                <Frame Margin="15" Padding="0" BackgroundColor="#376199" CornerRadius="10" BorderColor="White" HeightRequest="45">
+                    <Entry Background="#376199" Margin="10,1" Placeholder="문서함 번호" PlaceholderColor="LightGray" Text="{Binding BarcodeText}" VerticalOptions="Center" TextColor="White"/>
+                </Frame>
+
+                <Button Text="수동 입력" TextColor="White" FontSize="15" BackgroundColor="#1295DB" HorizontalOptions="FillAndExpand" Margin="15,15" HeightRequest="40" FontAttributes="Bold"
+                        Command="{Binding RecognitionCommand}" CommandParameter="QRRecogPage"/>
+
+            </StackLayout>
+        </Frame>
+    </StackLayout>
 </ContentPage>

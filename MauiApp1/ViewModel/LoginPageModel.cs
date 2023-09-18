@@ -9,7 +9,6 @@ namespace MauiApp1.ViewModel
 {
     public class LoginPageModel : BaseViewModel
     {
-    
         #region Properties
         /// <summary>
         /// 현재 로그인한 사용자 정보입니다.
@@ -41,6 +40,7 @@ namespace MauiApp1.ViewModel
                 OnPropertyChanged();
             }
         }
+
         private bool isSaveID = false;
 
         public bool IsSavePW
@@ -67,10 +67,6 @@ namespace MauiApp1.ViewModel
         /// </summary>
         public ICommand LoginCommand => new Command(OnLogin);
 
-        /// <summary>
-        /// 아이디/패쓰워드 검색 Command 입니다. 
-        /// </summary>
-        public ICommand IdPwSearchCommand => new Command(OnIdPwSearch);
 
         /// <summary>
         /// 회원가입 Command 입니다.
@@ -148,20 +144,18 @@ namespace MauiApp1.ViewModel
                 this.IsBusy = false;
             }
 
-            await Shell.Current.GoToAsync("//App/");
+            await Application.Current.MainPage.Navigation.PushAsync(new HomePage());
         }
         #endregion
-        #region OnIdPwSearch
-        private void OnIdPwSearch()
-        {
-            //Application.Current.MainPage.Navigation.PushAsync(new FindPage());
-        }
-        #endregion
+
         #region OnMemberJoin
         private async void OnMemberJoin()
         {
-            //await Application.Current.MainPage.Navigation.PushAsync(new CreateUserPage());
+            await Application.Current.MainPage.Navigation.PushAsync(new QRRecogPage());
+
         }
         #endregion
+
+
     }
 }

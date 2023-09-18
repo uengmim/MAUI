@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:MauiApp1.Models"
+             x:Class="MauiApp1.Views.QRRecogPage"
+             Title="자물쇠 스캔">
+    <ContentPage.BindingContext>
+        <models:QRRecog />
+    </ContentPage.BindingContext>
+    <StackLayout BackgroundColor="#285083">
+
+        <Frame BorderColor="#376199" Margin="10,10" Padding="0" BackgroundColor="#376199">
+
+            <StackLayout BackgroundColor="#376199" VerticalOptions="Center">
+
+                <Frame Margin="5,5,5,5" Padding="0" BackgroundColor="#376199"  HeightRequest="45">
+                    <Label Background="#376199" Margin="10,10" Text="{Binding Name}" VerticalOptions="Center" TextColor="White"/>
+                </Frame>
+                <Frame Margin="5,5,5,5" Padding="0" BackgroundColor="#376199"  HeightRequest="45">
+
+                    <Label Background="#376199" Margin="10,10" Text="{Binding BoxNum}" VerticalOptions="Center" TextColor="White"/>
+                </Frame>
+                <Frame Margin="5,5,5,5" Padding="0" BackgroundColor="#376199"   HeightRequest="45">
+
+                    <Label Background="#376199" Margin="10,10" Text="{Binding Location}" VerticalOptions="Center" TextColor="White"/>
+                </Frame>
+            </StackLayout>
+        </Frame>
+         
+        <Frame BorderColor="#376199" Margin="10,10" Padding="0" BackgroundColor="#376199">
+
+            <StackLayout Orientation="Vertical" Margin="0" Padding="0">
+
+                <CollectionView VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" ItemsSource="{Binding .}" Margin="0">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Vertical" ItemSpacing="0"/>
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <StackLayout Margin="0" Padding="0">
+                                <Frame Margin="5,5,5,5" Padding="0" BackgroundColor="#376199"  HeightRequest="45">
+                                    <Label Background="#376199" Margin="10,10" Text="{Binding Name}" VerticalOptions="Center" TextColor="White"/>
+                                </Frame>
+                            </StackLayout>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </StackLayout>
+        </Frame>
+
+    </StackLayout>
+</ContentPage>

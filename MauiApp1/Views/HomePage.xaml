@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:MauiApp1.Models"
+             x:Class="MauiApp1.Views.HomePage"
+             xmlns:viewModel="clr-namespace:MauiApp1.ViewModel"
+             Title="Home">
+    <!--루트개체-->
+    <ContentPage.BindingContext>
+        <viewModel:HomeViewModel />
+    </ContentPage.BindingContext>
+
+    <StackLayout BackgroundColor="#285083">
+        <Frame BackgroundColor="Transparent" Margin="20,40"  BorderColor="Transparent">
+            <StackLayout>
+                <Label LineBreakMode="WordWrap" HorizontalOptions="Center">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="TT" TextColor="White" FontAttributes="Bold"  FontSize="50"/>
+                            <Span Text="lock" FontSize="25" TextColor="LightGray"/>
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+            </StackLayout>
+        </Frame>
+        <Frame BorderColor="#376199" Margin="20,50" Padding="0" BackgroundColor="#376199">
+            <StackLayout BackgroundColor="#376199" VerticalOptions="Center">
+
+                <Frame Margin="15" Padding="0" BackgroundColor="#376199" CornerRadius="10" BorderColor="White" HeightRequest="80">
+                    <Button Text="보안 문서 봉인" TextColor="White" FontSize="15" BackgroundColor="#1295DB" HorizontalOptions="FillAndExpand" Margin="5,5" HeightRequest="70" FontAttributes="Bold"
+                        Command="{Binding QRCodeCommand}" CommandParameter="QRCodePage"/>
+                </Frame>
+                <Frame Margin="15" Padding="0" BackgroundColor="#376199" CornerRadius="10" BorderColor="White" HeightRequest="80">
+                    <Button Text="상차" TextColor="White" FontSize="15" BackgroundColor="#1295DB" HorizontalOptions="FillAndExpand" Margin="5,5" HeightRequest="70" FontAttributes="Bold"
+                        Command="{Binding .}" CommandParameter="."/>
+                </Frame>
+                <Frame Margin="15" Padding="0" BackgroundColor="#376199" CornerRadius="10" BorderColor="White" HeightRequest="80">
+                    <Button Text="하차" TextColor="White" FontSize="15" BackgroundColor="#1295DB" HorizontalOptions="FillAndExpand" Margin="5,5" HeightRequest="70" FontAttributes="Bold"
+                        Command="{Binding .}" CommandParameter="."/>
+                </Frame>
+            </StackLayout>
+        </Frame>
+    </StackLayout>
+</ContentPage>

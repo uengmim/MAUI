@@ -63,6 +63,12 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="Views\HomePage.xaml.cs">
+	    <DependentUpon>HomePage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\QRRecogPage.xaml.cs">
+	    <DependentUpon>QRRecogPage.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Views\QRCodePage.xaml.cs">
 	    <DependentUpon>QRCodePage.xaml</DependentUpon>
 	  </Compile>
@@ -78,6 +84,12 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="Views\HomePage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\QRRecogPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\QRCodePage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

@@ -10,11 +10,31 @@ using System.Windows.Markup;
 using System.Collections.Specialized;
 using Camera.MAUI.ZXingHelper;
 using CommunityToolkit.Maui.Views;
+using System.Windows.Input;
+using MauiApp1.Views;
 
 namespace Camera.MAUI.Test;
 
-public class QRCodeViewModel : INotifyPropertyChanged
+    public class QRCodeViewModel : INotifyPropertyChanged
 {
+    #region Commands
+    /// <summary>
+    /// QR 인식 Command 입니다.
+    /// </summary>
+    public ICommand RecognitionCommand => new Command(QRRecognition);
+    #endregion
+    // Methods
+    #region OnLogin
+    /// <summary>
+    /// 로그인 메뉴를 나타냅니다.
+    /// </summary>
+    private async void QRRecognition()
+    {
+        await Application.Current.MainPage.Navigation.PushAsync(new QRRecogPage());
+
+    }
+    #endregion
+
     private CameraInfo camera = null;
     public CameraInfo Camera
     {
@@ -76,7 +96,7 @@ public class QRCodeViewModel : INotifyPropertyChanged
         }
     }
     public BarcodeDecodeOptions BarCodeOptions { get; set; }
-    public string BarcodeText { get; set; } = "QR코드가 인식되지 않았습니다.";
+    public string BarcodeText { get; set; } = "";
     public bool AutoStartPreview { get; set; } = false;
     public bool AutoStartRecording { get; set; } = false;
     private Result[] barCodeResults;
@@ -129,6 +149,7 @@ public class QRCodeViewModel : INotifyPropertyChanged
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
+
     public QRCodeViewModel()
     {
         BarCodeOptions = new ZXingHelper.BarcodeDecodeOptions
