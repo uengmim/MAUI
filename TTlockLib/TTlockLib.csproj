@@ -1,0 +1,11 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net7.0-android</TargetFramework>
+    <SupportedOSPlatformVersion>21.0</SupportedOSPlatformVersion>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Remove="ttlock-release.aar" />
+  </ItemGroup>
+</Project>
