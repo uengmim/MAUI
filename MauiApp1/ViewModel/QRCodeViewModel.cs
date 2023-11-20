@@ -96,7 +96,7 @@ namespace Camera.MAUI.Test;
         }
     }
     public BarcodeDecodeOptions BarCodeOptions { get; set; }
-    public string BarcodeText { get; set; } = "";
+    public string BarcodeText { get; set; } = "No barcode detected";
     public bool AutoStartPreview { get; set; } = false;
     public bool AutoStartRecording { get; set; } = false;
     private Result[] barCodeResults;
@@ -109,7 +109,7 @@ namespace Camera.MAUI.Test;
             if (barCodeResults != null && barCodeResults.Length > 0)
                 BarcodeText = barCodeResults[0].Text;
             else
-                BarcodeText = "QR코드가 인식되지 않았습니다.";
+                BarcodeText = "No barcode detected";
             OnPropertyChanged(nameof(BarcodeText));
         }
     }
@@ -173,6 +173,7 @@ namespace Camera.MAUI.Test;
         });
         TakeSnapshotCmd = new Command(() =>
         {
+            OnPropertyChanged(nameof(StopCamera));
             TakeSnapshot = false;
             TakeSnapshot = true;
         });

@@ -24,33 +24,60 @@
             </StackLayout>
         </Frame>
         <Frame BorderColor="#376199" Margin="20,10" Padding="0" BackgroundColor="#376199">
-            <StackLayout BackgroundColor="#376199" VerticalOptions="Center">
-            <cv:CameraView x:Name="cameraView" WidthRequest="450" HeightRequest="350" BarCodeOptions="{Binding BarCodeOptions}" BarCodeResults="{Binding BarCodeResults, Mode=OneWayToSource}"
+            <ScrollView>
+                <Grid>
+                    <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
+                        <cv:CameraView x:Name="cameraView" WidthRequest="300" HeightRequest="200" BarCodeOptions="{Binding BarCodeOptions}" BarCodeResults="{Binding BarCodeResults, Mode=OneWayToSource}"
                                Cameras="{Binding Cameras, Mode=OneWayToSource}" Camera="{Binding Camera}" AutoStartPreview="{Binding AutoStartPreview}" NumCamerasDetected="{Binding NumCameras, Mode=OneWayToSource}"
                                AutoSnapShotAsImageSource="True" AutoSnapShotFormat="PNG" TakeAutoSnapShot="{Binding TakeSnapshot}" AutoSnapShotSeconds="{Binding SnapshotSeconds}"
-                         Margin="10,10,10,10"/>
+                               Microphones="{Binding Microphones, Mode=OneWayToSource}" Microphone="{Binding Microphone}" NumMicrophonesDetected="{Binding NumMicrophones, Mode=OneWayToSource}" 
+                               AutoRecordingFile="{Binding RecordingFile}" AutoStartRecording="{Binding AutoStartRecording}"/>
+                        <HorizontalStackLayout HorizontalOptions="Center" Margin="5">
+                            <Label Text="Select a camera:" VerticalOptions="Center" BackgroundColor="White" TextColor="Black"/>
+                            <Picker VerticalOptions="Center" TextColor="Black" ItemsSource="{Binding Cameras}" SelectedItem="{Binding Camera,Mode=TwoWay}"/>
+                        </HorizontalStackLayout>
+                        <HorizontalStackLayout HorizontalOptions="Center" Margin="5">
+                            <Label Text="Select a microphone:" VerticalOptions="Center" BackgroundColor="White" TextColor="Black"/>
+                            <Picker  VerticalOptions="Center" TextColor="Black" ItemsSource="{Binding Microphones}" SelectedItem="{Binding Microphone,Mode=TwoWay}"/>
+                        </HorizontalStackLayout>
+                        <HorizontalStackLayout HorizontalOptions="Center">
+                            <Label Text="Mirrored" VerticalOptions="Center" TextColor="Black"/>
+                            <CheckBox BindingContext="{x:Reference cameraView}" VerticalOptions="Center" Color="Black" IsChecked="{Binding MirroredImage}"/>
+                            <Label Text="Torch" VerticalOptions="Center" TextColor="Black"/>
+                            <CheckBox BindingContext="{x:Reference cameraView}" VerticalOptions="Center" Color="Black" IsChecked="{Binding TorchEnabled}"/>
+                            <Label Text="QR Detec." VerticalOptions="Center" TextColor="Black"/>
+                            <CheckBox BindingContext="{x:Reference cameraView}" VerticalOptions="Center" Color="Black" IsChecked="{Binding BarCodeDetectionEnabled}"/>
+                        </HorizontalStackLayout>
+                        <HorizontalStackLayout HorizontalOptions="Center">
+                            <Label Text="AutoSnap freq: " VerticalOptions="Center" TextColor="Black"/>
+                            <Entry WidthRequest="20" Keyboard="Numeric" TextColor="Black" Text="{Binding Seconds, Mode=TwoWay}" />
+                            <Label Text="Take Autosnap" VerticalOptions="Center" TextColor="Black"/>
+                            <CheckBox VerticalOptions="Center" Color="Black" IsChecked="{Binding TakeSnapshot, Mode=OneWayToSource}"/>
+                            <Label Text="As ISource" VerticalOptions="Center" TextColor="Black"/>
+                            <CheckBox BindingContext="{x:Reference cameraView}" IsChecked="{Binding AutoSnapShotAsImageSource}" VerticalOptions="Center" Color="Black"/>
+                        </HorizontalStackLayout>
+                        <HorizontalStackLayout HorizontalOptions="Center" Margin="2" Spacing="2">
+                            <Label Text="Zoom" VerticalOptions="Center" TextColor="Black"/>
+                            <Stepper BindingContext="{x:Reference cameraView}" Minimum="{Binding MinZoomFactor}" Maximum="7" Increment="0.5" Value="{Binding ZoomFactor,Mode=TwoWay}" />
+                        </HorizontalStackLayout>
+                        <HorizontalStackLayout HorizontalOptions="Center" Margin="5">
+                            <Button Text="Start Camera" Command="{Binding StartCamera}" />
+                            <Button Text="Stop Camera" Command="{Binding StopCamera}" />
+                            <Button Text="Take Photo" Command="{Binding TakeSnapshotCmd}" />
+                        </HorizontalStackLayout>
+                        <HorizontalStackLayout HorizontalOptions="Center" Margin="5">
+                            <Button Text="Start Record" Command="{Binding StartRecording}" />
+                            <Button Text="Stop Record" Command="{Binding StopRecording}" />
+                        </HorizontalStackLayout>
+                        <Label Text="{Binding BarcodeText}" TextColor="Black" FontAttributes="Bold" HorizontalOptions="Center" />
+                        <Image BindingContext="{x:Reference cameraView}" Source="{Binding SnapShot}" Aspect="AspectFit" WidthRequest="250" HeightRequest="100" HorizontalOptions="Center" />
+                    </VerticalStackLayout>
+                </Grid>
+            </ScrollView>
 
-                <HorizontalStackLayout HorizontalOptions="Center" Margin="2" Spacing="2">
-                    <Label Text="Zoom" VerticalOptions="Center" TextColor="Black"/>
-                    <Stepper BindingContext="{x:Reference cameraView}" Minimum="{Binding MinZoomFactor}" Maximum="7" Increment="0.5" Value="{Binding ZoomFactor,Mode=TwoWay}" />
-                </HorizontalStackLayout>
 
-            </StackLayout>
-        
-        
         </Frame>
 
-        <Frame BorderColor="#376199" Margin="20,10" Padding="0" BackgroundColor="#376199">
-            <StackLayout BackgroundColor="#376199" VerticalOptions="Center">
 
-                <Frame Margin="15" Padding="0" BackgroundColor="#376199" CornerRadius="10" BorderColor="White" HeightRequest="45">
-                    <Entry Background="#376199" Margin="10,1" Placeholder="문서함 번호" PlaceholderColor="LightGray" Text="{Binding BarcodeText}" VerticalOptions="Center" TextColor="White"/>
-                </Frame>
-
-                <Button Text="수동 입력" TextColor="White" FontSize="15" BackgroundColor="#1295DB" HorizontalOptions="FillAndExpand" Margin="15,15" HeightRequest="40" FontAttributes="Bold"
-                        Command="{Binding RecognitionCommand}" CommandParameter="QRRecogPage"/>
-
-            </StackLayout>
-        </Frame>
     </StackLayout>
 </ContentPage>
