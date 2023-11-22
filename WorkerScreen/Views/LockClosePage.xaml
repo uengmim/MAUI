@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:WorkerScreen.ViewModel"
+             x:Class="WorkerScreen.Views.LockClosePage"
+             xmlns:cv="clr-namespace:Camera.MAUI;assembly=Camera.MAUI"
+             Title="자물쇠 봉인">
+    <ContentPage.BindingContext>
+        <local:LockCloseViewModel />
+    </ContentPage.BindingContext>
+    <AbsoluteLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+
+        <StackLayout BackgroundColor="#285083" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1">
+
+
+            <Frame BorderColor="#376199" Margin="10,0" Padding="0" BackgroundColor="#376199">
+
+                <StackLayout BackgroundColor="#376199" VerticalOptions="Center">
+                    <Frame Margin="5,5,5,5" Padding="0" BackgroundColor="#376199"  HeightRequest="45">
+                        <Label Background="#376199" Margin="10,10" Text="{Binding LoginInfo.Name, StringFormat='작업자 :  {0}'}" VerticalOptions="Center" TextColor="White"/>
+                    </Frame>
+                    <Frame Margin="5,0,5,5" Padding="0" BackgroundColor="#376199"  HeightRequest="45">
+                        <Label Background="#376199" Margin="10,10" Text="{Binding BoxNum, StringFormat='보안 문서함 :  {0}'}" VerticalOptions="Center" TextColor="White"/>
+                    </Frame>
+                    <Frame Margin="5,0,5,5" Padding="0" BackgroundColor="#376199"   HeightRequest="45">
+
+                        <Label Background="#376199" Margin="10,10" Text="{Binding Location, StringFormat='위치 :  {0}'}" VerticalOptions="Center" TextColor="White"/>
+                    </Frame>
+                </StackLayout>
+            </Frame>
+            <Frame BorderColor="#376199" Margin="10,10" Padding="0" BackgroundColor="#376199">
+
+                <StackLayout BackgroundColor="#376199" VerticalOptions="Center">
+                    <Frame Margin="5,5,5,5" Padding="0" BackgroundColor="#376199"  HeightRequest="45">
+                        <Label Background="#376199" Margin="10,10" Text="{Binding LockData, StringFormat='관리번호 : {0}'}"  TextColor="White" VerticalOptions="Center"/>
+                    </Frame>
+                    <Frame Margin="5,0,5,5" Padding="0" BackgroundColor="#376199"  HeightRequest="45">
+                        <Label Background="#376199" Margin="10,10" Text="{Binding LockName, StringFormat='자물쇠 이름 : {0}'}" TextColor="White" VerticalOptions="Center"/>
+                    </Frame>
+
+                </StackLayout>
+            </Frame>
+            <Frame BorderColor="#376199" Margin="10,10" Padding="0" BackgroundColor="#376199">
+                <StackLayout BackgroundColor="#376199" VerticalOptions="Center">
+                    <cv:CameraView x:Name="photoView" WidthRequest="450" HeightRequest="350" BarCodeOptions="{Binding BarCodeOptions}" BarCodeResults="{Binding BarCodeResults, Mode=OneWayToSource}"
+                               Cameras="{Binding Cameras, Mode=OneWayToSource}" Camera="{Binding Camera}" AutoStartPreview="{Binding AutoStartPreview}" NumCamerasDetected="{Binding NumCameras, Mode=OneWayToSource}"
+                               AutoSnapShotAsImageSource="True" AutoSnapShotFormat="PNG" TakeAutoSnapShot="{Binding TakeSnapshot}" AutoSnapShotSeconds="{Binding SnapshotSeconds}" Margin="10,10,10,10"/>
+
+                </StackLayout>
+            </Frame>
+
+            <StackLayout>
+                <Button ImageSource="camera.png" Text="봉인 확인" TextColor="White" FontSize="15" BackgroundColor="#1295DB" HorizontalOptions="FillAndExpand" Margin="15,15" HeightRequest="40" FontAttributes="Bold"
+               Clicked="taskPhotoButton_Clicked"/>
+
+            </StackLayout>
+        </StackLayout>
+        <StackLayout IsVisible="{Binding IsLoading}" Padding="12"
+                 AbsoluteLayout.LayoutFlags="PositionProportional"
+                 AbsoluteLayout.LayoutBounds="0.5,0.5,-1,-1">
+
+            <ActivityIndicator IsRunning="{Binding IsLoading}" Color ="Blue"/>
+
+            <Label Text="Loading..." HorizontalOptions="Center" TextColor="White"/>
+
+        </StackLayout>
+
+    </AbsoluteLayout>
+</ContentPage>

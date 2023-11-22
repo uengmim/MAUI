@@ -6,17 +6,17 @@
 		<!-- Uncomment to also build the tizen app. You will need to install tizen by following this: https://github.com/Samsung/Tizen.NET -->
 		<!-- <TargetFrameworks>$(TargetFrameworks);net7.0-tizen</TargetFrameworks> -->
 		<OutputType>Exe</OutputType>
-		<RootNamespace>CrushingWorkerScreen</RootNamespace>
+		<RootNamespace>MauiApp1</RootNamespace>
 		<UseMaui>true</UseMaui>
 		<SingleProject>true</SingleProject>
 		<ImplicitUsings>enable</ImplicitUsings>
 
 		<!-- Display name -->
-		<ApplicationTitle>CrushingWorkerScreen</ApplicationTitle>
+		<ApplicationTitle>MauiApp1</ApplicationTitle>
 
 		<!-- App Identifier -->
-		<ApplicationId>com.companyname.crushingworkerscreen</ApplicationId>
-		<ApplicationIdGuid>86085a01-c984-4772-af42-bbd3257a75ab</ApplicationIdGuid>
+		<ApplicationId>com.companyname.mauiapp1</ApplicationId>
+		<ApplicationIdGuid>a970a5c2-ea29-44c9-86bc-86e3264f3ad4</ApplicationIdGuid>
 
 		<!-- Versions -->
 		<ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
@@ -49,7 +49,65 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<PackageReference Include="Camera.MAUI" Version="1.4.4" />
+		<PackageReference Include="BarcodeQRCodeSDK" Version="2.3.4" />
+		<PackageReference Include="CommunityToolkit.Maui" Version="5.3.0" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
+		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.0.0-preview3" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Reference Include="TTLockBinding">
+	    <HintPath>..\..\TTLockBinding\TTLockBinding\bin\Debug\TTLockBinding.dll</HintPath>
+	  </Reference>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Update="Views\HomePage.xaml.cs">
+	    <DependentUpon>HomePage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\QRRecogPage.xaml.cs">
+	    <DependentUpon>QRRecogPage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\QRCodePage.xaml.cs">
+	    <DependentUpon>QRCodePage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\LoginPage.xaml.cs">
+	    <DependentUpon>LoginPage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\AboutPage.xaml.cs">
+	    <DependentUpon>AboutPage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\CameraPage.xaml.cs">
+	    <DependentUpon>CameraPage.xaml</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Update="Views\HomePage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\QRRecogPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\QRCodePage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\LoginPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\AboutPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\AllNotesPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\CameraPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\NotePage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	</ItemGroup>
 
 </Project>

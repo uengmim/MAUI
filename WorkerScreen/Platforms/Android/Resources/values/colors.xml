@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#512BD4</color>
+    <color name="colorPrimaryDark">#2B0B98</color>
+    <color name="colorAccent">#2B0B98</color>
+	<style name="MyTheme" parent="android:style/Theme.Material.Light.DarkActionBar">
+		<item name="android:colorPressedHighlight">@color/ListViewSelected</item>
+		<item name="android:colorLongPressedHighlight">@color/ListViewHighlighted</item>
+		<item name="android:colorFocusedHighlight">@color/ListViewSelected</item>
+		<item name="android:colorActivatedHighlight">@color/ListViewSelected</item>
+		<item name="android:activatedBackgroundIndicator">@color/ListViewSelected</item>
+	</style>
+	<color name="ListViewSelected">@android:color/transparent</color>
+	<color name="ListViewHighlighted">@android:color/transparent</color>
+</resources>

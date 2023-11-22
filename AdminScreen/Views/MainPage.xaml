@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AdminScreen.Views.MainPage"
+             BackgroundColor="#285083">
+
+    <StackLayout>
+        <Frame BackgroundColor="Transparent" BorderColor="Transparent" Margin="20">
+            <StackLayout>
+                <Label LineBreakMode="WordWrap" HorizontalOptions="Center">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="정기 방문 파쇄" TextColor="White" FontAttributes="Bold"  FontSize="50"/>
+                            <!--<Span Text="Lock" FontSize="25" TextColor="White"/>-->
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+                <Label LineBreakMode="WordWrap" HorizontalOptions="Center">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <!--<Span Text="L" FontSize="50" TextColor="White"/>
+                            <Span Text="ogin" TextColor="White" FontAttributes="Bold"  FontSize="25"/>-->
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+
+                <StackLayout VerticalOptions="Center" BackgroundColor="#376199">
+
+                    <Button Text="자물쇠 등록" TextColor="White" BorderColor="Black" BorderWidth="1" FontSize="25" BackgroundColor="#1295DB" HorizontalOptions="FillAndExpand" Margin="15,15" HeightRequest="80" FontAttributes="Bold"
+                            Clicked="RegistClicked" CommandParameter="MainPage">
+                        </Button>
+
+                    <Button Text="자물쇠 지급" TextColor="White" BorderColor="Black" BorderWidth="1" FontSize="25" BackgroundColor="#1295DB" HorizontalOptions="FillAndExpand" Margin="15,15" HeightRequest="80" FontAttributes="Bold"
+                        CommandParameter="MainPage">
+                        </Button>
+
+                    <Button Text="자물쇠 회수" TextColor="White" BorderColor="Black" BorderWidth="1" FontSize="25" BackgroundColor="#1295DB" HorizontalOptions="FillAndExpand" Margin="15,15" HeightRequest="80" FontAttributes="Bold"
+                        CommandParameter="MainPage">
+                        </Button>
+
+                    <Button Text="작업 모니터링" TextColor="White" BorderColor="Black" BorderWidth="1" FontSize="25" BackgroundColor="#1295DB" HorizontalOptions="FillAndExpand" Margin="15,15" HeightRequest="80" FontAttributes="Bold"
+                        CommandParameter="MainPage">
+                        </Button>
+                    </StackLayout>
+
+                <!--<ScrollView >
+                    <VerticalStackLayout  Spacing = "25"  
+                        Padding = " 30,0" VerticalOptions = "CenterAndExpand" >
+                        <Button  Text = "자물쇠 등록"  
+                                 ImageSource = "plus.png" 
+                                 BackgroundColor = "LightGray" 
+                                 TextColor = "Black" 
+                                 HeightRequest = "50" 
+                                 ContentLayout = "Right, 20" />
+
+                        <Button  Text = "자물쇠 지급"  
+                                 ImageSource = "kei.png" 
+                                 BackgroundColor = "LightGray" 
+                                 TextColor = "Black" 
+                                 HeightRequest = "50" 
+                                 ContentLayout = "Right, 20" />  
+
+                        <Button  Text = "자물쇠 회수"  
+                                 ImageSource = "kei.png" 
+                                 BackgroundColor = "LightGray" 
+                                 TextColor = "Black" 
+                                 HeightRequest = "50" 
+                                 ContentLayout = "Right, 20" />
+
+                        <Button  Text = "작업 모니터링"  
+                                 ImageSource = "kei.png" 
+                                 BackgroundColor = "LightGray" 
+                                 TextColor = "Black" 
+                                 HeightRequest = "50" 
+                                 ContentLayout = "Right, 20" />
+                    </VerticalStackLayout>
+                </ScrollView>-->
+            </StackLayout>
+        </Frame>
+    </StackLayout>
+</ContentPage>

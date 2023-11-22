@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:WorkerScreenCrushing.Models"
+             x:Class="WorkerScreenCrushing.Views.HomePage"
+             xmlns:viewModel="clr-namespace:WorkerScreenCrushing.ViewModel"
+             >
+    <!--루트개체-->
+    <ContentPage.BindingContext>
+        <viewModel:HomeViewModel />
+    </ContentPage.BindingContext>
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior IsVisible="False" IsEnabled="False" />
+    </Shell.BackButtonBehavior>
+
+    <Shell.TitleView>
+
+            <VerticalStackLayout>
+                <Grid BackgroundColor="Transparent" HorizontalOptions="Fill">
+                    <Label FontSize="16" Text="{Binding Name, StringFormat='{0}님 환영합니다.'}"  Margin="0,20,0,20" HorizontalOptions="Start" TextColor="White"/>
+                    <Button FontSize="16" BackgroundColor="Transparent" TextColor="White" Text="로그아웃"  Margin="20,8,0,20" HorizontalOptions="End" Clicked="Logout_Clicked" />
+                </Grid>
+            </VerticalStackLayout>
+    </Shell.TitleView>
+
+    <StackLayout BackgroundColor="#285083">
+        <Frame BackgroundColor="Transparent" Margin="20,40"  BorderColor="Transparent">
+            <StackLayout>
+
+                <Label LineBreakMode="WordWrap" HorizontalOptions="Center">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="L" TextColor="White" FontAttributes="Bold"  FontSize="55"/>
+                            <Span Text="ock" FontSize="30" TextColor="LightGray"/>
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+                <Label LineBreakMode="WordWrap" HorizontalOptions="Center">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="H" TextColor="White" FontAttributes="Bold"  FontSize="50"/>
+                            <Span Text="ome" TextColor="LightGray"  FontSize="30"/>
+                            <Span Text="P" TextColor="White" FontAttributes="Bold"  FontSize="50"/>
+                            <Span Text="age" TextColor="LightGray"  FontSize="30"/>
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+            </StackLayout>
+        </Frame>
+        <Frame BorderColor="#376199" Margin="20,20" Padding="0" BackgroundColor="#376199">
+            <VerticalStackLayout BackgroundColor="#376199" VerticalOptions="CenterAndExpand">
+
+                <Frame Margin="15" Padding="0" BackgroundColor="#376199" CornerRadius="10" BorderColor="White" HeightRequest="80">
+                    <Button Text="문서 파쇄 등록" TextColor="White" FontSize="15" BackgroundColor="#1295DB" HorizontalOptions="FillAndExpand" Margin="5,5" HeightRequest="70" FontAttributes="Bold" ImageSource="crushing.png" ContentLayout="Right, 20"
+                        Command="{Binding CrushingDocCommand}" CommandParameter=""/>
+                </Frame>
+            </VerticalStackLayout>
+        </Frame>
+    </StackLayout>
+</ContentPage>

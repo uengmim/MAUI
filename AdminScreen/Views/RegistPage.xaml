@@ -1,0 +1,44 @@
+﻿<?xml version = "1.0" encoding = "UTF-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AdminScreen.Views.RegistPage"
+             BackgroundColor="#285083">
+
+    <StackLayout>
+        <Frame BackgroundColor="Transparent" BorderColor="Transparent" Margin="20">
+            <StackLayout>
+                <Label LineBreakMode="WordWrap" HorizontalOptions="Center">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="자물쇠 등록" TextColor="White" FontAttributes="Bold"  FontSize="50"/>
+                            <!--<Span Text="Lock" FontSize="25" TextColor="White"/>-->
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+            </StackLayout>
+        </Frame>
+        <!--<Frame BorderColor="White" Margin="20,60" Padding="0" BackgroundColor="White">          
+            <VerticalStackLayout BackgroundColor="White" VerticalOptions="CenterAndExpand">
+                <Frame Margin="15" Padding="0" BackgroundColor="SkyBlue" CornerRadius="500" BorderColor="Black" WidthRequest="350" HeightRequest="350">
+                    <Button  Text="자물쇠 찾기"  CornerRadius="500" TextColor="Black" FontSize="30" BorderWidth="0.1 " BackgroundColor="White" 
+                            Clicked="SearchClicked" HorizontalOptions="CenterAndExpand" Margin="5,5" WidthRequest="300" HeightRequest="300" FontAttributes="Bold" ImageSource="lock.png" ContentLayout="Right, 20"/>
+                </Frame>
+            </VerticalStackLayout>
+        </Frame>-->
+        <Frame Margin="15" Padding="0" BackgroundColor="White" BorderColor="Black" CornerRadius="500"  WidthRequest="380" HeightRequest="380">
+            <StackLayout>
+            <ImageButton Source="loock.png"
+                            HorizontalOptions="Center"
+                            Margin="0,40"
+                            Clicked="SearchClicked" />
+            <Button Text="자물쇠 찾기"
+                    FontSize="40"
+                    FontAttributes="Bold"
+                    HorizontalOptions="Center"
+                    Clicked="SearchClicked"
+                    TextColor="Black" 
+                    BackgroundColor="White"/>
+            </StackLayout>
+        </Frame>
+    </StackLayout>
+</ContentPage>

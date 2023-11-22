@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:WorkerScreenCrushing.ViewModel"
+             x:Class="WorkerScreenCrushing.Views.CrushingInputData"
+             xmlns:util="clr-namespace:WorkerScreenCrushing.Utils"
+             Title="파쇄 정보 입력">
+    <ContentPage.BindingContext>
+        <local:InputDataViewModel />
+    </ContentPage.BindingContext>
+    <AbsoluteLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+
+        <StackLayout BackgroundColor="#285083" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1">
+
+            <Frame BorderColor="#376199" Margin="10,10" Padding="0" BackgroundColor="#376199">
+                <Frame Margin="5,5,5,5" Padding="0" BackgroundColor="#376199">
+                    <StackLayout>
+
+                        <Label Background="#376199" Margin="10,10,10,0" FontSize="17" Text="{Binding WorkerName, StringFormat='수거자 : {0}'}" VerticalOptions="Center" TextColor="White"/>
+                        <Label Background="#376199" Margin="10,5,10,0" FontSize="17" Text="{Binding BoxName, StringFormat='보안 문서함 : {0}'}" VerticalOptions="Center" TextColor="White"/>
+                        <Label Background="#376199" Margin="10,5,10,0" FontSize="17" Text="{Binding Location, StringFormat='위치 : {0}'}" VerticalOptions="Center" TextColor="White"/>
+                        <Label Background="#376199" Margin="10,5,10,0" FontSize="17" Text="{Binding PickupDate, StringFormat='수거 일시 : {0}'}" VerticalOptions="Center" TextColor="White"/>
+                        <Label Background="#376199" Margin="10,5,10,10" FontSize="17" Text="{Binding LockDate, StringFormat='봉인 해제 : {0}'}" VerticalOptions="Center" TextColor="White"/>
+                    </StackLayout>
+                </Frame>
+            </Frame>
+            <Frame BorderColor="#376199" Margin="10,10" Padding="0" BackgroundColor="#376199">
+                <StackLayout BackgroundColor="#376199" VerticalOptions="Center">
+                    <Label Background="#376199" Margin="10,30" Text="{Binding LoginInfo.Name, StringFormat='폐기 작업자 :  {0}'}" FontSize="25" HorizontalOptions="CenterAndExpand" TextColor="White"/>
+                    <Frame Margin="15,10" Padding="0" BackgroundColor="#376199" CornerRadius="10" BorderColor="White" HeightRequest="45">
+                        <Entry Background="#376199" Margin="10,1" Placeholder="폐기 일자" PlaceholderColor="LightGray" Text="{Binding CrushDate}" VerticalOptions="Center" TextColor="White"/>
+                    </Frame>
+                    <Frame Margin="15" Padding="0" BackgroundColor="#376199" CornerRadius="10" BorderColor="White" HeightRequest="45">
+                        <Entry Background="#376199" Margin="10,1" Placeholder="폐기 방법" PlaceholderColor="LightGray" Text="{Binding CrushWay}" VerticalOptions="Center" TextColor="White"/>
+                    </Frame>
+                    <Frame Margin="15" Padding="0" BackgroundColor="#376199" CornerRadius="10" BorderColor="White" HeightRequest="45">
+                        <Entry Background="#376199" Margin="10,1" Placeholder="폐기 수량" PlaceholderColor="LightGray" Text="{Binding CrushNum}" VerticalOptions="Center" TextColor="White"/>
+                    </Frame>
+
+                    <Button Text="파쇄 정보 등록" TextColor="White" FontSize="15" BackgroundColor="#1295DB" HorizontalOptions="FillAndExpand" Margin="15,35" HeightRequest="40" FontAttributes="Bold"
+                        Command="{Binding InfoRegisterCommand}" CommandParameter="QRRecogPage"/>
+                </StackLayout>
+            </Frame>
+
+        </StackLayout>
+        <StackLayout IsVisible="{Binding IsLoading}" Padding="12"
+                 AbsoluteLayout.LayoutFlags="PositionProportional"
+                 AbsoluteLayout.LayoutBounds="0.5,0.5,-1,-1">
+
+            <ActivityIndicator IsRunning="{Binding IsLoading}" Color ="Blue"/>
+
+            <Label Text="Loading..." HorizontalOptions="Center" TextColor="White"/>
+
+        </StackLayout>
+
+    </AbsoluteLayout>
+</ContentPage>

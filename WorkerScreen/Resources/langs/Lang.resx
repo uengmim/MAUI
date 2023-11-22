@@ -1,0 +1,639 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="emergency" xml:space="preserve">
+    <value>OFFLINE MODE</value>
+  </data>
+  <data name="id" xml:space="preserve">
+    <value>아이디</value>
+  </data>
+  <data name="signIn" xml:space="preserve">
+    <value>로그인</value>
+  </data>
+  <data name="signInAgain" xml:space="preserve">
+    <value>온라인 연결 재시도</value>
+  </data>
+  <data name="signInText" xml:space="preserve">
+    <value>로그인 해주세요</value>
+  </data>
+  <data name="signInEmergencyText" xml:space="preserve">
+    <value>네트워크 오류로 로그인할 수 없습니다</value>
+  </data>
+  <data name="offLine" xml:space="preserve">
+    <value>오프라인 암호(4자리)</value>
+  </data>
+  <data name="entranceApprove" xml:space="preserve">
+    <value>출입승인</value>
+  </data>
+  <data name="entranceRequest" xml:space="preserve">
+    <value>출입신청</value>
+  </data>
+  <data name="lock" xml:space="preserve">
+    <value>Lock</value>
+  </data>
+  <data name="offLineSettings" xml:space="preserve">
+    <value>환경 설정</value>
+  </data>
+  <data name="add" xml:space="preserve">
+    <value>추가</value>
+  </data>
+  <data name="areaManagement" xml:space="preserve">
+    <value>관리 지역</value>
+  </data>
+  <data name="delete" xml:space="preserve">
+    <value>삭제</value>
+  </data>
+  <data name="search" xml:space="preserve">
+    <value>검색</value>
+  </data>
+  <data name="area" xml:space="preserve">
+    <value>가동중 ILS</value>
+  </data>
+  <data name="enter" xml:space="preserve">
+    <value>확인</value>
+  </data>
+  <data name="signOut" xml:space="preserve">
+    <value>로그아웃</value>
+  </data>
+  <data name="offLineRe" xml:space="preserve">
+    <value>오프라인 암호 확인</value>
+  </data>
+  <data name="offLineSetting" xml:space="preserve">
+    <value>오프라인 암호 변경(4자리)</value>
+  </data>
+  <data name="offLineSync" xml:space="preserve">
+    <value>오프라인 키 동기화</value>
+  </data>
+  <data name="offLineSyncInfo" xml:space="preserve">
+    <value>어플 내 저장소에 자물쇠의 오프라인 키를 동기화 합니다.</value>
+  </data>
+  <data name="region" xml:space="preserve">
+    <value>지역</value>
+  </data>
+  <data name="approver" xml:space="preserve">
+    <value>승인자</value>
+  </data>
+  <data name="entranceDate" xml:space="preserve">
+    <value>출입일자</value>
+  </data>
+  <data name="entranceWhy" xml:space="preserve">
+    <value>출입사유</value>
+  </data>
+  <data name="level" xml:space="preserve">
+    <value>Level</value>
+  </data>
+  <data name="name" xml:space="preserve">
+    <value>이름</value>
+  </data>
+  <data name="request" xml:space="preserve">
+    <value>신청</value>
+  </data>
+  <data name="team" xml:space="preserve">
+    <value>부서</value>
+  </data>
+  <data name="approverHelp" xml:space="preserve">
+    <value>승인자를 선택하세요</value>
+  </data>
+  <data name="areaHelp" xml:space="preserve">
+    <value>가동중 ILS을 선택하세요</value>
+  </data>
+  <data name="entranceDateHelp" xml:space="preserve">
+    <value>출입일자를 선택하세요</value>
+  </data>
+  <data name="entranceReasonHelp" xml:space="preserve">
+    <value>출입사유를 선택하세요</value>
+  </data>
+  <data name="levelHelp" xml:space="preserve">
+    <value>Level을 선택하세요</value>
+  </data>
+  <data name="lockHelp" xml:space="preserve">
+    <value>Lock을 선택하세요</value>
+  </data>
+  <data name="searchHelp" xml:space="preserve">
+    <value>원하는 지역을 선택하여 ILS를 찾습니다.</value>
+  </data>
+  <data name="successHelp" xml:space="preserve">
+    <value>작성이 완료되었습니다</value>
+  </data>
+  <data name="requestDo" xml:space="preserve">
+    <value>신청하기</value>
+  </data>
+  <data name="requestList" xml:space="preserve">
+    <value>신청목록</value>
+  </data>
+  <data name="cancel" xml:space="preserve">
+    <value>취소</value>
+  </data>
+  <data name="msg_offLineInfo" xml:space="preserve">
+    <value>아이템을 왼쪽으로 끝까지 밀어서 오프라인으로 자물쇠 연결이 가능합니다.</value>
+  </data>
+  <data name="msg_signOut" xml:space="preserve">
+    <value>로그아웃 하시겠습니까?</value>
+  </data>
+  <data name="offLineText" xml:space="preserve">
+    <value>오프라인</value>
+  </data>
+  <data name="darkMode" xml:space="preserve">
+    <value>다크모드</value>
+  </data>
+  <data name="modify" xml:space="preserve">
+    <value>수정</value>
+  </data>
+  <data name="msg_noNetwrok" xml:space="preserve">
+    <value>네트워크 연결이 끊겼습니다. 확인해주세요.</value>
+  </data>
+  <data name="password" xml:space="preserve">
+    <value>OTP 번호</value>
+  </data>
+  <data name="query_UserCheck" xml:space="preserve">
+    <value>SELECT A.EMPNO, A.EMPNM, A.RANK, A.PIN, A.RECSTA, A.POSITION, B.DEPTNM, B.DEPTID, C.WKPL, C.WKPLNM
+FROM empmst A INNER JOIN deptmst B ON A.DEPTID = B.DEPTID 
+INNER JOIN wkplmst C ON B.WKPL = C.WKPL WHERE PIN = '{0}'</value>
+  </data>
+  <data name="msg_checkID" xml:space="preserve">
+    <value>아이디를 다시 한번 확인해주세요</value>
+  </data>
+  <data name="signInUnknownText" xml:space="preserve">
+    <value>알 수 없는 시스템 오류로 로그인할 수 없습니다</value>
+  </data>
+  <data name="systemError" xml:space="preserve">
+    <value>시스템 에러</value>
+  </data>
+  <data name="query_GetCodeMaster" xml:space="preserve">
+    <value>SELECT CODE, CDNM, GRPNM FROM cdmst</value>
+  </data>
+  <data name="query_GetAreas" xml:space="preserve">
+    <value>SELECT A.ILSID, A.ILSNM, A.WKPL, A.AREA, B.AREANM, LEVEL FROM ilsmst A INNER JOIN areamst B ON A.AREA = B.AREA WHERE A.WKPL = '{0}' AND A.RECSTA = 'A'</value>
+  </data>
+  <data name="query_GetEmployees" xml:space="preserve">
+    <value>SELECT A.EMPNO, A.EMPNM, A.RANK, A.PIN, B.DEPTNM, B.DEPTID, B.WKPL FROM empmst A INNER JOIN deptmst B ON A.DEPTID = B.DEPTID WHERE B.WKPL = '{0}'</value>
+  </data>
+  <data name="approvalDone" xml:space="preserve">
+    <value>승인완료</value>
+  </data>
+  <data name="msg_fillRequest" xml:space="preserve">
+    <value>입력필드를 모두 채워주세요.</value>
+  </data>
+  <data name="query_SearchRequests" xml:space="preserve">
+    <value>SELECT A.EREQID, A.WEMPID, A.AEMPID, A.STRDT, A.ENDDT, A.ENTRMK, B.ILSID, C.LEVEL, B.ASTATUS, D.EMPNM AS WEMPNM, E.EMPNM AS AEMPNM, F.CDNM AS ENT, G.CDNM AS LVNM, H.AREANM 
+FROM sireq A
+INNER JOIN silock B ON A.EREQID = B.EREQID
+INNER JOIN ilsmst C ON B.ILSID = C.ILSID
+INNER JOIN empmst D ON A.WEMPID = D.EMPNO
+INNER JOIN empmst E ON A.AEMPID = E.EMPNO
+JOIN cdmst F ON A.ENTRMK = F.CODE
+JOIN cdmst G ON C.LEVEL = G.CODE
+JOIN areamst H ON C.AREA = H.AREA
+WHERE {0} AND B.ASTATUS IN {1} GROUP BY B.EREQID, B.ASTATUS ORDER BY A.STRDT, A.EREQID </value>
+  </data>
+  <data name="query_SetRequest" xml:space="preserve">
+    <value>CALL set_si('{0}', '{1}', '{2}', '{3}', '{4}', '{5}', '{6}', '{7}', '{8}', '{9}')</value>
+  </data>
+  <data name="requesting" xml:space="preserve">
+    <value>요청중</value>
+  </data>
+  <data name="msg_alreadyExist" xml:space="preserve">
+    <value>해당 날짜/구역의 신청 가능한 Lock이 없습니다.</value>
+  </data>
+  <data name="msg_alreadyPass" xml:space="preserve">
+    <value>이미 승인권자가 승인 및 취소하였습니다.</value>
+  </data>
+  <data name="msg_deleteRequest" xml:space="preserve">
+    <value>신청내역을 삭제할까요?</value>
+  </data>
+  <data name="noData" xml:space="preserve">
+    <value>내역이 없어요!</value>
+  </data>
+  <data name="query_RequestCheck" xml:space="preserve">
+    <value>SELECT (SELECT COUNT(*) FROM lkmst
+WHERE ILSID = '{2}') AS TOTALCNT, COUNT(*) AS CNT,
+B.ASTATUS FROM sireq A INNER JOIN silock B ON A.EREQID = B.EREQID 
+WHERE DATE(A.STRDT) = '{0}' AND A.WEMPID = '{1}' AND ILSID = '{2}' AND ASTATUS IN {3} FOR UPDATE</value>
+  </data>
+  <data name="query_SearchLocks" xml:space="preserve">
+    <value>SELECT A.LSN, A.LKNM, A.ILSID, A.MAC, A.LKTYP, A.TKID, D.LEVEL, (SELECT ULKEY FROM lkkey WHERE EMPID = '{0}' AND LSN = A.LSN) AS ULKEY,
+(SELECT UNCMD FROM lkkey WHERE EMPID = '{0}' AND LSN = A.LSN) AS UNCMD, E.AREANM, H.CDNM, C.LKACT, F.ASTATUS, C.CONDT
+FROM lkmst A 
+LEFT JOIN lkkey B ON A.LSN = B.LSN
+LEFT JOIN tkseg C ON A.TKID = C.TKID
+INNER JOIN ilsmst D ON A.ILSID = D.ILSID
+LEFT JOIN areamst E ON D.AREA = E.AREA
+LEFT JOIN silock F ON A.LSN = F.LSN
+LEFT JOIN sireq G ON F.EREQID = G.EREQID
+JOIN cdmst H ON D.LEVEL = H.CODE
+WHERE {1} AND A.RECSTA = 'A'
+GROUP BY LSN
+ORDER BY C.CONDT DESC, A.ILSID ASC FOR UPDATE</value>
+  </data>
+  <data name="allSelectText" xml:space="preserve">
+    <value>전체선택/해제</value>
+  </data>
+  <data name="approval" xml:space="preserve">
+    <value>승인</value>
+  </data>
+  <data name="approvalCancel" xml:space="preserve">
+    <value>승인취소</value>
+  </data>
+  <data name="msg_approvalInfo" xml:space="preserve">
+    <value>내역을 왼쪽으로 밀어 승인취소가 가능합니다.</value>
+  </data>
+  <data name="msg_approve" xml:space="preserve">
+    <value>선택 된 요청을 승인 할까요?</value>
+  </data>
+  <data name="msg_cancelRequest" xml:space="preserve">
+    <value>내역을 취소하면 다시 되돌릴 수 없습니다.
+해당 내역을 취소 할까요?</value>
+  </data>
+  <data name="msg_selectRequest" xml:space="preserve">
+    <value>승인할 내역을 선택해주세요.</value>
+  </data>
+  <data name="msg_lock" xml:space="preserve">
+    <value>오프라인으로 자물쇠와 연결하시겠습니까?</value>
+  </data>
+  <data name="msg_successApprove" xml:space="preserve">
+    <value>승인 되었습니다.</value>
+  </data>
+  <data name="msg_successSync" xml:space="preserve">
+    <value>동기화가 완료되었습니다.</value>
+  </data>
+  <data name="no_sync" xml:space="preserve">
+    <value>동기화 된 이력없습니다.</value>
+  </data>
+  <data name="msg_goToMain" xml:space="preserve">
+    <value>네트워크 연결이 끊어져 메인페이지로 이동합니다.</value>
+  </data>
+  <data name="noOpenData" xml:space="preserve">
+    <value>열려있는 자물쇠가 있으면 목록에 나타납니다.</value>
+  </data>
+  <data name="msg_afterSetup" xml:space="preserve">
+    <value>어플을 재시작 하시면 설정이 적용 됩니다.</value>
+  </data>
+  <data name="msg_noClickRequest" xml:space="preserve">
+    <value>승인완료 후 자물쇠와 연결 가능합니다.</value>
+  </data>
+  <data name="msg_syncing" xml:space="preserve">
+    <value>마스터 정보 동기화 중입니다. 잠시후 시도해 주세요.</value>
+  </data>
+  <data name="msg_syncMaster" xml:space="preserve">
+    <value>마스터 정보를 동기화합니다
+(리스트의 지역 및 ILS 정보등이 보이지 않을 시 실행하세요)</value>
+  </data>
+  <data name="snSearch" xml:space="preserve">
+    <value>여기를 눌러 ILS No. 및 S/N를 검색 하십시오</value>
+  </data>
+  <data name="noLockData" xml:space="preserve">
+    <value>조회 된 자물쇠가 없어요!</value>
+  </data>
+  <data name="msg_getLockInfo" xml:space="preserve">
+    <value>자물쇠정보를 가져오는 중입니다</value>
+  </data>
+  <data name="noResult" xml:space="preserve">
+    <value>결과 값을 받지 못하였습니다.</value>
+  </data>
+  <data name="msg_locked" xml:space="preserve">
+    <value>자물쇠가 잠겼습니다</value>
+  </data>
+  <data name="msg_plsSync" xml:space="preserve">
+    <value>메인화면 오른쪽 상단의 동기화 버튼을 눌러 마스터 정보를 동기화 해주세요.</value>
+  </data>
+  <data name="msg_sendLog" xml:space="preserve">
+    <value>결과를 전송 중입니다</value>
+  </data>
+  <data name="msg_unlocked" xml:space="preserve">
+    <value>자물쇠가 열렸습니다</value>
+  </data>
+  <data name="msg_noOffLineKey" xml:space="preserve">
+    <value>오프라인 키가 없어 연결에 실패하였습니다.
+메인화면 &gt; 자물쇠목록 &gt; 오프라인 키 동기화를 진행해주세요.
+동기화를 진행 하신경우 관리자에게 오프라인 키 발급여부를 확인해주세요.</value>
+  </data>
+  <data name="defaultPwd" xml:space="preserve">
+    <value>초기설정 암호는 숫자 '0' 4자리입니다.</value>
+  </data>
+  <data name="msg_areaMoreThanOne" xml:space="preserve">
+    <value>관리구역을 하나 이상 선택해야 합니다.</value>
+  </data>
+  <data name="msg_noLocalUser" xml:space="preserve">
+    <value>내부 저장소에 저장되지 않은 아이디입니다.
+네트워크가 연결된 상태에서 로그인 후 다시 시도하세요.</value>
+  </data>
+  <data name="msg_notMatchPwd" xml:space="preserve">
+    <value>비밀번호를 다시 확인해주세요.</value>
+  </data>
+  <data name="msg_notNumPwd" xml:space="preserve">
+    <value>비밀번호는 4자리 이상이어야 합니다.</value>
+  </data>
+  <data name="msg_successPwd" xml:space="preserve">
+    <value>비밀번호가 변경되었습니다.</value>
+  </data>
+  <data name="msg_sendOffLineLog" xml:space="preserve">
+    <value>오프라인 로그 데이터를 전송 중입니다.</value>
+  </data>
+  <data name="msg_deleteRecent" xml:space="preserve">
+    <value>기록을 삭제할까요?</value>
+  </data>
+  <data name="msg_register" xml:space="preserve">
+    <value>휴대폰 사용등록이 안되어 있습니다. 등록 하시겠습니까?</value>
+  </data>
+  <data name="msg_success" xml:space="preserve">
+    <value>처리완료되었습니다.</value>
+  </data>
+  <data name="msg_sucRegister" xml:space="preserve">
+    <value>등록이 완료되었습니다.</value>
+  </data>
+  <data name="msg_verify" xml:space="preserve">
+    <value>해당 번호로 등록한 사용자가 아닙니다.</value>
+    <comment>본인핸드폰으로 타인계정접속시도</comment>
+  </data>
+  <data name="msg_verify2" xml:space="preserve">
+    <value>다른 번호로 이미 등록된 휴대폰 입니다.</value>
+    <comment>본인핸드폰으로 본인계정접속시도(핸드폰 바꾼경우)</comment>
+  </data>
+  <data name="msg_errorMac" xml:space="preserve">
+    <value>자물쇠의 Mac주소를 받아오는데 실패하였습니다.
+관리자에게 문의하세요.</value>
+  </data>
+  <data name="ilsSearch" xml:space="preserve">
+    <value>ILS 이름 및 No. 검색</value>
+  </data>
+  <data name="msg_noILS" xml:space="preserve">
+    <value>ILS No를 찾을 수 없습니다.</value>
+  </data>
+  <data name="msg_offLineAsync" xml:space="preserve">
+    <value>오프라인 키를 동기화 중입니다.</value>
+  </data>
+  <data name="msg_back" xml:space="preserve">
+    <value>'뒤로' 버튼을 한번 더 누르시면 종료됩니다. </value>
+  </data>
+  <data name="msg_update" xml:space="preserve">
+    <value>서버에 새로운 버전이 업데이트되었습니다.
+다운로드 및 설치 하시겠습니까?</value>
+  </data>
+  <data name="msg_requestDate" xml:space="preserve">
+    <value>신청하신 날짜 및 시간은
+{0} 07시 ~ {1} 07시 입니다.
+신청을 완료하려면 확인버튼을 눌러주세요.</value>
+  </data>
+  <data name="offLineSyncInfoUser" xml:space="preserve">
+    <value>자물쇠(요청승인 Level1, 2, Level3)의 오프라인 키를 어플 내 저장소에 동기화 합니다.</value>
+  </data>
+  <data name="msg_enterlimit" xml:space="preserve">
+    <value>해당 사용자는 출입이 제한되어 있습니다.
+관리자에게 문의하십시오.</value>
+  </data>
+  <data name="msg_verify3" xml:space="preserve">
+    <value>해당 사용자는 반려된 사용자 입니다.
+관리자에게 문의하십시오.</value>
+  </data>
+  <data name="msg_outArange" xml:space="preserve">
+    <value>5~600사이의 정수값을 입력해주십시오.</value>
+  </data>
+  <data name="msg_saved" xml:space="preserve">
+    <value>설정이 저장되었습니다!</value>
+  </data>
+  <data name="msg_commandReceive" xml:space="preserve">
+    <value>잠금해제 명령을 수신중입니다.</value>
+  </data>
+  <data name="msg_errorRetry" xml:space="preserve">
+    <value>{0}({1}): 자물쇠와 통신중 예기치 못한 오류가 발생했습니다. 
+다시 시도해 주십시오. {2}</value>
+  </data>
+  <data name="msg_lockClosed" xml:space="preserve">
+    <value>자물쇠를 닫아 주십시오.</value>
+  </data>
+  <data name="msg_lockConnected" xml:space="preserve">
+    <value>자물쇠가 연결되었습니다.</value>
+  </data>
+  <data name="msg_lockConnectionError" xml:space="preserve">
+    <value>자물쇠와 블루투스 통신 오류가 발생 했습니다. ({0})
+다시 시도하여 주십시오. [{1}]</value>
+  </data>
+  <data name="msg_lockConnectionErrorRetry" xml:space="preserve">
+    <value>자물쇠와 연결중 이상이 발생했습니다. 다시 시도해 주십시오.</value>
+  </data>
+  <data name="msg_lockDisconnected" xml:space="preserve">
+    <value>자물쇠와 블루투스 통신 연결이 해제되었습니다. ({0})
+다시 시도하여 주십시오. [{1}]</value>
+  </data>
+  <data name="msg_lockFound" xml:space="preserve">
+    <value>자물쇠를 찾았습니다.</value>
+  </data>
+  <data name="msg_lockTouch" xml:space="preserve">
+    <value>자물쇠를 터치하여 연결 해주십시오.</value>
+  </data>
+  <data name="msg_offlineKeyNeed" xml:space="preserve">
+    <value>만료된 오프라인키입니다. 오프라인키를 새로 발급받아 사용하십시오.</value>
+  </data>
+  <data name="msg_offlineKeyUse" xml:space="preserve">
+    <value>마스터키와 일치하지않습니다.
+오프라인키로 잠금해제 합니다.</value>
+  </data>
+  <data name="msg_phoneBluetoothError" xml:space="preserve">
+    <value>핸드폰의 블루투스가 꺼져있거나 사용할 수 없습니다. ({0})
+블루투스를 켜시거나 혹은 껐다가 다시 켜주십시오. [{1}]</value>
+  </data>
+  <data name="msg_timeoutReconnection" xml:space="preserve">
+    <value>연결유지시간 초과로 자물쇠와 연결이 끊어졌습니다.
+자물쇠 터치하여 다시 연결 해주십시오.</value>
+  </data>
+  <data name="stateLock" xml:space="preserve">
+    <value>잠금상태</value>
+  </data>
+  <data name="stateUnlock" xml:space="preserve">
+    <value>잠금해제상태</value>
+  </data>
+  <data name="userStop" xml:space="preserve">
+    <value>사용자 중지</value>
+  </data>
+  <data name="approverSearch" xml:space="preserve">
+    <value>승인자 검색</value>
+  </data>
+  <data name="msg_open" xml:space="preserve">
+    <value>자물쇠가 열려있습니다.</value>
+  </data>
+  <data name="msg_offLineAsyncAll" xml:space="preserve">
+    <value>오프라인 키 전체를 동기화 중입니다.</value>
+  </data>
+  <data name="msg_offLineAsyncPart" xml:space="preserve">
+    <value>오프라인 키가 없는 자물쇠를 부분 동기화 중입니다.</value>
+  </data>
+  <data name="msg_lockAbnormal" xml:space="preserve">
+    <value>자물쇠 잠금장치에 오류가 발생했습니다.
+담당자에게 문의하여 자물쇠를 교체하여 주십시오.</value>
+  </data>
+  <data name="msg_lowBatteryWarn" xml:space="preserve">
+    <value>자물쇠의 배터리 잔량이 경고 수준입니다.
+빠른시간내 배터리를 교체하십시오.</value>
+  </data>
+  <data name="msg_lowBatteryDanger" xml:space="preserve">
+    <value>자물쇠 배터리를 교체해 주십시오.
+자물쇠가 동작하지 않을 수 있습니다.</value>
+  </data>
+  <data name="msg_lowBatteryError" xml:space="preserve">
+    <value>스타트 킷을 이용하여 자물쇠를 해제 한 후 배터리를 교체하십시오!!!</value>
+  </data>
+  <data name="query_GetLockOfflineKeys" xml:space="preserve">
+    <value>SELECT A.LSN, B.LKNM, A.ULKEY, A.UNCMD, B.ILSID, B.MAC, B.LKTYP,
+(SELECT TKID FROM tkseg WHERE LSN = A.LSN ORDER BY CONDT DESC LIMIT 1) as TKID,
+(SELECT LKACT FROM tkseg WHERE LSN = A.LSN ORDER BY CONDT DESC LIMIT 1) as LKACT,
+C.ILSID, C.`LEVEL`, D.ASTATUS
+FROM lkkey A
+LEFT JOIN lkmst B ON A.LSN = B.LSN
+LEFT JOIN ilsmst C ON B.ILSID = C.ILSID
+LEFT JOIN silock D ON A.LSN = D.LSN
+LEFT JOIN sireq E ON D.EREQID = E.EREQID
+WHERE A.EMPID = 'smartlock' AND A.ulkey &lt;&gt; '' AND A.uncmd &lt;&gt; '' AND {0} AND B.RECSTA = 'A'</value>
+  </data>
+  <data name="msg_mainLockInfo" xml:space="preserve">
+    <value>현재 열린 상태인 접근가능한 자물쇠목록 입니다.</value>
+  </data>
+  <data name="forceLockText" xml:space="preserve">
+    <value>잠금전송</value>
+  </data>
+  <data name="msg_lockListInfo" xml:space="preserve">
+    <value>자물쇠 모양을 오른쪽(-&gt;)으로 끝까지 밀어서 즐겨찾기 설정/해제 할 수 있습니다</value>
+  </data>
+  <data name="msg_timeoutArange" xml:space="preserve">
+    <value>20~60사이의 정수값을 입력해주십시오.</value>
+  </data>
+  <data name="query_GetLockInfo_limit" xml:space="preserve">
+    <value>SELECT * FROM tkseg WHERE LSN LIKE '%{0}%' AND {1} ORDER BY evtdt DESC LIMIT 50</value>
+  </data>
+  <data name="query_GetLockInfo" xml:space="preserve">
+    <value>SELECT * FROM tkseg WHERE LSN LIKE '%{0}%' AND {1} ORDER BY evtdt DESC</value>
+  </data>
+  <data name="query_SearchLocksAllOffline" xml:space="preserve">
+    <value>SELECT A.LSN, A.LKNM, A.ILSID, A.MAC, A.LKTYP, A.TKID, D.LEVEL, (SELECT ULKEY FROM lkkey WHERE EMPID = 'smartlock' AND LSN = A.LSN) AS ULKEY,
+(SELECT UNCMD FROM lkkey WHERE EMPID = 'smartlock' AND LSN = A.LSN) AS UNCMD, E.AREANM, H.CDNM, C.LKACT, F.ASTATUS, C.CONDT
+FROM lkmst A 
+LEFT JOIN lkkey B ON A.LSN = B.LSN
+LEFT JOIN tkseg C ON A.TKID = C.TKID
+INNER JOIN ilsmst D ON A.ILSID = D.ILSID
+LEFT JOIN areamst E ON D.AREA = E.AREA
+LEFT JOIN silock F ON A.LSN = F.LSN
+LEFT JOIN sireq G ON F.EREQID = G.EREQID
+JOIN cdmst H ON D.LEVEL = H.CODE
+WHERE {0} AND A.RECSTA = 'A'
+GROUP BY LSN
+ORDER BY C.CONDT DESC, A.ILSID ASC FOR UPDATE</value>
+  </data>
+  <data name="favorite" xml:space="preserve">
+    <value>즐겨찾기</value>
+  </data>
+</root>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:WorkerScreen.ViewModel"
+             x:Class="WorkerScreen.Views.GetOnDocument"
+             xmlns:cv="clr-namespace:Camera.MAUI;assembly=Camera.MAUI"
+             BackgroundColor="#285083"
+             Title="보안문서 상차">
+    <ContentPage.BindingContext>
+        <local:GetOnViewModel />
+    </ContentPage.BindingContext>
+
+
+    <Frame BorderColor="#376199" Margin="10,0" Padding="0" BackgroundColor="#376199" CornerRadius="1000" WidthRequest="380" HeightRequest="380">
+
+        <StackLayout BackgroundColor="White" WidthRequest="400" HeightRequest="400" VerticalOptions="Center">
+            <Border WidthRequest="350" HeightRequest="350" Margin="0,25,0,0" StrokeShape="RoundRectangle 1000" Padding="5" Stroke="White" BackgroundColor="#1295DB">
+                <StackLayout Orientation="Vertical" Padding="0" HeightRequest="300" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+                    <ImageButton Source="loock.png"
+                                Command="{Binding GetOnDetailCommand}"
+                                Margin="0,10,0,0" WidthRequest="200" HeightRequest="200"
+                                HorizontalOptions="Center"
+                                VerticalOptions="Center" />
+                    <Label Text="자물쇠 검색" FontSize="25" Margin="0,-15,0,0" TextColor="White" FontAttributes="Bold" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding GetOnDetailCommand}" />
+                        </Label.GestureRecognizers>
+                    </Label>
+                </StackLayout>
+            </Border>
+        </StackLayout>
+    </Frame>
+
+</ContentPage>

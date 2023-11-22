@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="WorkerScreenCrushing.Views.CrushingCameraPage"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:local="clr-namespace:WorkerScreenCrushing.ViewModel"
+             xmlns:cv="clr-namespace:Camera.MAUI;assembly=Camera.MAUI"
+             Title="증빙 사진 촬영">
+    <ContentPage.BindingContext>
+        <local:CrushingCameraViewModel />
+    </ContentPage.BindingContext>
+    <AbsoluteLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+
+        <StackLayout BackgroundColor="#285083" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1">
+
+            <Frame BackgroundColor="Transparent" BorderColor="Transparent">
+                <StackLayout>
+                    <Label LineBreakMode="WordWrap" HorizontalOptions="Center">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="L" TextColor="White" FontAttributes="Bold"  FontSize="50"/>
+                                <Span Text="ock" FontSize="25" TextColor="LightGray"/>
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                </StackLayout>
+            </Frame>
+            <Frame BorderColor="#376199" Margin="10,30" Padding="0" BackgroundColor="#376199">
+                <StackLayout BackgroundColor="#376199" VerticalOptions="Center">
+                    <cv:CameraView x:Name="photoView" WidthRequest="450" HeightRequest="350" BarCodeOptions="{Binding BarCodeOptions}" BarCodeResults="{Binding BarCodeResults, Mode=OneWayToSource}"
+                               Cameras="{Binding Cameras, Mode=OneWayToSource}" Camera="{Binding Camera}" AutoStartPreview="{Binding AutoStartPreview}" NumCamerasDetected="{Binding NumCameras, Mode=OneWayToSource}"
+                               AutoSnapShotAsImageSource="True" AutoSnapShotFormat="PNG" TakeAutoSnapShot="{Binding TakeSnapshot}" AutoSnapShotSeconds="{Binding SnapshotSeconds}" Margin="10,10,10,10"/>
+
+
+                </StackLayout>
+
+
+            </Frame>
+
+            <Frame BorderColor="#376199" Margin="10,0" Padding="0" BackgroundColor="#376199">
+                <StackLayout BackgroundColor="#376199" VerticalOptions="Center">
+
+                    <Button ImageSource="camera.png" Text="사진 촬영" TextColor="White" FontSize="15" BackgroundColor="#1295DB" HorizontalOptions="FillAndExpand" Margin="15,15" HeightRequest="40" FontAttributes="Bold"
+                        Command="{Binding PhotoCommand}"/>
+
+                    <Button Text="파쇄 정보 입력" TextColor="White" FontSize="15" BackgroundColor="#1295DB" HorizontalOptions="FillAndExpand" Margin="15,15" HeightRequest="40" FontAttributes="Bold"
+                        Clicked="infoInputButton_Clicked"/>
+
+                </StackLayout>
+            </Frame>
+        </StackLayout>
+
+        <StackLayout IsVisible="{Binding IsLoading}" Padding="12"
+                 AbsoluteLayout.LayoutFlags="PositionProportional"
+                 AbsoluteLayout.LayoutBounds="0.5,0.5,-1,-1">
+
+            <ActivityIndicator IsRunning="{Binding IsLoading}" Color ="Blue"/>
+
+            <Label Text="Loading..." HorizontalOptions="Center" TextColor="White"/>
+
+        </StackLayout>
+
+    </AbsoluteLayout>
+</ContentPage>

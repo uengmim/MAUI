@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:WorkerScreenCrushing.ViewModel"
+             x:Class="WorkerScreenCrushing.Views.CrushingDocDetail"
+             xmlns:util="clr-namespace:WorkerScreenCrushing.Utils"
+             Title="보안 문서 파쇄">
+
+    <ContentPage.Resources>
+        <Style TargetType="StackLayout">
+            <Setter Property="VisualStateManager.VisualStateGroups">
+                <VisualStateGroupList>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal" />
+                        <VisualState x:Name="Selected">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor" 
+                                        Value="DeepSkyBlue" />
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </Setter>
+        </Style>
+    </ContentPage.Resources>
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="ReNew" Clicked="Renew_Clicked" IconImageSource="{OnPlatform 'autorenew.png', iOS='autorenew.png', MacCatalyst='autorenew.png'}" />
+    </ContentPage.ToolbarItems>
+
+    <StackLayout BackgroundColor="#285083">
+        <Frame BorderColor="#376199" Margin="10,00" Padding="0" HeightRequest="700" BackgroundColor="#376199">
+            <StackLayout>
+                <ActivityIndicator x:Name="loadingIndicator" IsRunning="False" IsVisible="False" Color="Blue" />
+                <ScrollView>
+                    <CollectionView x:Name="notesCollection"
+                                    VerticalOptions="CenterAndExpand" 
+                                    HorizontalOptions="CenterAndExpand" 
+                                    ItemsSource="{Binding CrushingInfoModel}" 
+                                    SelectedItem="{Binding SelectedItem}"
+                                    SelectionMode="Single"
+                                    Margin="0" >
+                        <CollectionView.ItemsLayout>
+                            <LinearItemsLayout Orientation="Vertical" ItemSpacing="0" />
+                        </CollectionView.ItemsLayout>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <StackLayout Margin="0" Padding="0">
+                                    <Border StrokeShape="RoundRectangle 15,15,15,15" Padding="5" Stroke="LightGray" BackgroundColor="#1295DB" Margin="15,7,15,7">
+                                        <StackLayout Orientation="Vertical" Padding="0" HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand" Margin="70,0,5,0">
+                                            <Grid RowDefinitions="*" ColumnDefinitions="7*,*" Margin="0">
+                                                <Label Grid.Row="0" Grid.Column="0" Text="{Binding Name, StringFormat='수거자 : {0}'}" FontSize="12" TextColor="White" FontAttributes="Bold" VerticalOptions="CenterAndExpand"/>
+                                                <Border Grid.Row="0" Grid.Column="1" StrokeShape="RoundRectangle 25" BackgroundColor="{Binding BackgroundColorSet}" WidthRequest="25" HeightRequest="25" Margin="0,0,0,-5"/>
+                                            </Grid>
+                                            <Grid RowDefinitions="*" ColumnDefinitions="*" Margin="0">
+                                                <Label Grid.Row="0" Grid.Column="0" Text="{Binding BoxName, StringFormat='보안 문서함 : {0}'}" FontSize="12" TextColor="White" FontAttributes="Bold" VerticalOptions="CenterAndExpand"/>
+                                            </Grid>
+                                            <Grid RowDefinitions="*" ColumnDefinitions="*" Margin="0">
+                                                <Label Grid.Row="0" Grid.Column="0" Text="{Binding Location, StringFormat='위치 : {0}'}" FontSize="12" TextColor="White" FontAttributes="Bold" VerticalOptions="CenterAndExpand"/>
+                                            </Grid>
+                                            <Grid RowDefinitions="*" ColumnDefinitions="*" Margin="0">
+                                                <Label Grid.Row="0" Grid.Column="0" Text="{Binding PickupDate, StringFormat='수거 일시 : {0}'}" FontSize="12" TextColor="White" FontAttributes="Bold" VerticalOptions="CenterAndExpand"/>
+                                            </Grid>
+                                            <Grid RowDefinitions="*" ColumnDefinitions="*" Margin="0">
+                                                <Label Grid.Row="0" Grid.Column="0" Text="{Binding LockDate, StringFormat='봉인 해제 : {0}'}" FontSize="12" TextColor="White" FontAttributes="Bold" VerticalOptions="CenterAndExpand"/>
+                                            </Grid>
+                                        </StackLayout>
+                                    </Border>
+                                </StackLayout>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </ScrollView>
+            </StackLayout>
+        </Frame>
+    </StackLayout>
+</ContentPage>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="WorkerScreen.Views.NotePage"
+             Title="Note">
+
+
+    <!-- Add an item to the toolbar -->
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Back" Clicked="Back_Clicked" IconImageSource="{OnPlatform 'bback.png', iOS='icon_notes_ios.png', MacCatalyst='icon_notes_ios.png'}" />
+    </ContentPage.ToolbarItems>
+    
+    
+    
+    <VerticalStackLayout Spacing="10" Margin="5"><!--세로 정렬-->
+
+
+        <Grid ColumnDefinitions="*,*,*,*,*,*,*" ColumnSpacing="5">
+            <Button Grid.Column="6"
+                    ImageSource="trash.png"
+                    BackgroundColor="Gray"
+                    Clicked="DeleteButton_Clicked" />
+        </Grid>
+        
+        <Editor x:Name="TextEditor"
+            Placeholder="Enter your note"
+            Text="{Binding Text}"
+            FontSize="Caption"
+            HeightRequest="300" />
+
+    <Grid ColumnDefinitions="*,*,*,*,*" ColumnSpacing="5">
+            <Button Grid.Column="2"
+                    Text="저장"
+                    BackgroundColor="Gray"
+                    Clicked="SaveButton_Clicked" />
+        </Grid>
+    </VerticalStackLayout>
+</ContentPage>
