@@ -1,0 +1,62 @@
+﻿<?xml version = "1.0" encoding = "UTF-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:AdminScreen"
+             xmlns:viewModels="clr-namespace:AdminScreen.ViewModels"
+             xmlns:model="clr-namespace:AdminScreen.Model"
+             x:Class="AdminScreen.Views.LoginPage">
+    <ContentPage.BindingContext>
+        <model:LoginInfo/>
+    </ContentPage.BindingContext>
+    <Shell.TabBarIsVisible>false</Shell.TabBarIsVisible>
+    <Shell.NavBarIsVisible>false</Shell.NavBarIsVisible>
+
+    <StackLayout BackgroundColor="#285083">
+
+        <Frame BackgroundColor="Transparent" BorderColor="Transparent" Margin="40">
+            <StackLayout>
+                <Label LineBreakMode="WordWrap" HorizontalOptions="Center">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="정기 방문 파쇄" TextColor="White" FontAttributes="Bold"  FontSize="50"/>
+                            <!--<Span Text="Lock" FontSize="25" TextColor="White"/>-->
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+                <Label LineBreakMode="WordWrap" HorizontalOptions="Center">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <!--<Span Text="L" FontSize="50" TextColor="White"/>
+                            <Span Text="ogin" TextColor="White" FontAttributes="Bold"  FontSize="25"/>-->
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+            </StackLayout>
+        </Frame>
+
+        <Frame BorderColor="#376199" Margin="20,10" Padding="0" BackgroundColor="#376199">
+            <StackLayout BackgroundColor="#376199" VerticalOptions="Center">
+
+                <Frame Margin="15" Padding="0" BackgroundColor="White" CornerRadius="10" BorderColor="Black" HeightRequest="45">
+                    <Entry x:Name="IDID" Background="White" Margin="10,1" Placeholder="ID" PlaceholderColor="LightGray" VerticalOptions="Center" TextColor="Black"/>
+                </Frame>
+
+                <Frame Margin="15" Padding="0" BackgroundColor="White" CornerRadius="10" BorderColor="Black" HeightRequest="45">
+                    <Entry x:Name="PWPW" Background="White" Margin="10,1" Placeholder="Password" PlaceholderColor="LightGray" VerticalOptions="Center" TextColor="Black" IsPassword="True" MaxLength="10"/>
+                </Frame>
+
+                <!--<ActivityIndicator IsRunning="{Binding IsLoading}" IsVisible="{Binding IsLoading}" Color="Blue"/>-->
+                <Button Text="LOGIN" TextColor="Black" FontSize="15" BackgroundColor="White" BorderColor="Black" BorderWidth="1" HorizontalOptions="FillAndExpand" Margin="15,15" HeightRequest="40" FontAttributes="Bold"
+                        Clicked="OnLoginClicked" CommandParameter="MainPage">
+                </Button>
+
+            </StackLayout>
+        </Frame>
+        <!--<Label Text="Create acount?" HorizontalOptions="Center" TextColor="White" FontAttributes="Bold">
+            <Label.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding MenuCommand}" CommandParameter="MainPage"/>
+            </Label.GestureRecognizers>
+        </Label>-->
+
+    </StackLayout>
+</ContentPage>
