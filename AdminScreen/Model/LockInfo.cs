@@ -1,35 +1,59 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-
+﻿using System.ComponentModel;
 
 namespace AdminScreen.Models
 {
-    public class LockInfom : INotifyPropertyChanged
+    /// <summary>
+    /// LOCK ITEM
+    /// </summary>
+    public partial class LockInfo : INotifyPropertyChanged
     {
-
-        private string lockdata;
+        /// <summary>
+        /// Lock 이름
+        /// </summary>
+        private string lockName;
 
         /// <summary>
-        /// 로그인 아이디
+        /// Lock Mac 어드레스
         /// </summary>
-        public string LockData { get { return lockdata; } set { lockdata = value; OnPropertyChanged(nameof(LockData)); } }
+        private string lockMac;
 
+        /// <summary>
+        /// lock 이름
+        /// </summary>
+        public string LockName { get { return lockName; } set { lockName = value; OnPropertyChanged(nameof(LockName)); } }
 
-        public LockInfom(string lockdata)
+        /// <summary>
+        /// lock MacAddress
+        /// </summary>
+        public string LockMac { get { return lockMac; } set { lockMac = value; OnPropertyChanged(nameof(lockMac)); } }
+
+        /// <summary>
+        /// 생성자
+        /// </summary>
+        public LockInfo()
         {
-            LockData = lockdata;
+            LockName = string.Empty;
+            LockMac =string.Empty;
         }
 
+        /// <summary>
+        /// 특성 변경 이벤드
+        /// </summary>
         public event PropertyChangedEventHandler PropertyChanged;
 
+        /// <summary>
+        /// 특성 변경
+        /// </summary>
+        /// <param name="propertyName">프로퍼티 이름</param>
         protected virtual void OnPropertyChanged(string propertyName)
         {
             OnPropertyChanged(new PropertyChangedEventArgs(propertyName));
         }
 
+        /// <summary>
+        /// 특성 변경
+        /// </summary>
+        /// <param name="args">특성변경 인수</param>
         protected virtual void OnPropertyChanged(PropertyChangedEventArgs args)
         {
             var handler = PropertyChanged;
