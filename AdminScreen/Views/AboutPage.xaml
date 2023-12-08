@@ -4,15 +4,4 @@
              x:Class="AdminScreen.Views.AboutPage"
              BackgroundColor="#285083">
     
-    <StackLayout>
-        <Image Source="dotnet_bot.png" WidthRequest="150" Aspect="Center" Margin="30" >
-            <Image.Shadow>
-                <Shadow Brush="White"
-                Offset="10,10"
-                Radius="10"
-                Opacity="0.7" />
-            </Image.Shadow>
-        </Image>
-        <Label Text="About" TextColor="White" HorizontalOptions="Center"/>
-    </StackLayout>
 </ContentPage>
