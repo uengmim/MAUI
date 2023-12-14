@@ -16,23 +16,21 @@
             <Setter Property="Shell.UnselectedColor" Value="Gray" />
             <Setter Property="Shell.NavBarIsVisible" Value="True" />
             <!--<Setter Property="Shell.TabBarIsVisible" Value="True" />-->
-
-            <!--<Setter Property="Shell.TabBarBackgroundColor" Value="#376199" />-->
-            <!--<Setter Property="Shell.TabBarForegroundColor" Value="White" />
+            <Setter Property="Shell.TabBarBackgroundColor" Value="#285083" />
+            <Setter Property="Shell.TabBarForegroundColor" Value="White" />
             <Setter Property="Shell.TabBarTitleColor" Value="White" />
             <Setter Property="Shell.TabBarDisabledColor" Value="Black" />
-            <Setter Property="Shell.TabBarUnselectedColor" Value="Gray" />-->
+            <Setter Property="Shell.TabBarUnselectedColor" Value="Gray" />
         </Style>
 
-        <!--<Style TargetType="TabBar" BasedOn="{StaticResource BaseStyle}" />
-        <Style TargetType="ShellItem" BasedOn="{StaticResource BaseStyle}" />-->
+        <Style TargetType="TabBar" BasedOn="{StaticResource BaseStyle}" />
+        <Style TargetType="ShellItem" BasedOn="{StaticResource BaseStyle}" />
     </Shell.Resources>
 
     <ShellContent
         Title="Login"        
         ContentTemplate="{DataTemplate views:LoginPage}"
         Route="LoginPage" />
-
     <FlyoutItem 
         Title="App" 
         Route="App" 
