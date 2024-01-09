@@ -1,10 +1,7 @@
-﻿using AdminScreen.Interface;
-using AdminScreen.Model;
+﻿using AdminScreen.Model;
 using AdminScreen.Models;
+using AdminScreen.Views;
 using Android.Runtime;
-using Com.Ttlock.BL.Sdk.Api;
-using Com.Ttlock.BL.Sdk.Callback;
-using Com.Ttlock.BL.Sdk.Entity;
 using Java.Interop;
 using Java.Lang;
 using System.Collections.ObjectModel;
@@ -17,36 +14,67 @@ namespace AdminScreen.ViewModels
     public class RegisterSearchModel : INotifyPropertyChanged
     {
 
-        public ObservableCollection<LockInfom> LockDataModel { get { return lockDataModel; } set { lockDataModel = value; OnPropertyChanged(nameof(LockDataModel)); } }
+        public ObservableCollection<LockInfo> LockDataModel { get { return lockDataModel; } set { lockDataModel = value; OnPropertyChanged(nameof(LockDataModel)); } }
 
-        public ObservableCollection<LockInfom> lockDataModel = new ObservableCollection<LockInfom>();
+        public ObservableCollection<LockInfo> lockDataModel = new ObservableCollection<LockInfo>();
 
-        public LockInfom LockInfom
+        public LockInfo LockInfo
         {
             get { return lockinfo; }
             set
             {
                 lockinfo = value;
-                OnPropertyChanged(nameof(LockInfom));
+                OnPropertyChanged(nameof(LockInfo));
             }
         }       
 
-        private LockInfom lockinfo;
-        public void onInitLock()
+        private LockInfo lockinfo;
+
+        private LockInfo selectedItem;
+
+        public LockInfo SelectedItem
         {
+            get { return selectedItem; }
+            set
+            {
+                if (selectedItem != value)
+                {
+                    selectedItem = value;
+                    OnPropertyChanged(nameof(SelectedItem));
+                    if (SelectedItem != null)
+                    {
+                        PerformNavigation(SelectedItem);
+                    }
+                }
+            }
         }
 
-        
-        public void startScanLock()
+
+        private async void PerformNavigation(LockInfo lockInfo)
         {
-            IScanLockCallback callback = new ScanLockCallback();
-            TTLockClient.Default.StartScanLock(callback);
+            if (SelectedItem != null)
+            {
+                await Application.Current.MainPage.Navigation.PushAsync(new LockRegisterPage(lockInfo));
+            }
+            else
+            {
+                await Application.Current.MainPage.DisplayAlert("오류", "선택된 자물쇠가 없습니다.", "OK");
+                SelectedItem = null;
+                return;
+            }
         }
+
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected virtual void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-    }
+
+        public RegisterSearchModel()
+        {
+            SelectedItem = null;
+        }
+        }
 }
