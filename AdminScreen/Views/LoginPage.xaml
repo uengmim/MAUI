@@ -4,49 +4,52 @@
              xmlns:local="clr-namespace:AdminScreen"
              xmlns:viewModels="clr-namespace:AdminScreen.ViewModels"
              xmlns:model="clr-namespace:AdminScreen.Model"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:Class="AdminScreen.Views.LoginPage">
     <ContentPage.BindingContext>
         <model:LoginInfo/>
     </ContentPage.BindingContext>
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior IsVisible="False" IsEnabled="False" />
+    </Shell.BackButtonBehavior>
     <Shell.TabBarIsVisible>false</Shell.TabBarIsVisible>
     <Shell.NavBarIsVisible>false</Shell.NavBarIsVisible>
-
     <StackLayout BackgroundColor="#285083">
 
-        <Frame BackgroundColor="Transparent" BorderColor="Transparent" Margin="40">
+        <Frame BackgroundColor="Transparent" BorderColor="Transparent" Margin="50">
             <StackLayout>
                 <Label LineBreakMode="WordWrap" HorizontalOptions="Center">
                     <Label.FormattedText>
                         <FormattedString>
-                            <Span Text="정기 방문 파쇄" TextColor="White" FontAttributes="Bold"  FontSize="50"/>
-                            <!--<Span Text="Lock" FontSize="25" TextColor="White"/>-->
+                            <Span Text="정기 방문 파쇄" FontSize="45" TextColor="LightGray"/>
                         </FormattedString>
                     </Label.FormattedText>
                 </Label>
-                <Label LineBreakMode="WordWrap" HorizontalOptions="Center">
+                <Label LineBreakMode="WordWrap" HorizontalOptions="Center" Margin="0,10,0,0">
                     <Label.FormattedText>
                         <FormattedString>
-                            <!--<Span Text="L" FontSize="50" TextColor="White"/>
-                            <Span Text="ogin" TextColor="White" FontAttributes="Bold"  FontSize="25"/>-->
+                            <Span Text="A" TextColor="White" FontAttributes="Bold"  FontSize="50"/>
+                            <Span Text="dmin " TextColor="LightGray"  FontSize="30"/>
+                            <Span Text="L" TextColor="White" FontAttributes="Bold"  FontSize="50"/>
+                            <Span Text="ogin" TextColor="LightGray"  FontSize="30"/>
                         </FormattedString>
                     </Label.FormattedText>
                 </Label>
             </StackLayout>
         </Frame>
 
-        <Frame BorderColor="#376199" Margin="20,10" Padding="0" BackgroundColor="#376199">
+        <Frame BorderColor="#376199" Margin="20,50,20,0" Padding="0" BackgroundColor="#376199">
             <StackLayout BackgroundColor="#376199" VerticalOptions="Center">
 
-                <Frame Margin="15" Padding="0" BackgroundColor="White" CornerRadius="10" BorderColor="Black" HeightRequest="45">
-                    <Entry x:Name="IDID" Background="White" Margin="10,1" Placeholder="ID" PlaceholderColor="LightGray" VerticalOptions="Center" TextColor="Black"/>
+                <Frame Margin="15" Padding="0" BackgroundColor="#376199" CornerRadius="10" BorderColor="White" HeightRequest="50">
+                    <Entry x:Name="IDID" Background="#376199" Margin="10,1" Placeholder="ID" PlaceholderColor="LightGray"  TextColor="White"/>
                 </Frame>
 
-                <Frame Margin="15" Padding="0" BackgroundColor="White" CornerRadius="10" BorderColor="Black" HeightRequest="45">
-                    <Entry x:Name="PWPW" Background="White" Margin="10,1" Placeholder="Password" PlaceholderColor="LightGray" VerticalOptions="Center" TextColor="Black" IsPassword="True" MaxLength="10"/>
+                <Frame Margin="15" Padding="0" BackgroundColor="#376199" CornerRadius="10" BorderColor="White" HeightRequest="50">
+                    <Entry x:Name="PWPW" Background="#376199" Margin="10,1" Placeholder="Password" PlaceholderColor="LightGray" TextColor="White" IsPassword="True" MaxLength="10"/>
                 </Frame>
 
-                <!--<ActivityIndicator IsRunning="{Binding IsLoading}" IsVisible="{Binding IsLoading}" Color="Blue"/>-->
-                <Button Text="LOGIN" TextColor="Black" FontSize="15" BackgroundColor="White" BorderColor="Black" BorderWidth="1" HorizontalOptions="FillAndExpand" Margin="15,15" HeightRequest="40" FontAttributes="Bold"
+                <Button Text="로그인" TextColor="White" FontSize="15" BackgroundColor="#1295DB" HorizontalOptions="FillAndExpand" Margin="15,15" HeightRequest="40" FontAttributes="Bold"
                         Clicked="OnLoginClicked" CommandParameter="MainPage">
                 </Button>
 
