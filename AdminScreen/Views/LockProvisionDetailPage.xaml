@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:AdminScreen.ViewModels"
+             x:Class="AdminScreen.Views.LockProvisionDetailPage"
+             Title="자물쇠 지급">
+
+    <ContentPage.BindingContext>
+        <local:ProvisionDetailViewModel />
+    </ContentPage.BindingContext>
+
+    <AbsoluteLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+
+        <StackLayout BackgroundColor="#285083" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1">
+            <Frame Margin="15" Padding="0" BackgroundColor="#376199" CornerRadius="10" BorderColor="White" HeightRequest="45">
+                <Picker Title="작업자" TitleColor="#7F7F7F" x:Name="picker" BackgroundColor="#376199" ItemDisplayBinding="{Binding Name}" ItemsSource="{Binding Items}" SelectedItem="{Binding SelectedItem}" TextColor="White" Margin="10,1" VerticalOptions="Center"/>
+            </Frame>
+
+            <Frame BorderColor="#376199" Margin="10,00" Padding="0" HeightRequest="600" BackgroundColor="#376199">
+                <StackLayout>
+                    <ActivityIndicator x:Name="loadingIndicator" IsRunning="False" IsVisible="False" Color="Blue" />
+                    <ScrollView>
+                        <CollectionView x:Name="notesCollection"
+                                    VerticalOptions="CenterAndExpand" 
+                                    HorizontalOptions="CenterAndExpand" 
+                                    ItemsSource="{Binding LockData}"
+                                    Margin="0" >
+                            <CollectionView.ItemsLayout>
+                                <LinearItemsLayout Orientation="Vertical" ItemSpacing="0" />
+                            </CollectionView.ItemsLayout>
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <StackLayout Margin="0" Padding="0">
+                                        <Border HeightRequest="100" StrokeShape="RoundRectangle 15" Padding="5" Stroke="LightGray"  BackgroundColor="LightGray" Margin="15,7,15,7">
+                                            <StackLayout Orientation="Vertical" Padding="0" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" Margin="0,0,5,0">
+                                                <Label Margin="8,0,0,0" Grid.Row="0" Grid.Column="0" Text="{Binding LSN, StringFormat='관리 번호 : {0}'}" FontSize="18" TextColor="#7F7F7F" FontAttributes="Bold" />
+                                                <Label Grid.Row="1" Grid.Column="0" Text="{Binding LKNM, StringFormat='자물쇠 이름 : {0}'}" FontSize="18" TextColor="#7F7F7F" FontAttributes="Bold"/>
+                                            </StackLayout>
+                                        </Border>
+                                    </StackLayout>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </ScrollView>
+
+                </StackLayout>
+            </Frame>
+                <Button Text="자물쇠 지급" TextColor="White" FontSize="15" BackgroundColor="#1295DB" HorizontalOptions="FillAndExpand" Margin="15,15" HeightRequest="40" FontAttributes="Bold"
+                        Command="{Binding RockProvisionCommand}" CommandParameter="QRRecogPage"/>
+
+        </StackLayout>
+        <StackLayout IsVisible="{Binding IsLoading}" Padding="12"
+                 AbsoluteLayout.LayoutFlags="PositionProportional"
+                 AbsoluteLayout.LayoutBounds="0.5,0.5,-1,-1">
+
+            <ActivityIndicator IsRunning="{Binding IsLoading}" Color ="Blue"/>
+
+            <Label Text="Loading..." HorizontalOptions="Center" TextColor="White"/>
+
+        </StackLayout>
+
+    </AbsoluteLayout>
+</ContentPage>
