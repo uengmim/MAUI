@@ -30,14 +30,15 @@
 
 	<ItemGroup>
 		<!-- App Icon -->
-		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
+		<MauiIcon Include="Resources\Images\loock.png" ForegroundFile="Resources\Images\loock.png" Color="#512BD4" />
 
 		<!-- Splash Screen -->
-		<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#512BD4" BaseSize="128,128" />
+		<MauiSplashScreen Include="Resources\Splash\lockimage.svg" Color="#376199" BaseSize="128,128" />
+
 
 		<!-- Images -->
 		<MauiImage Include="Resources\Images\*" />
-		<MauiImage Update="Resources\Images\dotnet_bot.svg" BaseSize="168,208" />
+		<MauiImage Update="Resources\Images\loock.png" BaseSize="168,208" />
 
 		<!-- Custom Fonts -->
 		<MauiFont Include="Resources\Fonts\*" />
@@ -47,13 +48,30 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <AndroidResource Remove="Interface\**" />
+	  <Compile Remove="Interface\**" />
+	  <EmbeddedResource Remove="Interface\**" />
+	  <MauiCss Remove="Interface\**" />
+	  <MauiXaml Remove="Interface\**" />
+	  <None Remove="Interface\**" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <None Remove="Resources\Images\autorenew.png" />
 	  <None Remove="Resources\Images\lock.png" />
+	  <None Remove="Resources\Images\loock.png" />
+	  <None Remove="Resources\Splash\lockimage.svg" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<PackageReference Include="Acr.UserDialogs" Version="8.0.1" />
+		<PackageReference Include="CommunityToolkit.Maui" Version="6.1.0" />
+		<PackageReference Include="Mapsui" Version="4.1.1" />
+		<PackageReference Include="Mapsui.Maui" Version="4.1.1" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
+		<PackageReference Include="SkiaSharp.Views.Maui.Controls" Version="2.88.6" />
+		<PackageReference Include="Syncfusion.Maui.Core" Version="23.1.44" />
+		<PackageReference Include="Syncfusion.Maui.Maps" Version="23.1.44" />
 		<PackageReference Include="XNDIMEXCore" Version="1.5.1" />
 	</ItemGroup>
 
@@ -63,6 +81,39 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="Views\DocCrushingProofPage.xaml.cs">
+	    <DependentUpon>DocCrushingProofPage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\DocCrushingReportPage.xaml.cs">
+	    <DependentUpon>DocCrushingReportPage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\HistoryDetailPage.xaml.cs">
+	    <DependentUpon>HistoryDetailPage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\DocLockPicturePage.xaml.cs">
+	    <DependentUpon>DocLockPicturePage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\TaskMonitoringDocPage.xaml.cs">
+	    <DependentUpon>TaskMonitoringDocPage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\HistoryMapPage.xaml.cs">
+	    <DependentUpon>HistoryMapPage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\TaskMonitoringMapPage.xaml.cs">
+	    <DependentUpon>TaskMonitoringMapPage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\TaskMonitoringDetailPage.xaml.cs">
+	    <DependentUpon>TaskMonitoringDetailPage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\HistoryPage.xaml.cs">
+	    <DependentUpon>HistoryPage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\TaskMonitoringPage.xaml.cs">
+	    <DependentUpon>TaskMonitoringPage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\RecoverySearchPage.xaml.cs">
+	    <DependentUpon>RecoverySearchPage.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Views\RegistSearchPage.xaml.cs">
 	    <DependentUpon>RegistSearchPage.xaml</DependentUpon>
 	  </Compile>
@@ -72,6 +123,39 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="Views\DocCrushingProofPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\DocCrushingReportPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\HistoryDetailPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\DocLockPicturePage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\TaskMonitoringDocPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\HistoryMapPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\TaskMonitoringMapPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\TaskMonitoringDetailPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\HistoryPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\TaskMonitoringPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\RecoverySearchPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\RegistSearchPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
