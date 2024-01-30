@@ -13,6 +13,8 @@ namespace WorkerScreen.Models
         /// </summary>
         public string PhoneNumber { get; set; }
         public string Name { get; set; }
+        public string EMPNO { get; set; }
+        public string DEPTID { get; set; }
 
  
     }
