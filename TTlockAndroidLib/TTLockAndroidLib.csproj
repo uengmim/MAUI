@@ -1,0 +1,12 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0-android</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <AssemblyName>TTLock.Android</AssemblyName>
+    <RootNamespace>SmartLock.TT.Android</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Remove="ttlock-release.aar" />
+  </ItemGroup>
+</Project>
