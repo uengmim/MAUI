@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AdminScreen.Views.LockChoicePage"
+             BackgroundColor="#285083"
+             Title="등록 및 초기화">
+
+    <StackLayout BackgroundColor="#285083">
+        <Frame BackgroundColor="Transparent" Margin="20,20"  BorderColor="Transparent">
+            <StackLayout>
+
+                <Label LineBreakMode="WordWrap" HorizontalOptions="Center">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="정기 방문 파쇄" FontSize="45" TextColor="LightGray"/>
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+                <Label LineBreakMode="WordWrap" HorizontalOptions="Center"  Margin="0,10,0,0">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="등" TextColor="White" FontAttributes="Bold"  FontSize="50"/>
+                            <Span Text="록 / " TextColor="LightGray"  FontSize="30"/>
+                            <Span Text="초" TextColor="White" FontAttributes="Bold"  FontSize="50"/>
+                            <Span Text="기화" TextColor="LightGray"  FontSize="30"/>
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+            </StackLayout>
+        </Frame>
+        <Frame BorderColor="#376199" Margin="20,0" Padding="0" BackgroundColor="#376199">
+
+            <VerticalStackLayout BackgroundColor="#376199" VerticalOptions="CenterAndExpand">
+                <Frame Margin="15" Padding="0" BackgroundColor="#376199" CornerRadius="10" BorderColor="White" HeightRequest="70">
+
+                    <Button Text="자물쇠 등록" TextColor="White" FontSize="15" BackgroundColor="#1295DB" HorizontalOptions="FillAndExpand" Margin="5,5" HeightRequest="60" FontAttributes="Bold"
+                            Command="{Binding RegistCommand}" CommandParameter="LockRegistPage"/>
+                </Frame>
+
+                <Frame Margin="15" Padding="0" BackgroundColor="#376199" CornerRadius="10" BorderColor="White" HeightRequest="70">
+
+                    <Button Text="자물쇠 초기화" TextColor="White" FontSize="15" BackgroundColor="#1295DB" HorizontalOptions="FillAndExpand" Margin="5,5" HeightRequest="60" FontAttributes="Bold"
+                            Command="{Binding InitCommand}" CommandParameter="LockProvisionPage"/>
+                </Frame>
+            </VerticalStackLayout>
+        </Frame>
+    </StackLayout>
+</ContentPage>
