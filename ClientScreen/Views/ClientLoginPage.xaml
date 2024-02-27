@@ -1,0 +1,67 @@
+﻿<?xml version = "1.0" encoding = "UTF-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:ClientScreen"
+             x:Class="ClientScreen.Views.ClientLoginPage"
+             xmlns:models="clr-namespace:ClientScreen.Model"
+             xmlns:viewModel="clr-namespace:ClientScreen.ViewModels">
+
+    <!--루트개체-->
+    <ContentPage.BindingContext>
+        <viewModel:ClientLoginModel/>
+    </ContentPage.BindingContext>
+
+    <Shell.TabBarIsVisible>false</Shell.TabBarIsVisible>
+    <Shell.NavBarIsVisible>false</Shell.NavBarIsVisible>
+
+    <StackLayout BackgroundColor="#285083">
+
+        <Frame BackgroundColor="Transparent" BorderColor="Transparent" Margin="40">
+            <StackLayout>
+                <Label LineBreakMode="WordWrap" HorizontalOptions="Center">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="정기 방문 파쇄" FontSize="45" TextColor="LightGray"/>
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+                <Label LineBreakMode="WordWrap" HorizontalOptions="Center"  Margin="0,10,0,0">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="C" TextColor="White" FontAttributes="Bold"  FontSize="50"/>
+                            <Span Text="lient " TextColor="LightGray"  FontSize="30"/>
+                            <Span Text="L" TextColor="White" FontAttributes="Bold"  FontSize="50"/>
+                            <Span Text="ogin" TextColor="LightGray"  FontSize="30"/>
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+            </StackLayout>
+        </Frame>
+
+        <Frame BorderColor="#376199" Margin="20,50,20,0" Padding="0" BackgroundColor="#376199">
+            <StackLayout BackgroundColor="#376199" VerticalOptions="Center">
+
+                <Frame Margin="15" Padding="0" BackgroundColor="#376199" CornerRadius="10" BorderColor="White" HeightRequest="50">
+                    <Entry Text="{Binding ClientLoginInfo.ClientID}" Background="#376199" Margin="10,1" Placeholder="ID" PlaceholderColor="LightGray"  TextColor="White"/>
+                </Frame>
+
+                <Frame Margin="15" Padding="0" BackgroundColor="#376199" CornerRadius="10" BorderColor="White" HeightRequest="50">
+                    <Entry Text="{Binding ClientLoginInfo.ClientPW}" Background="#376199" Margin="10,1" Placeholder="Password" PlaceholderColor="LightGray" TextColor="White" IsPassword="True" MaxLength="10"/>
+                </Frame>
+
+                <Button Text="로그인" TextColor="White" FontSize="15" BackgroundColor="#1295DB" HorizontalOptions="FillAndExpand" Margin="15,15" HeightRequest="40" FontAttributes="Bold"
+                        Command="{Binding CliLoginCommand}" CommandParameter="MainPage">
+                </Button>
+
+                <FlexLayout JustifyContent="SpaceBetween" HeightRequest="40" Margin="10">
+                    <Button Text="ID / PW 찾기" TextColor="White" FontSize="15" BackgroundColor="#376199" BorderColor="#376199" BorderWidth="1" HorizontalOptions="FillAndExpand"  FontAttributes="Bold"
+                            CommandParameter="MainPage">
+                    </Button>
+                    <Button Text="회원가입" TextColor="White" FontSize="15" BackgroundColor="#376199" BorderColor="#376199" BorderWidth="1" HorizontalOptions="FillAndExpand"  FontAttributes="Bold"
+                            Clicked="OnMembershipClicked" CommandParameter="MainPage">
+                    </Button>
+                </FlexLayout>
+            </StackLayout>
+        </Frame>
+    </StackLayout>
+</ContentPage>

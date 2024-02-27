@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:mapsui="clr-namespace:Mapsui.UI.Maui;assembly=Mapsui.UI.Maui"
+             x:Class="ClientScreen.Views.CliDocLockPicturePage"
+             xmlns:local="clr-namespace:ClientScreen.ViewModels"
+             BackgroundColor="#285083"
+             Title="문서 증빙 사진">
+
+
+
+
+</ContentPage>
