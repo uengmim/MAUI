@@ -1,0 +1,78 @@
+﻿<?xml version = "1.0" encoding = "UTF-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ClientScreen.Views.ClientMembershipPage"
+             xmlns:local="clr-namespace:ClientScreen"
+             xmlns:models="clr-namespace:ClientScreen.Model"
+             xmlns:viewModel="clr-namespace:ClientScreen.ViewModels"
+             BackgroundColor="#285083">
+
+    <!--루트개체-->
+    <ContentPage.BindingContext>
+        <viewModel:MembershipModel/>
+    </ContentPage.BindingContext>
+
+    <Shell.TabBarIsVisible>false</Shell.TabBarIsVisible>
+    <Shell.NavBarIsVisible>false</Shell.NavBarIsVisible>
+
+    <StackLayout BackgroundColor="#285083">
+
+        <Frame BorderColor="#376199" Margin="7,7" Padding="0" BackgroundColor="#376199">
+
+            <StackLayout BackgroundColor="#376199" VerticalOptions="Center">
+                <Frame Margin="15" Padding="0" BackgroundColor="White" CornerRadius="10" BorderColor="Black" HeightRequest="45">
+                    <Entry x:Name="cliNumber" Text="{Binding CliNumber}"  Background="White" Margin="10,1" Placeholder="고객번호" PlaceholderColor="LightGray" VerticalOptions="Center" TextColor="Black"/>
+                </Frame>
+
+                <FlexLayout JustifyContent="SpaceAround" HeightRequest="10" Margin="5">
+                    <Label Text="서비스 가입시 받은 고객 번호를 입력하여 주십시오." HorizontalOptions="FillAndExpand" TextColor="White" FontAttributes="Bold" HeightRequest="20" Margin="0" FontSize="15">
+                    </Label>
+                </FlexLayout>
+
+                <!--고객번호의 고객 정보를 읽어 바인딩하는부분-->
+                <Frame Margin="15" Padding="0" BackgroundColor="White" CornerRadius="10" BorderColor="Black" HeightRequest="45">
+                    <Label x:Name="cliInfo" Text="{Binding ClientInfo}" Background="White" Margin="10,1"  VerticalOptions="Center" TextColor="Black" />
+                </Frame>
+            </StackLayout>
+        </Frame>
+
+        <Frame BorderColor="#376199" Margin="10,10" Padding="0" BackgroundColor="#376199">
+       <ScrollView>
+            <StackLayout BackgroundColor="#376199" VerticalOptions="Center">
+
+                <Frame Margin="15" Padding="0" BackgroundColor="White" CornerRadius="10" BorderColor="Black" HeightRequest="45">
+                    <Entry Text="{Binding MembershipLogInfo.CliID}" Background="White" Margin="11,1" Placeholder="사용자 ID" PlaceholderColor="LightGray" VerticalOptions="Center" TextColor="Black"/>
+                </Frame>
+
+                <Frame Margin="15" Padding="0" BackgroundColor="White" CornerRadius="10" BorderColor="Black" HeightRequest="45">
+                    <Entry Text="{Binding MembershipLogInfo.CliPW}" Background="White" Margin="10,1" Placeholder="암호" PlaceholderColor="LightGray" VerticalOptions="Center" TextColor="Black" IsPassword="True" MaxLength="10"/>
+                </Frame>
+
+                <Frame Margin="15" Padding="0" BackgroundColor="White" CornerRadius="10" BorderColor="Black" HeightRequest="45">
+                    <Entry Text="{Binding MembershipLogInfo.CliPWVer}" Background="White" Margin="10,1" Placeholder="암호확인" PlaceholderColor="LightGray" VerticalOptions="Center" TextColor="Black" IsPassword="True" MaxLength="10"/>
+                </Frame>
+
+                <Frame Margin="15" Padding="0" BackgroundColor="White" CornerRadius="10" BorderColor="Black" HeightRequest="45">
+                    <Entry Text="{Binding MembershipLogInfo.CliName}" Background="White" Margin="10,1" Placeholder="사용자 이름" PlaceholderColor="LightGray" VerticalOptions="Center" TextColor="Black"/>
+                </Frame>
+
+                <Frame Margin="15" Padding="0" BackgroundColor="White" CornerRadius="10" BorderColor="Black" HeightRequest="45">
+                    <Entry Text="{Binding MembershipLogInfo.CliDep}" Background="White" Margin="10,1" Placeholder="부서" PlaceholderColor="LightGray" VerticalOptions="Center" TextColor="Black"/>
+                </Frame>
+
+                <Frame Margin="15" Padding="0" BackgroundColor="White" CornerRadius="10" BorderColor="Black" HeightRequest="45">
+                    <Entry Text="{Binding MembershipLogInfo.CliPos}" Background="White" Margin="10,1" Placeholder="직책" PlaceholderColor="LightGray" VerticalOptions="Center" TextColor="Black"/>
+                </Frame>
+
+                <Frame Margin="15" Padding="0" BackgroundColor="White" CornerRadius="10" BorderColor="Black" HeightRequest="45">
+                    <Entry Text="{Binding MembershipLogInfo.CliEmail}" Background="White" Margin="10,1" Placeholder="본인 확인용 E-MAIL 주소" PlaceholderColor="LightGray" VerticalOptions="Center" TextColor="Black"/>
+                </Frame>
+
+                <Button Text="회원가입" TextColor="Black" FontSize="15" BackgroundColor="White" BorderColor="Black" BorderWidth="1" HorizontalOptions="FillAndExpand" Margin="15,15" HeightRequest="40" FontAttributes="Bold"
+                        Command="{Binding MembsershipCommand}" CommandParameter="MainPage">
+                </Button>
+            </StackLayout>
+       </ScrollView>
+        </Frame>
+    </StackLayout>
+</ContentPage>
