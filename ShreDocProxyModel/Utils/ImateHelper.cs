@@ -45,7 +45,7 @@ namespace ShreDoc.Utils
         /// <summary>
         /// Ttlock Adapter
         /// </summary>
-        //public TtlockAdapter Ttlock { get; set; }
+        public TtlockAdapter Ttlock { get; set; }
 
 
         /// <summary>
@@ -59,16 +59,20 @@ namespace ShreDoc.Utils
             Profile = JsonSerializer.Deserialize<ApiProfile>(keyData) ?? new ApiProfile();
 
             Adapter = new ImateAdapter(Profile.ApiUrl, Profile.Secret, Profile.ApiUserId, Profile.ApiPassword, true, false);
+            Ttlock = new TtlockAdapter(Profile.ApiUrl, Profile.Secret, Profile.ApiUserId, Profile.ApiPassword, true);
 
             //파일 업로드
             FileUpload = new ImateFileUpload(Profile.ApiUrl, Profile.ApiUserId, Profile.ApiPassword);
 
             //TTLOCK
             //Ttlock = new TtlockAdapter("https://192.168.3.67/iMATEWebAPIB5", Profile.Secret, "iacm_system", "a#12!08@", true);
-
             //Adapter = new ImateAdapter("https://192.168.3.37/iMATEWebAPIB4", apiProfile.Secret, "iacm_system", "a#12!08@", true, false);
+            //FileUpload = new ImateFileUpload("https://183.111.166.141/", "imate_system", "a#12!08@");
 
-            FileUpload = new ImateFileUpload("https://183.111.166.141/", "imate_system", "a#12!08@");
+            //Ttlock.ActiveLogAsync(new XNSC.Net.NOKE.LockActivity()
+            //{
+                 
+            //})
 
 
         }
