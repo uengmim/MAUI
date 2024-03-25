@@ -13,6 +13,8 @@ namespace WorkerScreen.ViewModel
     {
         public string Name { get; set; }
         public string PhoneNumber { get; set; }
+        public string EMPNO { get; set; }
+        public string DEPTID { get; set; }
 
         LoginInfo loginInfo;
         #region Commands
@@ -36,15 +38,15 @@ namespace WorkerScreen.ViewModel
         #endregion
 
         // Methods
-        #region onQRCode
+        #region HomePage
         /// <summary>
-        /// 로그인 메뉴를 나타냅니다.
+        /// 메인 메뉴를 나타냅니다.
         /// </summary>
         private async void OnQRCode()
         {
             //await Shell.Current.GoToAsync(nameof(QRCodePage));
             //await Navigation.PushAsync(new QRCodePage());
-            await Application.Current.MainPage.Navigation.PushAsync(new QRCodePage(Name, PhoneNumber));
+            await Application.Current.MainPage.Navigation.PushAsync(new QRCodePage(Name, PhoneNumber,EMPNO, DEPTID));
         }
         private async void GetOnSecurity()
         {

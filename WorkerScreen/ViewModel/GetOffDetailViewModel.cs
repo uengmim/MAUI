@@ -163,7 +163,10 @@ namespace WorkerScreen.ViewModel
                     condition = DIMGroupCondtion.AND,
                     joinCondtion = DIMGroupCondtion.AND,
                     whereFieldConditions = new DIMWhereFieldCondition[]
-                {new DIMWhereFieldCondition{ fieldName = "CSTATUS" , value = "P", condition = DIMWhereCondition.Equal}}
+                {
+                    new DIMWhereFieldCondition{ fieldName = "CSTATUS" , value = "P", condition = DIMWhereCondition.Equal },
+                    new DIMWhereFieldCondition{ fieldName = "REFDA1" , value = LoginInfo.Name, condition = DIMWhereCondition.Equal }                
+                }
                 };
                 siehisData = await dataService.Adapter.SelectModelDataAsync<SiehisModelList>(App.ServerID, "ShreDocDataModel", "ShreDoc.DataModel.SiehisModelList",
                             whereSiehisCondition, new Dictionary<string, XNSC.DIMSortOrder>(), QueryCacheType.None);

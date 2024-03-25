@@ -222,6 +222,8 @@ namespace WorkerScreen.ViewModel
                 string formattedDate = currentDate.ToString("yyyyMMdd");
                 var sireqmodelList = new SireqModelList();
                 var siehismodelList = new SiehisModelList();
+                var lkmstmodelList = new LkmstModelList();
+                var dataService = ImateHelper.GetSingleTone();
 
                 bool confirm = await Application.Current.MainPage.DisplayAlert("알림", "자물쇠를 봉인하시겠습니까?", "확인", "취소");
                 if (confirm)
@@ -232,7 +234,7 @@ namespace WorkerScreen.ViewModel
                         //이미지 스트림으로 변환
                         var imageStream = await ((StreamImageSource)PhotoData).Stream(System.Threading.CancellationToken.None);
                         //이미지 소스를 바이트로 변환
-                        var data = new byte[imageStream.Length];
+                        var data = new byte[imageStream.Length]; //107.184킬로 바이트
                         int imageData = imageStream.Read(data, 0, (int)imageStream.Length);
                         string imgString = imageData.ToString();
                         //파일 업로드
@@ -245,9 +247,19 @@ namespace WorkerScreen.ViewModel
                                 };
 
                         var result = await fu.FileUpload("", data, customHeadDic); //사진이름, 사진 데이터, 커스텀헤드 사전
+                        var whereCondition = new DIMGroupFieldCondtion()
+                        {
+                            condition = DIMGroupCondtion.AND,
+                            joinCondtion = DIMGroupCondtion.AND,
+                            whereFieldConditions = new DIMWhereFieldCondition[]
+{
+                    new DIMWhereFieldCondition{ fieldName = "PIN" , value = this.LoginInfo.PhoneNumber, condition = DIMWhereCondition.Equal}
+}
+                        };
 
+                        var empInfoList = await dataService.Adapter.SelectModelDataAsync<EmpmstModelList>(App.ServerID, "ShreDocDataModel", "ShreDoc.DataModel.EmpmstModelList",
+                                                whereCondition, new Dictionary<string, XNSC.DIMSortOrder>(), QueryCacheType.None);
                         //Siehis 조회
-                        var dataService = ImateHelper.GetSingleTone();
                         var whereSiehisCondition = new DIMGroupFieldCondtion()
                         {
                             condition = DIMGroupCondtion.AND,
@@ -267,7 +279,9 @@ namespace WorkerScreen.ViewModel
                                 REPTYP = "C08000A",
                                 REPDAT = currentDate,
                                 REFDA1 = result,
-                                ModelStatus = DIMModelStatus.Add
+                                CRTUSR = empInfoList[0].EMPNO,
+                                CRTDT = currentDate,
+                            ModelStatus = DIMModelStatus.Add
                             });
                             var sierepResult = await dataService.Adapter.ModifyModelDataAsync<SierepModelList>(App.ServerID, "ShreDocDataModel", "ShreDoc.DataModel.SierepModelList", sierepModelList);
 
@@ -281,10 +295,24 @@ namespace WorkerScreen.ViewModel
                             };
                             var sireqData = await dataService.Adapter.SelectModelDataAsync<SireqModelList>(App.ServerID, "ShreDocDataModel", "ShreDoc.DataModel.SireqModelList",
                                         whereSireqCondition, new Dictionary<string, XNSC.DIMSortOrder>(), QueryCacheType.None);
+
+                            var whereLKCondition = new DIMGroupFieldCondtion()
+                            {
+                                condition = DIMGroupCondtion.AND,
+                                joinCondtion = DIMGroupCondtion.AND,
+                                whereFieldConditions = new DIMWhereFieldCondition[]
+{
+                    new DIMWhereFieldCondition{ fieldName = "LSN" , value = LockData, condition = DIMWhereCondition.Equal}
+}
+                            };
+
+                            var lkMstData = await dataService.Adapter.SelectModelDataAsync<LkmstModelList>(App.ServerID, "ShreDocDataModel", "ShreDoc.DataModel.LkmstModelList",
+                                        whereLKCondition, new Dictionary<string, XNSC.DIMSortOrder>(), QueryCacheType.None);
                             if (sireqData.Count > 0)
                             {
                                 var reqSearchData = sireqData.FirstOrDefault(h => h.EREQID == sireqData[0].EREQID);
                                 var hisSearchData = siehisData.FirstOrDefault(h => h.CONFNO == siehisData[0].CONFNO);
+                                var lkSearchData = lkMstData.FirstOrDefault(h => h.LSN == lkMstData[0].LSN);
 
                                 reqSearchData.STRDT = currentDate;
                                 reqSearchData.ModelStatus = DIMModelStatus.Modify;
@@ -293,8 +321,51 @@ namespace WorkerScreen.ViewModel
                                 hisSearchData.CSTATUS = "L";
                                 hisSearchData.ModelStatus = DIMModelStatus.Modify;
                                 siehismodelList.Add(hisSearchData);
+
+                                lkSearchData.LKSTA = "L";
+                                lkSearchData.ILSID = BoxNum;
+                                lkSearchData.ModelStatus = DIMModelStatus.Modify;
+                                lkmstmodelList.Add(lkSearchData);
+
+                                try
+                                {
+                                    //TTLOCK
+                                    string ttGuidStr = Guid.NewGuid().ToString();
+                                    var location = await Geolocation.GetLastKnownLocationAsync();
+                                    if (location == null)
+                                    {
+                                        location = await Geolocation.GetLocationAsync(new GeolocationRequest()
+                                        {
+                                            DesiredAccuracy = GeolocationAccuracy.High,
+                                            Timeout = TimeSpan.FromSeconds(30)
+                                        });
+                                    }
+                                    dataService.Ttlock.ActiveLog(new XNSC.Net.NOKE.LockActivity()
+                                    {
+                                        trackingKey = ttGuidStr,
+                                        lockSN = LockData,
+                                        ilsId = BoxNum,
+                                        eventTime = currentDate,
+                                        userId = LoginInfo.PhoneNumber,
+                                        ConfirmNo = siehisData[0].CONFNO,
+                                        ReportType = "C08000A",
+                                        lockStatus = "L",
+                                        Longitude = location.Longitude,
+                                        Latitude = location.Latitude,
+                                        opeationMode = "ON",
+                                        connectTime = currentDate,
+                                        batteryVolt = 100,
+                                    });
+                                }
+                                catch (Exception ex)
+                                {
+                                    await Application.Current.MainPage.DisplayAlert("통보", ex.Message, "OK");
+                                    IsLoading = false;
+                                    return;
+                                }
                                 var sireqResult = await dataService.Adapter.ModifyModelDataAsync<SireqModelList>(App.ServerID, "ShreDocDataModel", "ShreDoc.DataModel.SireqModelList", sireqmodelList);
                                 var siehisResult = await dataService.Adapter.ModifyModelDataAsync<SiehisModelList>(App.ServerID, "ShreDocDataModel", "ShreDoc.DataModel.SiehisModelList", siehismodelList);
+                                var lkmstResult = await dataService.Adapter.ModifyModelDataAsync<LkmstModelList>(App.ServerID, "ShreDocDataModel", "ShreDoc.DataModel.LkmstModelList", lkmstmodelList);
 
                             }
                             await Application.Current.MainPage.DisplayAlert("알림", $"자물쇠 관리번호({LockData})의 봉인을 확인하였습니다.", "확인");

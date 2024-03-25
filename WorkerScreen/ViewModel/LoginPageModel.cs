@@ -167,6 +167,8 @@ namespace WorkerScreen.ViewModel
                     culture = string.Empty //문화권(기본이면 빈 문자열) 메일 본문 Template 구분하는데 사용
                 };
                 LoginInfo.Name = empInfoList[0].EMPNM;
+                LoginInfo.EMPNO = empInfoList[0].EMPNO;
+                LoginInfo.DEPTID = empInfoList[0].DEPTID;
                 HttpClientHelper.TokenId = DeviceTokenInfo.id;
                 ExecuteResult executeResult = null;
                 try
