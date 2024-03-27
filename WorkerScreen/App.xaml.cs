@@ -3,6 +3,7 @@ using WorkerScreen.ViewModel;
 using XNSC.Net;
 using XNSC.Net.NOKE;
 using DeviceId;
+using XNSC.Net.Ttlock;
 
 namespace WorkerScreen;
 
@@ -96,6 +97,19 @@ public partial class App : Application
             return adapter;
         }
         set { adapter = value; }
+
+    }
+
+    static TtlockAdapter Ttlock;
+    public static TtlockAdapter TTlock
+    {
+        get
+        {
+            if (Ttlock == null)
+                Ttlock = new TtlockAdapter(Preferences.Get("API_URL", "https://183.111.166.141/"), "", "imate_system", "a#12!08@", true);
+            return Ttlock;
+        }
+        set { Ttlock = value; }
 
     }
 }
