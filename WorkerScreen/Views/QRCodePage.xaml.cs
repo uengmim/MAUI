@@ -6,7 +6,7 @@ namespace WorkerScreen.Views;
 
 public partial class QRCodePage : ContentPage
 {
-    public QRCodePage(string Name, string PhoneNumber)
+    public QRCodePage(string Name, string PhoneNumber, string EMPNO, string DEPTID)
     {
         InitializeComponent();
         cameraView.BarCodeDetectionEnabled = true;
@@ -15,6 +15,8 @@ public partial class QRCodePage : ContentPage
 
         qRCodeViewModel.Name = Name;
         qRCodeViewModel.PhoneNumber = PhoneNumber;
+        qRCodeViewModel.EMPNO = EMPNO;
+        qRCodeViewModel.DEPTID = DEPTID;
 
         this.BindingContext = qRCodeViewModel;
 

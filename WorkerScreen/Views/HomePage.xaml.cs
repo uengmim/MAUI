@@ -12,6 +12,8 @@ public partial class HomePage : ContentPage
 		HomeViewModel homeViewModel = new HomeViewModel();
 		homeViewModel.Name = log.Name;
 		homeViewModel.PhoneNumber = log.PhoneNumber;
+		homeViewModel.EMPNO = log.EMPNO;
+		homeViewModel.DEPTID = log.DEPTID;
 
 		this.BindingContext = homeViewModel;
 

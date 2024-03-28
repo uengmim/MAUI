@@ -30,17 +30,16 @@
                 <Label LineBreakMode="WordWrap" HorizontalOptions="Center">
                     <Label.FormattedText>
                         <FormattedString>
-                            <Span Text="L" TextColor="White" FontAttributes="Bold"  FontSize="55"/>
-                            <Span Text="ock" FontSize="30" TextColor="LightGray"/>
+                            <Span Text="정기 방문 파쇄" FontSize="45" TextColor="LightGray"/>
                         </FormattedString>
                     </Label.FormattedText>
                 </Label>
-                <Label LineBreakMode="WordWrap" HorizontalOptions="Center">
+                <Label LineBreakMode="WordWrap" HorizontalOptions="Center"  Margin="0,10,0,0">
                     <Label.FormattedText>
                         <FormattedString>
                             <Span Text="H" TextColor="White" FontAttributes="Bold"  FontSize="50"/>
                             <Span Text="ome" TextColor="LightGray"  FontSize="30"/>
-                            <Span Text="P" TextColor="White" FontAttributes="Bold"  FontSize="50"/>
+                            <Span Text=" P" TextColor="White" FontAttributes="Bold"  FontSize="50"/>
                             <Span Text="age" TextColor="LightGray"  FontSize="30"/>
                         </FormattedString>
                     </Label.FormattedText>
@@ -56,11 +55,11 @@
                 </Frame>
                 <Frame Margin="15" Padding="0" BackgroundColor="#376199" CornerRadius="10" BorderColor="White" HeightRequest="80">
                     <Button Text="상차    " TextColor="White" FontSize="15" BackgroundColor="#1295DB" HorizontalOptions="FillAndExpand" Margin="5,5" HeightRequest="70" FontAttributes="Bold" ImageSource="doubleup.png" ContentLayout="Right, 20"
-                        Command="{Binding GetOnCommand}" CommandParameter="."/>
+                        Command="{Binding GetOnCommand}" CommandParameter="GetOnDocument"/>
                 </Frame>
                 <Frame Margin="15" Padding="0" BackgroundColor="#376199" CornerRadius="10" BorderColor="White" HeightRequest="80">
                     <Button Text="하차    " TextColor="White" FontSize="15" BackgroundColor="#1295DB" HorizontalOptions="FillAndExpand" Margin="5,5" HeightRequest="70" FontAttributes="Bold" ImageSource="doubledown.png" ContentLayout="Right, 20"
-                        Command="{Binding GetOffCommand}" CommandParameter="."/>
+                        Command="{Binding GetOffCommand}" CommandParameter="GetOffDocument"/>
                 </Frame>
             </VerticalStackLayout>
         </Frame>

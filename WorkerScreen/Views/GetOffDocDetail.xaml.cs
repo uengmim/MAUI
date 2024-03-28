@@ -65,11 +65,20 @@ public partial class GetOffDocDetail : ContentPage
         loadingIndicator.IsRunning = false;
         loadingIndicator.IsVisible = false;
     }
+
+    private object loadingObj = new object();
+
     // 클릭 이벤트 핸들러
     public async void HandleSelectionButton_Clicked(object sender, EventArgs e)
     {
-        loadingIndicator.IsRunning = true;
-        loadingIndicator.IsVisible = true;
+        //Lock
+        lock (loadingObj)
+        {
+            if (loadingIndicator.IsRunning == true)
+                return;
+            loadingIndicator.IsRunning = true;
+            loadingIndicator.IsVisible = true;
+        }
 
         var selectedItems = notesCollection.SelectedItems;
 
@@ -116,10 +125,54 @@ public partial class GetOffDocDetail : ContentPage
                     loadingIndicator.IsVisible = false;
                     return;
                 }
+
+                var whereCondition = new DIMGroupFieldCondtion()
+                {
+                    condition = DIMGroupCondtion.AND,
+                    joinCondtion = DIMGroupCondtion.AND,
+                    whereFieldConditions = new DIMWhereFieldCondition[]
+{
+                    new DIMWhereFieldCondition{ fieldName = "PIN" , value = this.LoginInfo.PhoneNumber, condition = DIMWhereCondition.Equal}
+}
+                };
+
+                var empInfoList = await dataService.Adapter.SelectModelDataAsync<EmpmstModelList>(App.ServerID, "ShreDocDataModel", "ShreDoc.DataModel.EmpmstModelList",
+                                        whereCondition, new Dictionary<string, XNSC.DIMSortOrder>(), QueryCacheType.None);
+
                 sierepData.REPTYP = "C08000C";
                 sierepData.REPDAT = currentDate;
+                sierepData.CRTUSR = empInfoList[0].EMPNO;
+                sierepData.CRTDT = currentDate;
                 sierepData.ModelStatus = DIMModelStatus.Add;
                 sierepmodelList.Add(sierepData);
+
+                //TTLOCK
+                string ttGuidStr = Guid.NewGuid().ToString();
+                var location = await Geolocation.GetLastKnownLocationAsync();
+                if (location == null)
+                {
+                    location = await Geolocation.GetLocationAsync(new GeolocationRequest()
+                    {
+                        DesiredAccuracy = GeolocationAccuracy.High,
+                        Timeout = TimeSpan.FromSeconds(30)
+                    });
+                }
+                dataService.Ttlock.ActiveLog(new XNSC.Net.NOKE.LockActivity()
+                {
+                    trackingKey = ttGuidStr,
+                    lockSN = siehisData.LSN,
+                    ilsId = siehisData.ILSID,
+                    eventTime = currentDate,
+                    userId = LoginInfo.PhoneNumber,
+                    ConfirmNo = siehisData.CONFNO,
+                    ReportType = "C08000C",
+                    lockStatus = "L",
+                    Longitude = location.Longitude,
+                    Latitude = location.Latitude,
+                    opeationMode = "ON",
+                    connectTime = currentDate,
+                    batteryVolt = 100,
+                });
             }
             catch (Exception ex)
             {

@@ -4,6 +4,7 @@
              xmlns:local="clr-namespace:WorkerScreen.ViewModel"
              x:Class="WorkerScreen.Views.QRRecogPage"
              xmlns:util="clr-namespace:WorkerScreen.Utils"
+             Loaded="ContentPage_Loaded"
              Title="자물쇠 스캔">
 
     <ContentPage.Resources>
@@ -24,16 +25,14 @@
         </Style>
     </ContentPage.Resources>
     
-    <ContentPage.ToolbarItems>
-        <ToolbarItem Text="ReNew" Clicked="Renew_Clicked" IconImageSource="{OnPlatform 'autorenew.png', iOS='autorenew.png', MacCatalyst='autorenew.png'}" />
-    </ContentPage.ToolbarItems>
     <ContentPage.BindingContext>
         <local:QRRecogViewModel />
     </ContentPage.BindingContext>
-    
-    <StackLayout BackgroundColor="#285083">
 
-        <Frame BorderColor="#376199" Margin="10,10" Padding="0" BackgroundColor="#376199">
+    <AbsoluteLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+
+        <StackLayout BackgroundColor="#285083" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1">
+            <Frame BorderColor="#376199" Margin="10,10" Padding="0" BackgroundColor="#376199">
 
             <StackLayout BackgroundColor="#376199" VerticalOptions="Center">
                 <Frame Margin="5,5,5,5" Padding="0" BackgroundColor="#376199"  HeightRequest="45">
@@ -51,13 +50,13 @@
 
         <Frame BorderColor="#376199" Margin="10,00" Padding="0" HeightRequest="550" BackgroundColor="#376199">
             <StackLayout>
-                <ActivityIndicator x:Name="loadingIndicator" IsRunning="False" IsVisible="False" Color="Blue" />
                 <ScrollView>
                     <CollectionView x:Name="notesCollection"
                                     VerticalOptions="CenterAndExpand" 
                                     HorizontalOptions="CenterAndExpand" 
-                                    ItemsSource="{Binding LockDataModel}"
+                                    ItemsSource="{Binding LockInfoModel}"
                                     SelectedItem="{Binding SelectedItem}"
+                                    SelectionChangedCommand="{Binding SelectionChangedCommand}"
                                     SelectionMode="Single"
                                     Margin="0" >
                         <CollectionView.ItemsLayout>
@@ -68,7 +67,7 @@
                                 <StackLayout Margin="0" Padding="0">
                                     <Border HeightRequest="70" StrokeShape="RoundRectangle 15,15,15,15" Padding="5" Stroke="LightGray"  BackgroundColor="#1295DB" Margin="15,7,15,7">
                                         <StackLayout Orientation="Vertical" Padding="0" Margin="0" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
-                                            <Label Grid.Column="0" Text="{Binding LockData, StringFormat='       관리번호 : {0}'}" FontSize="16" TextColor="White" FontAttributes="Bold" VerticalOptions="CenterAndExpand"/>
+                                            <Label Grid.Column="0" Text="{Binding Lockid, StringFormat='  관리번호 : {0}'}" FontSize="16" TextColor="White" FontAttributes="Bold" VerticalOptions="CenterAndExpand"/>
                                             <Label Grid.Column="0" Text="{Binding LockName, StringFormat='자물쇠 이름 : {0}'}" FontSize="16" TextColor="White" FontAttributes="Bold" VerticalOptions="CenterAndExpand"/>
                                         </StackLayout>
                                     </Border>
@@ -81,4 +80,15 @@
         </Frame>
 
     </StackLayout>
+    <StackLayout IsVisible="{Binding IsLoading}" Padding="12"
+                 AbsoluteLayout.LayoutFlags="PositionProportional"
+                 AbsoluteLayout.LayoutBounds="0.5,0.5,-1,-1">
+
+        <ActivityIndicator IsRunning="{Binding IsLoading}" Color ="Blue"/>
+
+        <Label Text="Loading..." HorizontalOptions="Center" TextColor="White"/>
+
+    </StackLayout>
+
+    </AbsoluteLayout>
 </ContentPage>
