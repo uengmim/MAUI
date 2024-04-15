@@ -30,17 +30,16 @@
                 <Label LineBreakMode="WordWrap" HorizontalOptions="Center">
                     <Label.FormattedText>
                         <FormattedString>
-                            <Span Text="L" TextColor="White" FontAttributes="Bold"  FontSize="55"/>
-                            <Span Text="ock" FontSize="30" TextColor="LightGray"/>
+                            <Span Text="정기 방문 파쇄" FontSize="45" TextColor="LightGray"/>
                         </FormattedString>
                     </Label.FormattedText>
                 </Label>
-                <Label LineBreakMode="WordWrap" HorizontalOptions="Center">
+                <Label LineBreakMode="WordWrap" HorizontalOptions="Center"  Margin="0,10,0,0">
                     <Label.FormattedText>
                         <FormattedString>
                             <Span Text="H" TextColor="White" FontAttributes="Bold"  FontSize="50"/>
                             <Span Text="ome" TextColor="LightGray"  FontSize="30"/>
-                            <Span Text="P" TextColor="White" FontAttributes="Bold"  FontSize="50"/>
+                            <Span Text=" P" TextColor="White" FontAttributes="Bold"  FontSize="50"/>
                             <Span Text="age" TextColor="LightGray"  FontSize="30"/>
                         </FormattedString>
                     </Label.FormattedText>

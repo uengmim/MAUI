@@ -6,14 +6,17 @@ using System.Runtime.CompilerServices;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using System.Runtime.InteropServices;
-using WorkerScreenCrushing.Utils;
 using XNSC.DD.EX;
 using ShreDoc.ProxyModel;
+using Microsoft.Maui.ApplicationModel.Communication;
+using ShreDoc.Utils;
 
 namespace WorkerScreenCrushing.ViewModel
 {
     public class CrushingDetailViewModel : INotifyPropertyChanged
     {
+
+        #region Properties
         public ObservableCollection<CrushingInfo> CrushingInfoModel { get { return crushinginfoModel; } set { crushinginfoModel = value; OnPropertyChanged(nameof(CrushingInfoModel)); } }
 
         public ObservableCollection<CrushingInfo> crushinginfoModel = new ObservableCollection<CrushingInfo>();
@@ -22,10 +25,9 @@ namespace WorkerScreenCrushing.ViewModel
         private string _boxName = "";
         private string _location = "";
         private string _lockData = "";
+        private string _textSearch = "";
         private DateTime _pickupDate;
         private DateTime _lockDate;
-
-        #region Properties
 
         private CrushingInfo selectedItem;
 
@@ -46,7 +48,6 @@ namespace WorkerScreenCrushing.ViewModel
             }
         }
 
-
         private Color backgroundColorSet;
         public Color BackgroundColorSet
         {
@@ -60,7 +61,6 @@ namespace WorkerScreenCrushing.ViewModel
                 }
             }
         }
-
         public string Name { get; set; }
         private bool isLoading;
 
@@ -116,7 +116,6 @@ namespace WorkerScreenCrushing.ViewModel
             }
         }
 
-
         public string LockData
         {
             get => _lockData;
@@ -126,6 +125,27 @@ namespace WorkerScreenCrushing.ViewModel
                 OnPropertyChanged(nameof(LockData));
             }
         }
+        public string TextSearch
+        {
+            get => _textSearch;
+            set
+            {
+                _textSearch = value;
+                OnPropertyChanged(nameof(TextSearch));
+                if(_textSearch.Length > 0)
+                {
+                    OnSearchContactCommand();
+                    SelectedItem = null;
+                }
+                else
+                {
+                    SearchEmptyLoadContactCommand.Execute(null);
+                    SelectedItem = null;
+                    //Task.Run(async () => await ExecuteMyCommand());
+                }
+            }
+        }
+
         public DateTime PickupDate
         {
             get => _pickupDate;
@@ -171,8 +191,9 @@ namespace WorkerScreenCrushing.ViewModel
 
         #region Commands
         public INavigation Navigation { get; set; }
+        public ICommand SearchEmptyLoadContactCommand { get; private set; }
         /// <summary>
-        /// 
+        /// 데이터모델
         /// </summary>
         public SiehisModelList siehisData { get; set; } = new SiehisModelList();
         public SierepModelList sierepData { get; set; } = new SierepModelList();
@@ -182,6 +203,8 @@ namespace WorkerScreenCrushing.ViewModel
         {
             var siehismodelList = new SiehisModelList();
             var sierepmodelList = new SierepModelList();
+            var lkMstmodelList = new LkmstModelList();
+
             DateTime currentDate = DateTime.Now;
             var dataService = ImateHelper.GetSingleTone();
 
@@ -211,9 +234,37 @@ namespace WorkerScreenCrushing.ViewModel
                     //C08000D가 없다면
                     if (repSearchData == null)
                     {
+                        var whereCondition = new DIMGroupFieldCondtion()
+                        {
+                            condition = DIMGroupCondtion.AND,
+                            joinCondtion = DIMGroupCondtion.AND,
+                            whereFieldConditions = new DIMWhereFieldCondition[]
+{
+                    new DIMWhereFieldCondition{ fieldName = "PIN" , value = this.LoginInfo.PhoneNumber, condition = DIMWhereCondition.Equal}
+}
+                        };
+                        var empInfoList = await dataService.Adapter.SelectModelDataAsync<EmpmstModelList>(App.ServerID, "ShreDocDataModel", "ShreDoc.DataModel.EmpmstModelList",
+                                                whereCondition, new Dictionary<string, XNSC.DIMSortOrder>(), QueryCacheType.None);
+                        var whereLKCondition = new DIMGroupFieldCondtion()
+                        {
+                            condition = DIMGroupCondtion.AND,
+                            joinCondtion = DIMGroupCondtion.AND,
+                            whereFieldConditions = new DIMWhereFieldCondition[]
+                            {new DIMWhereFieldCondition{ fieldName = "LSN" , value = LockData, condition = DIMWhereCondition.Equal}}
+                        };
+                        var lkMstData = await dataService.Adapter.SelectModelDataAsync<LkmstModelList>(App.ServerID, "ShreDocDataModel", "ShreDoc.DataModel.LkmstModelList",
+                                    whereLKCondition, new Dictionary<string, XNSC.DIMSortOrder>(), QueryCacheType.None);
+
+                        var lkMstSearchData = lkMstData.FirstOrDefault(h => h.LSN == LockData);
+
+                        lkMstSearchData.LKSTA = "U";
+                        lkMstSearchData.ModelStatus = DIMModelStatus.Modify;
+                        lkMstmodelList.Add(lkMstSearchData);
+
                         repData.REPTYP = "C08000D";
                         repData.REPDAT = currentDate;
-                        LockDate = currentDate;
+                        repData.CRTUSR = empInfoList[0].EMPNO;
+                        repData.CRTDT = currentDate;
                         repData.ModelStatus = DIMModelStatus.Add;
                         sierepmodelList.Add(repData);
 
@@ -221,17 +272,48 @@ namespace WorkerScreenCrushing.ViewModel
                         hisData.ModelStatus = DIMModelStatus.Modify;
                         siehismodelList.Add(hisData);
 
+                        LockDate = currentDate;
+
+                        //TTLOCK
+                        string ttGuidStr = Guid.NewGuid().ToString();
+                        var location = await Geolocation.GetLastKnownLocationAsync();
+                        if (location == null)
+                        {
+                            location = await Geolocation.GetLocationAsync(new GeolocationRequest()
+                            {
+                                DesiredAccuracy = GeolocationAccuracy.High,
+                                Timeout = TimeSpan.FromSeconds(30)
+                            });
+                        }
+                        dataService.Ttlock.ActiveLog(new XNSC.Net.NOKE.LockActivity()
+                        {
+                            trackingKey = ttGuidStr,
+                            lockSN = hisData.LSN,
+                            ilsId = hisData.ILSID,
+                            eventTime = currentDate,
+                            userId = LoginInfo.PhoneNumber,
+                            ConfirmNo = hisData.CONFNO,
+                            ReportType = "C08000D",
+                            lockStatus = "U",
+                            Longitude = location.Longitude,
+                            Latitude = location.Latitude,
+                            opeationMode = "ON",
+                            connectTime = currentDate,
+                            batteryVolt = 100,
+                        });
+
+                        var lkmstResult = await dataService.Adapter.ModifyModelDataAsync<LkmstModelList>(App.ServerID, "ShreDocDataModel", "ShreDoc.DataModel.LkmstModelList", lkMstmodelList);
                         var sierepResult = await dataService.Adapter.ModifyModelDataAsync<SierepModelList>(App.ServerID, "ShreDocDataModel", "ShreDoc.DataModel.SierepModelList", sierepmodelList);
                         var siehisResult = await dataService.Adapter.ModifyModelDataAsync<SiehisModelList>(App.ServerID, "ShreDocDataModel", "ShreDoc.DataModel.SiehisModelList", siehismodelList);
 
                         await Application.Current.MainPage.DisplayAlert("알림", $"자물쇠 관리 번호 [{LockData}] 의 봉인을 해제 하였습니다.", "OK");
-                        await Application.Current.MainPage.Navigation.PushAsync(new CrushingCameraPage(Name, BoxName, Location, LockData, PickupDate, LockDate));
+                        await Application.Current.MainPage.Navigation.PushAsync(new CrushingCameraPage(Name, BoxName, Location, LockData, PickupDate, LockDate, ConfNo));
                         IsLoading = false;
 
                     }
                     else
                     {
-                        await Application.Current.MainPage.Navigation.PushAsync(new CrushingCameraPage(Name, BoxName, Location, LockData, PickupDate, LockDate));
+                        await Application.Current.MainPage.Navigation.PushAsync(new CrushingCameraPage(Name, BoxName, Location, LockData, PickupDate, LockDate, ConfNo));
                         IsLoading = false;
                     }
 
@@ -249,6 +331,8 @@ namespace WorkerScreenCrushing.ViewModel
         //자물쇠 로딩
         public async Task ExecuteMyCommand()
         {
+            CrushingInfoModel.Clear();
+            SelectedItem = null;
             IsLoading = true;
             try
             {
@@ -333,6 +417,7 @@ namespace WorkerScreenCrushing.ViewModel
 
                         }
                         CrushingInfoModel.Add(new CrushingInfo(item.REFDA1, item.ILSID, areaData[0].AREANM, item.LSN, sierepREPTYPA.REPDAT, datData, item.CONFNO, BackgroundColorSet));
+                        IsLoading = false;
                     }
                     return;
                 }
@@ -350,13 +435,38 @@ namespace WorkerScreenCrushing.ViewModel
                 return;
             }
         }
+        //searchBar
+        private void OnSearchContactCommand()
+        {
+            var foundContacts = CrushingInfoModel.Where(found =>
+            found.LockData.StartsWith(TextSearch)).ToList();
+
+            if(foundContacts.Count > 0)
+            {
+            IsLoading = true;
+                CrushingInfoModel.Clear();
+                foreach(var contact in foundContacts)
+                {
+                    CrushingInfoModel.Add(contact);
+                }
+                IsLoading = false;
+            }
+            else
+            {
+                IsLoading = true;
+                CrushingInfoModel.Clear();
+                IsLoading = false;
+            }
+        }
+
+        //자물쇠 봉인 해제
         #endregion
 
-        #region GetOnDetailViewModel
+        #region CrushingDetailViewModel
         public CrushingDetailViewModel()
         {
-
-
+            CrushingInfoModel.Clear();
+            SearchEmptyLoadContactCommand = new Command(async () => await ExecuteMyCommand());
             this.LoginInfo = new LoginInfo();
             CollectionView collectionView = new CollectionView();
             collectionView.SetBinding(ItemsView.ItemsSourceProperty, "CrushingInfo");

@@ -8,7 +8,7 @@ public partial class CrushingInputData : ContentPage
 {
 
 
-    public CrushingInputData(string Name, string BoxName, string Location, string LockData, DateTime PickupDate, DateTime LockDate, string PhotoResult)
+    public CrushingInputData(string Name, string BoxName, string Location, string LockData, DateTime PickupDate, DateTime LockDate, string PhotoResult, string ConfNo)
     {
 
         InitializeComponent();
@@ -20,9 +20,13 @@ public partial class CrushingInputData : ContentPage
         inputDataViewModel.PickupDate = PickupDate;
         inputDataViewModel.LockDate = LockDate;
         inputDataViewModel.PhotoResult = PhotoResult;
+        inputDataViewModel.ConfNo = ConfNo;
         this.BindingContext = inputDataViewModel;
+
 
     }
 
 
 }
+
+

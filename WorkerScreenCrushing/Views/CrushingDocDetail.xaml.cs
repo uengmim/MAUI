@@ -16,34 +16,36 @@ public partial class CrushingDocDetail : ContentPage
         InitializeComponent();
         CrushingDetailViewModel crushingDetailViewModel = new CrushingDetailViewModel();
         crushingDetailViewModel.BackgroundColorSet = Colors.Blue; // 원하는 배경색으로 설정
-
+        crushingDetailViewModel.SelectedItem = null;
         this.BindingContext = crushingDetailViewModel;
     }
     private async void Renew_Clicked(object sender, EventArgs e)
     {
 
-        loadingIndicator.IsRunning = true;
-        loadingIndicator.IsVisible = true;
-        base.OnAppearing();
+        //loadingIndicator.IsRunning = true;
+        //loadingIndicator.IsVisible = true;
         if (BindingContext is CrushingDetailViewModel crushingDetailViewModel)
         {
             await crushingDetailViewModel.ExecuteMyCommand();
         }
-        loadingIndicator.IsRunning = false;
-        loadingIndicator.IsVisible = false;
+        //loadingIndicator.IsRunning = false;
+        //loadingIndicator.IsVisible = false;
     }
 
-    protected override async void OnAppearing()
-    {
-        loadingIndicator.IsRunning = true;
-        loadingIndicator.IsVisible = true;
-        base.OnAppearing();
+    //protected override void OnAppearing()
+    //{
+    //    base.OnAppearing();
 
-        if (BindingContext is CrushingDetailViewModel crushingDetailViewModel)
-        {
-            await crushingDetailViewModel.ExecuteMyCommand();
-        }
-        loadingIndicator.IsRunning = false;
-        loadingIndicator.IsVisible = false;
-    }
+    //   if(notesCollection.SelectedItems.Count > 0)
+    //    {
+    //        notesCollection.SelectedItems = null;
+    //    }
+    //}
+
+
+    //protected override bool OnBackButtonPressed()
+    //{
+    //    App.Current.MainPage = new CrushingDocument();
+    //    return false;
+    //}
 }

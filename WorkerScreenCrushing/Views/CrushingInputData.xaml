@@ -19,8 +19,8 @@
                         <Label Background="#376199" Margin="10,10,10,0" FontSize="17" Text="{Binding WorkerName, StringFormat='수거자 : {0}'}" VerticalOptions="Center" TextColor="White"/>
                         <Label Background="#376199" Margin="10,5,10,0" FontSize="17" Text="{Binding BoxName, StringFormat='보안 문서함 : {0}'}" VerticalOptions="Center" TextColor="White"/>
                         <Label Background="#376199" Margin="10,5,10,0" FontSize="17" Text="{Binding Location, StringFormat='위치 : {0}'}" VerticalOptions="Center" TextColor="White"/>
-                        <Label Background="#376199" Margin="10,5,10,0" FontSize="17" Text="{Binding PickupDate, StringFormat='수거 일시 : {0}'}" VerticalOptions="Center" TextColor="White"/>
-                        <Label Background="#376199" Margin="10,5,10,10" FontSize="17" Text="{Binding LockDate, StringFormat='봉인 해제 : {0}'}" VerticalOptions="Center" TextColor="White"/>
+                        <Label Background="#376199" Margin="10,5,10,0" FontSize="17" Text="{Binding PickupDate, StringFormat='수거 일시 : {0:yyyy/MM/dd HH:mm}'}" VerticalOptions="Center" TextColor="White"/>
+                        <Label Background="#376199" Margin="10,5,10,10" FontSize="17" Text="{Binding LockDate, StringFormat='봉인 해제 : {0:yyyy/MM/dd HH:mm}'}" VerticalOptions="Center" TextColor="White"/>
                     </StackLayout>
                 </Frame>
             </Frame>
@@ -28,13 +28,13 @@
                 <StackLayout BackgroundColor="#376199" VerticalOptions="Center">
                     <Label Background="#376199" Margin="10,30" Text="{Binding LoginInfo.Name, StringFormat='폐기 작업자 :  {0}'}" FontSize="25" HorizontalOptions="CenterAndExpand" TextColor="White"/>
                     <Frame Margin="15,10" Padding="0" BackgroundColor="#376199" CornerRadius="10" BorderColor="White" HeightRequest="45">
-                        <Entry Background="#376199" Margin="10,1" Placeholder="폐기 일자" PlaceholderColor="LightGray" Text="{Binding CrushDate}" VerticalOptions="Center" TextColor="White"/>
+                        <DatePicker Background="#376199" Margin="10,1" Date="{Binding SelectedDate, Mode=TwoWay}" Format="yyyy-MM-dd"  TextColor="White" />
                     </Frame>
                     <Frame Margin="15" Padding="0" BackgroundColor="#376199" CornerRadius="10" BorderColor="White" HeightRequest="45">
-                        <Entry Background="#376199" Margin="10,1" Placeholder="폐기 방법" PlaceholderColor="LightGray" Text="{Binding CrushWay}" VerticalOptions="Center" TextColor="White"/>
+                        <Picker Title="파쇄방법" TitleColor="LightGray" x:Name="picker" BackgroundColor="#376199" ItemDisplayBinding="{Binding Name}" ItemsSource="{Binding Items}" SelectedItem="{Binding SelectedItem}" TextColor="White" Margin="10,1" VerticalOptions="Center"/>
                     </Frame>
                     <Frame Margin="15" Padding="0" BackgroundColor="#376199" CornerRadius="10" BorderColor="White" HeightRequest="45">
-                        <Entry Background="#376199" Margin="10,1" Placeholder="폐기 수량" PlaceholderColor="LightGray" Text="{Binding CrushNum}" VerticalOptions="Center" TextColor="White"/>
+                        <Entry Keyboard="Numeric" Background="#376199" Margin="10,1" Placeholder="폐기 수량" PlaceholderColor="LightGray" Text="{Binding CrushNum}" VerticalOptions="Center" TextColor="White"/>
                     </Frame>
 
                     <Button Text="파쇄 정보 등록" TextColor="White" FontSize="15" BackgroundColor="#1295DB" HorizontalOptions="FillAndExpand" Margin="15,35" HeightRequest="40" FontAttributes="Bold"

@@ -26,7 +26,7 @@ namespace WorkerScreenCrushing.ViewModel
         public INavigation Navigation { get; set; }
         public ICommand CrushingDetailCommand => new Command(CrushingDetailSecurity);
         #endregion
-        // Methods
+
         #region Navigation
         private async void CrushingDetailSecurity()
         {

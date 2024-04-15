@@ -2,15 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ZXing;
-using System.Windows.Markup;
-using System.Collections.Specialized;
 using Camera.MAUI.ZXingHelper;
-using XNSC.DD.EX;
-using CommunityToolkit.Maui.Views;
 using System.Windows.Input;
 using WorkerScreenCrushing.Views;
 using WorkerScreenCrushing.Models;
@@ -30,6 +22,7 @@ namespace WorkerScreenCrushing.ViewModel
         private string _boxName = "";
         private string _location = "";
         private string _lockData = "";
+        private string _confno = "";
         private DateTime _pickupDate;
         private DateTime _lockDate;
         private bool isLoading;
@@ -111,6 +104,15 @@ namespace WorkerScreenCrushing.ViewModel
             {
                 _lockDate = value;
                 OnPropertyChanged(nameof(LockDate));
+            }
+        }
+        public string ConfNo
+        {
+            get => _confno;
+            set
+            {
+                _confno = value;
+                OnPropertyChanged(nameof(ConfNo));
             }
         }
         public bool IsSaveNumber
@@ -198,8 +200,7 @@ namespace WorkerScreenCrushing.ViewModel
         public ICommand PhotoCommand => new Command(PhotoShoot);
         #endregion
 
-        // Methods
-        #region InfoInput
+        #region Photo
 
         public void PhotoShoot()
         {
@@ -238,7 +239,7 @@ namespace WorkerScreenCrushing.ViewModel
                                 };
 
                     var result = await fu.FileUpload("", data, customHeadDic); //사진이름, 사진 데이터, 커스텀헤드 사전
-                    await Application.Current.MainPage.Navigation.PushAsync(new CrushingInputData(WorkerName, BoxName, Location, LockData, PickupDate, LockDate, result));
+                    await Application.Current.MainPage.Navigation.PushAsync(new CrushingInputData(WorkerName, BoxName, Location, LockData, PickupDate, LockDate, result, ConfNo));
 
                 }
                 else
@@ -262,6 +263,7 @@ namespace WorkerScreenCrushing.ViewModel
 
         public CrushingCameraViewModel()
         {
+            IsLoading = false;
             StartCamera = new Command(() =>
             {
                 AutoStartPreview = true;
