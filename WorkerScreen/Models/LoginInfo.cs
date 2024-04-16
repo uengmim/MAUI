@@ -15,6 +15,7 @@ namespace WorkerScreen.Models
         public string Name { get; set; }
         public string EMPNO { get; set; }
         public string DEPTID { get; set; }
+        public string EMPROLE { get; set; }
 
  
     }

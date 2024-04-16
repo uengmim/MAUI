@@ -1,4 +1,8 @@
-﻿using System.ComponentModel;
+﻿using ShreDoc.ProxyModel;
+using ShreDoc.Utils;
+using SmartLock.TT.Common;
+using System.ComponentModel;
+using XNSC.DD.EX;
 
 namespace WorkerScreen.Models
 {
@@ -50,10 +54,10 @@ namespace WorkerScreen.Models
         /// <summary>
         /// 생성자
         /// </summary>
-        public LockInfomation()
+        public LockInfomation(LockDevice device)
         {
-            LockName = string.Empty;
-            LockMac =string.Empty;
+            LockName = device.Name;
+            LockMac = device.Address;
             Worker = string.Empty;
         }
 
@@ -82,5 +86,32 @@ namespace WorkerScreen.Models
                 handler(this, args);
         }
 
+        /// <summary>
+        /// Lock 정보를 셋팅 한다.
+        /// </summary>
+        public async void SetLockInfo()
+        {
+            var whereLKCondition = new DIMGroupFieldCondtion()
+            {
+                condition = DIMGroupCondtion.AND,
+                joinCondtion = DIMGroupCondtion.AND,
+                whereFieldConditions = new DIMWhereFieldCondition[]
+                {
+                    new DIMWhereFieldCondition{ fieldName = "MAC" , value = lockMac, condition = DIMWhereCondition.Equal}
+                }
+            };
+
+            var lkMstData = await ImateHelper.SelectModelData<LkmstModelList>(App.ServerID, whereLKCondition, new Dictionary<string, XNSC.DIMSortOrder>());
+
+            if (lkMstData.Count > 0)
+            {
+                var lkInfo = lkMstData.First();
+
+                LockMac = lkInfo.MAC;
+                Lockid = lkInfo.LSN;
+                LockName = lkInfo.LKNM;
+                Worker = lkInfo.REFDA1 ?? "";
+            }
+        }
     }
 }
