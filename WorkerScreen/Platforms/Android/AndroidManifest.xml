@@ -1,16 +1,34 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
-	<application android:allowBackup="true" android:icon="@mipmap/appicon" android:supportsRtl="true"></application>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="co.kr.istn.Worker" android:versionCode="1">
+	<application android:allowBackup="true" android:supportsRtl="true" android:label="Worker">
+		<service
+			android:name="co.kr.istn.Worker.Platforms.Android.MyBackgroundService"
+			android:enabled="true"
+			android:exported="false"
+			android:foregroundServiceType="location">
+		</service>
+		<receiver android:name=".MyBroadcastReceiver" android:exported="false" android:foregroundServiceType="location"/>
+	</application>
+	<uses-permission android:name="android.permission.INTERNET" />
+	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+	<!-- 카메라 권한 -->
 	<uses-permission android:name="android.permission.CAMERA" />
 	<uses-permission android:name="android.permission.RECORD_AUDIO" />
+	<!-- 블루투스 권한 -->
 	<uses-permission android:name="android.permission.RECORD_VIDEO" />
 	<uses-permission android:name="android.permission.BLUETOOTH" />
 	<uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+	<uses-permission android:name="android.permission.BLUETOOTH_SCAN"/>
+	<uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
+	<!-- 위치 권한 -->
 	<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 	<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-	<uses-permission android:name="android.permission.INTERNET" />
-	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-
+	<uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+	<uses-permission android:name="android.permission.FOREGROUND_SERVICE_LOCATION" />
+	<uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
+	<!-- 알림 권한 -->
+	<uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 	//Need BLUETOOTH_SCAN and BLUETOOTH_CONNECT permissions to adapt android 31, you need to apply dynamically before calling the interface（activity.requestPermissions(new String[]{permission}, REQUEST_PERMISSION_REQ_CODE);）
 
-	<uses-permission android:name="android.permission.BLUETOOTH_SCAN" android:usesPermissionFlags="neverForLocation" /><uses-permission android:name="android.permission.BLUETOOTH_CONNECT" /><uses-sdk android:minSdkVersion="29" android:targetSdkVersion="33" /></manifest>
+	<!--<uses-sdk android:minSdkVersion="29" android:targetSdkVersion="33" />-->
+</manifest>
