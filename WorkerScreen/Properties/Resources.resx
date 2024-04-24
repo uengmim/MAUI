@@ -125,4 +125,8 @@
 {"KeyIndex":0,"KeyPatten":0,"IsEncrypted":false,"KeyData":"{\"ApiUrl\":\"https://183.111.166.141\", \"ApiUserId\":\"imate_system\", \"ApiPassword\":\"a#12!08@\", \"Secret\":\"\"}"}
 ]</value>
   </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="TTLock" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\TTLock.pdf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
 </root>

@@ -79,5 +79,15 @@ namespace WorkerScreen.Properties {
                 return ResourceManager.GetString("Profile", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   System.Byte[] 형식의 지역화된 리소스를 찾습니다.
+        /// </summary>
+        internal static byte[] TTLock {
+            get {
+                object obj = ResourceManager.GetObject("TTLock", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
     }
 }
