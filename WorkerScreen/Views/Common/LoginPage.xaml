@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:WorkerScreen.Models"
+             x:Class="WorkerScreen.Views.Common.LoginPage"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:viewModel="clr-namespace:WorkerScreen.ViewModel.Common">
+    <!--루트개체-->
+    <ContentPage.BindingContext>
+        <viewModel:LoginPageModel />
+    </ContentPage.BindingContext>
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior IsVisible="False" IsEnabled="False" />
+    </Shell.BackButtonBehavior>
+    <Shell.TabBarIsVisible>false</Shell.TabBarIsVisible>
+    <Shell.NavBarIsVisible>false</Shell.NavBarIsVisible>
+    <AbsoluteLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+
+        <StackLayout BackgroundColor="#FFFFFF" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1">
+
+            <Frame BackgroundColor="Transparent" BorderColor="Transparent" Margin="50">
+                <StackLayout>
+                    <Label LineBreakMode="WordWrap" HorizontalOptions="FillAndExpand">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="문서 파쇄 관리도" FontSize="45" TextColor="#1F1F21"/>
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                    <Label LineBreakMode="WordWrap" HorizontalOptions="FillAndExpand">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="스마트하게" FontSize="45" TextColor="#1F1F21"/>
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                    <Label LineBreakMode="WordWrap" HorizontalOptions="FillAndExpand" Margin="0,10,0,0">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="Worker Login" TextColor="#FF554A" FontSize="20"/>
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                </StackLayout>
+            </Frame>
+
+            <StackLayout Margin="10">
+                <ContentView WidthRequest="192" HeightRequest="192" Background="#FFFFFF" Margin="5">
+                    <Image Source="login_image.png" Aspect="Fill" Margin="1"/>
+                </ContentView>
+            </StackLayout>
+
+            <Frame BorderColor="#FFFFFF" Margin="20,50,20,0" Padding="0" BackgroundColor="#FFFFFF">
+                <StackLayout BackgroundColor="#FFFFFF" VerticalOptions="Center">
+                    <Frame Margin="15" Padding="0" BackgroundColor="#FFFFFF" CornerRadius="10" BorderColor="#CCCCCC" HeightRequest="50">
+                        <Entry Keyboard="Numeric" Background="#FFFFFF" Margin="10,1" Placeholder="전화번호를 입력해 주세요." PlaceholderColor="LightGray" Text="{Binding LoginInfo.PhoneNumber}" VerticalOptions="Center" TextColor="#1F1F21">
+                            <Entry.Behaviors>
+                                <toolkit:MaskedBehavior Mask="XXXXXXXXXXX" />
+                            </Entry.Behaviors>
+                        </Entry>
+                    </Frame>
+
+                    <Button Text="로그인 하기" TextColor="#FFFFFF" FontSize="15" BackgroundColor="#3A7DFF" HorizontalOptions="FillAndExpand" Margin="15,15" HeightRequest="40" FontAttributes="Bold"
+                        Command="{Binding LoginCommand}" Clicked="Login_Clicked" CommandParameter="HomePage" />
+                </StackLayout>
+            </Frame>
+            <HorizontalStackLayout HorizontalOptions="Center" >
+                <Label
+                                FontSize="12"
+                                HorizontalTextAlignment="Center"
+                                Text="전화번호 저장"
+                                TextColor="#CCCCCC"
+                                VerticalOptions="Center" />
+                <Switch
+                                IsToggled="{Binding IsSaveNumber}"
+                                OnColor="White"
+                                ThumbColor="#3A7DFF" />
+            </HorizontalStackLayout>
+
+            <Label Text="Copyright ISTN" HorizontalOptions="Center" TextColor="#666666" FontAttributes="Bold" VerticalOptions="CenterAndExpand">
+            </Label>
+        </StackLayout>
+        <StackLayout IsVisible="{Binding IsLoading}" Padding="12"
+                 AbsoluteLayout.LayoutFlags="PositionProportional"
+                 AbsoluteLayout.LayoutBounds="0.5,0.5,-1,-1">
+
+            <ActivityIndicator IsRunning="{Binding IsLoading}" Color ="#3A7DFF"/>
+
+            <Label Text="Loading..." HorizontalOptions="Center" TextColor="White"/>
+
+        </StackLayout>
+
+    </AbsoluteLayout>
+</ContentPage>
