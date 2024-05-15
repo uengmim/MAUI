@@ -13,5 +13,7 @@ namespace WorkerScreen.Common
 
         public static string SaveLoginNameKey = "SaveName";
 
+        public static string SaveLoginRoleKey = "SaveRole";
+
     }
 }
