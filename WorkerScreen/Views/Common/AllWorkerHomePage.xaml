@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:WorkerScreen.Models"
+             x:Class="WorkerScreen.Views.Common.AllWorkerHomePage"
+             Shell.BackgroundColor="#FFFFFF"
+             xmlns:viewModel="clr-namespace:WorkerScreen.ViewModel.Common">
+    <!--루트개체-->
+    <ContentPage.BindingContext>
+        <viewModel:CRWorkerHomeViewModel />
+    </ContentPage.BindingContext>
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior IsVisible="False" IsEnabled="False" />
+    </Shell.BackButtonBehavior>
+
+    <Shell.TitleView>
+
+        <VerticalStackLayout>
+            <Grid BackgroundColor="Transparent" HorizontalOptions="Fill">
+                <!--<Label FontSize="16" Text="{Binding Name, StringFormat='{0}님 환영합니다.'}"  Margin="0,20,0,20" HorizontalOptions="Start" TextColor="White"/>-->
+                <Button FontSize="16" BackgroundColor="Transparent" TextColor="#666666" Text="로그아웃"  Margin="20,8,0,20" HorizontalOptions="End" Clicked="Logout_Clicked" />
+            </Grid>
+        </VerticalStackLayout>
+    </Shell.TitleView>
+
+    <StackLayout BackgroundColor="#FFFFFF">
+        <Frame BackgroundColor="Transparent" Margin="20,20"  BorderColor="Transparent">
+            <!--<StackLayout>
+
+                <Label LineBreakMode="WordWrap" HorizontalOptions="Center">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="정기 방문 파쇄" FontSize="45" TextColor="LightGray"/>
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+                <Label LineBreakMode="WordWrap" HorizontalOptions="Center"  Margin="0,10,0,0">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="H" TextColor="White" FontAttributes="Bold"  FontSize="50"/>
+                            <Span Text="ome" TextColor="LightGray"  FontSize="30"/>
+                            <Span Text=" P" TextColor="White" FontAttributes="Bold"  FontSize="50"/>
+                            <Span Text="age" TextColor="LightGray"  FontSize="30"/>
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+            </StackLayout>-->
+
+            <StackLayout>
+                <Label LineBreakMode="WordWrap" HorizontalOptions="FillAndExpand">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span FontSize="45" Text="{Binding Name, StringFormat='{0}님'}"  TextColor="#3A7DFF"/>
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+                <Label LineBreakMode="WordWrap" HorizontalOptions="FillAndExpand">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span FontSize="45" Text="반갑습니다."  TextColor="#3A7DFF"/>
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+            </StackLayout>
+        </Frame>
+        
+        <Frame BorderColor="#FFFFFF" Margin="20,20" Padding="0" BackgroundColor="#FFFFFF">
+            <VerticalStackLayout BackgroundColor="#FFFFFF" VerticalOptions="CenterAndExpand">
+                <Frame Margin="15" Padding="0" BackgroundColor="#C2E7FF" CornerRadius="10" BorderColor="#FFFFFF" HeightRequest="100">
+                    <Button Text="보안 문서 봉인" TextColor="#1F1F21" FontSize="15" BackgroundColor="#C2E7FF" HorizontalOptions="FillAndExpand" Margin="5,5" HeightRequest="70" FontAttributes="Bold" ImageSource="lock_line.png" ContentLayout="Right, 20"
+                        Command="{Binding QRCodeCommand}" CommandParameter="QRCodePage"/>
+                </Frame>
+                <Frame Margin="15" Padding="0" BackgroundColor="#C2E7FF" CornerRadius="10" BorderColor="#FFFFFF" HeightRequest="100">
+                    <Button Text="상차    " TextColor="#1F1F21" FontSize="15" BackgroundColor="#C2E7FF" HorizontalOptions="FillAndExpand" Margin="5,5" HeightRequest="70" FontAttributes="Bold" ImageSource="arrow_up_contained.png" ContentLayout="Right, 20"
+                        Command="{Binding GetOnCommand}" CommandParameter="GetOnDocument"/>
+                </Frame>
+                <Frame Margin="15" Padding="0" BackgroundColor="#C2E7FF" CornerRadius="10" BorderColor="#FFFFFF" HeightRequest="100">
+                    <Button Text="하차    " TextColor="#1F1F21" FontSize="15" BackgroundColor="#C2E7FF" HorizontalOptions="FillAndExpand" Margin="5,5" HeightRequest="70" FontAttributes="Bold" ImageSource="arrow_down_contained.png" ContentLayout="Right, 20"
+                        Command="{Binding GetOffCommand}" CommandParameter="GetOffDocument"/>
+                </Frame>
+                <Frame Margin="15" Padding="0" BackgroundColor="#C2E7FF" CornerRadius="10" BorderColor="#FFFFFF" HeightRequest="100">
+                    <Button Text="문서 파쇄 등록" TextColor="#1F1F21" FontSize="15" BackgroundColor="#C2E7FF" HorizontalOptions="FillAndExpand" Margin="5,5" HeightRequest="70" FontAttributes="Bold" ImageSource="file_shred.png" ContentLayout="Right, 20"
+                        Command="{Binding CrushingDocCommand}" CommandParameter=""/>
+                </Frame>
+            </VerticalStackLayout>
+        </Frame>
+    </StackLayout>
+</ContentPage>
