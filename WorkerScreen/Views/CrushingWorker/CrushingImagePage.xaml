@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:WorkerScreen.ViewModel.CrushingWorker"
+             x:Class="WorkerScreen.Views.CrushingWorker.CrushingImagePage"
+             BackgroundColor="#285083"
+             NavigationPage.HasNavigationBar="False">
+
+
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior IsVisible="False" IsEnabled="False" />
+    </Shell.BackButtonBehavior>
+
+    <Shell.TitleView>
+        <VerticalStackLayout>
+            <Grid BackgroundColor="Transparent" HorizontalOptions="Fill">
+                <Button x:Name="SaveBtn"
+                        BackgroundColor="Transparent"
+                        Clicked="SaveBtn_Clicked"
+                        WidthRequest="50"
+                        HeightRequest="50"
+                        HorizontalOptions="StartAndExpand">
+                    <Button.ImageSource>
+                        <FileImageSource File="arrow_left.png" />
+                    </Button.ImageSource>
+                </Button>
+            </Grid>
+        </VerticalStackLayout>
+    </Shell.TitleView>
+
+    <StackLayout BackgroundColor="White" HorizontalOptions="FillAndExpand">
+        <Frame BorderColor="White" Margin="10,00" Padding="0" HeightRequest="60" BackgroundColor="White">
+            <Button x:Name="DeleteBtn"
+                    Text="삭제"
+                    TextColor="White"
+                    BackgroundColor="#3A7DFF"
+                    Clicked="DeleteBtn_Clicked"
+                    WidthRequest="50"
+                    HeightRequest="50"
+                    HorizontalOptions="EndAndExpand"/>
+        </Frame>
+
+        <ScrollView>
+            <StackLayout x:Name="photoStackLayout"
+                         Padding="20,0"
+                         VerticalOptions="Center"
+                         HorizontalOptions="CenterAndExpand"
+                         Orientation="Vertical"
+                         Spacing="5">
+
+            </StackLayout>
+        </ScrollView>
+    </StackLayout>
+
+</ContentPage>
