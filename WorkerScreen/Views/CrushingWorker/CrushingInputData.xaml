@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:WorkerScreen.ViewModel.CrushingWorker"
+             x:Class="WorkerScreen.Views.CrushingWorker.CrushingInputData"
+             xmlns:util="clr-namespace:WorkerScreen.Utils"
+             Shell.BackgroundColor="#FFFFFF"
+             NavigationPage.HasNavigationBar="False"
+             Title="파쇄 정보 입력">
+    
+    <ContentPage.BindingContext>
+        <local:InputDataViewModel />
+    </ContentPage.BindingContext>
+
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior IsVisible="False" IsEnabled="False" />
+    </Shell.BackButtonBehavior>
+
+    <Shell.TitleView>
+        <VerticalStackLayout>
+            <Grid BackgroundColor="Transparent" HorizontalOptions="Fill">
+                <Button x:Name="BackBtn"
+                        BackgroundColor="Transparent"
+                        Clicked="BackBtn_Clicked"
+                        WidthRequest="50"
+                        HeightRequest="50"
+                        Margin="-10,0,0,0"
+                        HorizontalOptions="StartAndExpand">
+                    <Button.ImageSource>
+                        <FileImageSource File="arrow_left.png" />
+                    </Button.ImageSource>
+                </Button>
+                <Label Text="보안 문서 파쇄" FontSize="25" Margin="0,0,0,0" TextColor="#1F1F21" FontAttributes="Bold" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+                </Label>
+            </Grid>
+        </VerticalStackLayout>
+    </Shell.TitleView>
+
+    <AbsoluteLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+
+        <StackLayout BackgroundColor="#FFFFFF" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1">
+
+            <Frame BorderColor="#FFFFFF" Margin="10,10" Padding="0" BackgroundColor="#FFFFFF">
+                <Frame Margin="5,5,5,5" Padding="0" BackgroundColor="#FFFFFF">
+                    <StackLayout>
+                        <Label Background="#FFFFFF" Margin="10,10,10,0" FontSize="17" Text="{Binding WorkerName, StringFormat='수거자 : {0}'}" VerticalOptions="Center" TextColor="#1F1F21"/>
+                        <Label Background="#FFFFFF" Margin="10,5,10,0" FontSize="17" Text="{Binding BoxName, StringFormat='보안 문서함 : {0}'}" VerticalOptions="Center" TextColor="#1F1F21"/>
+                        <Label Background="#FFFFFF" Margin="10,5,10,0" FontSize="17" Text="{Binding Location, StringFormat='위치 : {0}'}" VerticalOptions="Center" TextColor="#1F1F21"/>
+                        <Label Background="#FFFFFF" Margin="10,5,10,0" FontSize="17" Text="{Binding PickupDate, StringFormat='수거 일시 : {0:yyyy/MM/dd HH:mm}'}" VerticalOptions="Center" TextColor="#1F1F21"/>
+                        <Label Background="#FFFFFF" Margin="10,5,10,10" FontSize="17" Text="{Binding LockDate, StringFormat='봉인 해제 : {0:yyyy/MM/dd HH:mm}'}" VerticalOptions="Center" TextColor="#1F1F21"/>
+                    </StackLayout>
+                </Frame>
+            </Frame>
+            
+            <Frame BorderColor="#FFFFFF" Margin="10,10" Padding="0" BackgroundColor="#FFFFFF">
+                <StackLayout BackgroundColor="#FFFFFF" VerticalOptions="Center">
+                    <Label Background="#FFFFFF" Margin="10,30" Text="{Binding LoginInfo.Name, StringFormat='폐기 작업자 :  {0}'}" FontSize="25" HorizontalOptions="CenterAndExpand" TextColor="#1F1F21"/>
+                    <Frame Margin="15,10" Padding="0" BackgroundColor="#FFFFFF" CornerRadius="10" BorderColor="#CCCCCC" HeightRequest="45">
+                        <DatePicker Background="#FFFFFF" Margin="10,1" Date="{Binding SelectedDate, Mode=TwoWay}" Format="yyyy-MM-dd"  TextColor="#1F1F21" />
+                    </Frame>
+                    <Frame Margin="15" Padding="0" BackgroundColor="#FFFFFF" CornerRadius="10" BorderColor="#CCCCCC" HeightRequest="45">
+                        <Picker Title="파쇄방법" TitleColor="#9F9F9F" x:Name="picker" BackgroundColor="#FFFFFF" ItemDisplayBinding="{Binding Name}" ItemsSource="{Binding Items}" SelectedItem="{Binding SelectedItem}" TextColor="#1F1F21" Margin="10,1" VerticalOptions="Center"/>
+                    </Frame>
+                    <Frame Margin="15" Padding="0" BackgroundColor="#FFFFFF" CornerRadius="10" BorderColor="#CCCCCC" HeightRequest="45">
+                        <Entry Keyboard="Numeric" Background="#FFFFFF" Margin="10,1" Placeholder="폐기 수량" PlaceholderColor="LightGray" Text="{Binding CrushNum}" VerticalOptions="Center" TextColor="#1F1F21"/>
+                    </Frame>
+
+                    <Button Text="파쇄 정보 등록" TextColor="#FFFFFF" FontSize="15" BackgroundColor="#3A7DFF" HorizontalOptions="FillAndExpand" Margin="15,35" HeightRequest="40" FontAttributes="Bold"
+                        Command="{Binding InfoRegisterCommand}" CommandParameter="QRRecogPage"/>
+                </StackLayout>
+            </Frame>
+
+        </StackLayout>
+        <StackLayout IsVisible="{Binding IsLoading}" Padding="12"
+                 AbsoluteLayout.LayoutFlags="PositionProportional"
+                 AbsoluteLayout.LayoutBounds="0.5,0.5,-1,-1">
+
+            <ActivityIndicator IsRunning="{Binding IsLoading}" Color ="Blue"/>
+
+            <Label Text="Loading..." HorizontalOptions="Center" TextColor="White"/>
+
+        </StackLayout>
+
+    </AbsoluteLayout>
+</ContentPage>
