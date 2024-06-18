@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:WorkerScreen.ViewModel.PickUpWorker"
+             x:Class="WorkerScreen.Views.PickUpWorker.GetOnDocument"
+             xmlns:cv="clr-namespace:Camera.MAUI;assembly=Camera.MAUI"
+             Shell.BackgroundColor="#3A7DFF"
+             NavigationPage.HasNavigationBar="False"
+             Title="보안문서 상차">
+    
+    <ContentPage.BindingContext>
+        <local:GetOnViewModel />
+    </ContentPage.BindingContext>
+
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior IsVisible="False" IsEnabled="False" />
+    </Shell.BackButtonBehavior>
+
+    <Shell.TitleView>
+        <VerticalStackLayout>
+            <Grid BackgroundColor="Transparent" HorizontalOptions="Fill">
+                <Button x:Name="BackBtn"
+                        BackgroundColor="Transparent"
+                        Clicked="BackBtn_Clicked"
+                        WidthRequest="50"
+                        HeightRequest="50"
+                        Margin="-10,0,0,0"
+                        HorizontalOptions="StartAndExpand">
+                    <Button.ImageSource>
+                        <FileImageSource File="arrow_left_white.png" />
+                    </Button.ImageSource>
+                </Button>
+                <Label Text="상차" FontSize="25" Margin="0,0,0,0" TextColor="White" FontAttributes="Bold" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+                </Label>
+            </Grid>
+        </VerticalStackLayout>
+    </Shell.TitleView>
+
+    <Frame BorderColor="#3A7DFF" Margin="10,0" Padding="0" BackgroundColor="#3A7DFF" CornerRadius="1000" WidthRequest="1000" HeightRequest="1000">
+        <StackLayout Orientation="Vertical" Padding="0" HeightRequest="700" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+            <ImageButton Source="lockrazar.png"
+                                Command="{Binding GetOnDetailCommand}"
+                                Margin="0,80,0,80" WidthRequest="400" HeightRequest="300"
+                                HorizontalOptions="Center"
+                                VerticalOptions="Center" />
+
+            <Button Text="자물쇠 검색하기" TextColor="#3A7DFF" FontSize="Large" BackgroundColor="#FFFFFF" HorizontalOptions="FillAndExpand" Margin="5,5" HeightRequest="50" FontAttributes="Bold" CornerRadius="10"
+                        Command="{Binding GetOnDetailCommand}" CommandParameter="MainPage">
+            </Button>
+        </StackLayout>
+    </Frame>
+
+    <!--<Frame BorderColor="#3A7DFF" Margin="10,0" Padding="0" BackgroundColor="#3A7DFF" CornerRadius="1000" WidthRequest="700" HeightRequest="700">
+        <StackLayout Orientation="Vertical" Padding="0" HeightRequest="700" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+            <ImageButton Source="lockrazar.png"
+                                Command="{Binding RegistDetailCommand}"
+                                Margin="0,80,0,80" WidthRequest="300" HeightRequest="300"
+                                HorizontalOptions="Center"
+                                VerticalOptions="Center" />
+            <Button Text="자물쇠 검색하기" TextColor="#3A7DFF" FontSize="Large" BackgroundColor="#FFFFFF" HorizontalOptions="FillAndExpand" Margin="5,5" HeightRequest="50" FontAttributes="Bold" CornerRadius="10"
+                        Command="{Binding RegistDetailCommand}" CommandParameter="MainPage">
+            </Button>
+        </StackLayout>
+    </Frame>-->
+</ContentPage>
