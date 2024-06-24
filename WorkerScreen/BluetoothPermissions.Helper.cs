@@ -13,7 +13,7 @@
             }
             catch (Exception ex)
             {
-                // logger.LogError(ex);
+                await Application.Current.MainPage.DisplayAlert("오류", ex.Message, "확인");
                 return false;
             }
         }
@@ -27,7 +27,7 @@
             }
             catch (Exception ex)
             {
-                // logger.LogError(ex);
+                await Application.Current.MainPage.DisplayAlert("오류", ex.Message, "확인");
                 return false;
             }
         }

@@ -1,8 +1,8 @@
 ﻿using Camera.MAUI;
 using WorkerScreen.ViewModel;
-using WorkerScreen.Views;
 using Microsoft.Extensions.Logging;
 using CommunityToolkit.Maui;
+using WorkerScreen.Views.PickUpWorker;
 
 namespace WorkerScreen;
 public static class MauiProgram
@@ -24,7 +24,6 @@ public static class MauiProgram
 #if DEBUG
         builder.Logging.AddDebug();
         builder.Services.AddSingleton<MainPage>();
-        builder.Services.AddSingleton<MainViewModel>();
         builder.Services.AddSingleton<QRCodePage>();
 #endif
 #if ANDROID

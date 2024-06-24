@@ -361,3 +361,18 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+# SAP Trace 파일
+*.trc
+
+# 빌드 Path
+build/
+/iMATEWebAPI/wwwroot/Content/sql/NBPReportDataSources.dll
+/iMATEWebAPI/wwwroot/Content/addon
+/iMATEWebAPI/wwwroot/Content/files
+/iMATEWebAPI/wwwroot/Content/Reports/SHPQReport
+
+/iMATEWebAPI/wwwroot/Content/package
+/WorkerScreen/WorkerScreen.csproj.user
+/AdminScreen/AdminScreen.csproj.user
+/AdminScreen/AdminScreen.csproj.user

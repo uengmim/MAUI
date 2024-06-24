@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="WorkerScreen.Views.PickUpWorker.QRCodePage"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:local="clr-namespace:WorkerScreen.ViewModel.PickUpWorker"
+             xmlns:cv="clr-namespace:Camera.MAUI;assembly=Camera.MAUI"
+             Shell.BackgroundColor="#1F1F21"
+             NavigationPage.HasNavigationBar="False"
+             Title="문서회수 BOX">
+    
+    <ContentPage.BindingContext>
+        <local:QRCodeViewModel />
+    </ContentPage.BindingContext>
+
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior IsVisible="False" IsEnabled="False" />
+    </Shell.BackButtonBehavior>
+
+    <Shell.TitleView>
+        <VerticalStackLayout>
+            <Grid BackgroundColor="Transparent" HorizontalOptions="Fill">
+                <Button x:Name="BackBtn"
+                        BackgroundColor="Transparent"
+                        Clicked="BackBtn_Clicked"
+                        WidthRequest="50"
+                        HeightRequest="50"
+                        Margin="-10,0,0,0"
+                        HorizontalOptions="StartAndExpand">
+                    <Button.ImageSource>
+                        <FileImageSource File="arrow_left_white.png" />
+                    </Button.ImageSource>
+                </Button>
+                <Label Text="보안 문서 봉인" FontSize="25" Margin="0,0,0,0" TextColor="#FFFFFF" FontAttributes="Bold" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+                </Label>
+            </Grid>
+        </VerticalStackLayout>
+    </Shell.TitleView>
+
+    <AbsoluteLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+
+        <StackLayout BackgroundColor="#1F1F21" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1">
+
+
+            <Frame BorderColor="#1F1F21" Margin="10,10" Padding="0" BackgroundColor="#1F1F21">
+                <StackLayout BackgroundColor="#1F1F21" VerticalOptions="Center">
+                    <cv:CameraView x:Name="cameraView" WidthRequest="450" HeightRequest="350" BarCodeOptions="{Binding BarCodeOptions}" BarCodeResults="{Binding BarCodeResults, Mode=OneWayToSource}"
+                               Cameras="{Binding Cameras, Mode=OneWayToSource}" Camera="{Binding Camera}" AutoStartPreview="{Binding AutoStartPreview}" NumCamerasDetected="{Binding NumCameras, Mode=OneWayToSource}"
+                               AutoSnapShotAsImageSource="True" AutoSnapShotFormat="PNG" TakeAutoSnapShot="{Binding TakeSnapshot}" AutoSnapShotSeconds="{Binding SnapshotSeconds}" Margin="10,10,10,10"/>
+
+                    <HorizontalStackLayout HorizontalOptions="Center" Margin="2" Spacing="2">
+                        <Label Text="Zoom" VerticalOptions="Center" TextColor="Black"/>
+                        <Stepper BindingContext="{x:Reference cameraView}" Minimum="{Binding MinZoomFactor}" Maximum="7" Increment="0.5" Value="{Binding ZoomFactor,Mode=TwoWay}" />
+                    </HorizontalStackLayout>
+
+                    <Frame BackgroundColor="Transparent" BorderColor="Transparent">
+                        <StackLayout>
+                            <Label LineBreakMode="WordWrap" HorizontalOptions="Center">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="자물쇠의 QR코드를 스캔해 주세요." TextColor="White" FontAttributes="Bold"  FontSize="20"/>
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                        </StackLayout>
+                    </Frame>
+                </StackLayout>
+
+
+            </Frame>
+
+            <Frame BorderColor="#1F1F21" Margin="10,0" Padding="0" BackgroundColor="#1F1F21">
+                <StackLayout BackgroundColor="#1F1F21" VerticalOptions="Center">
+
+                    <Frame Margin="15" Padding="0" BackgroundColor="#FFFFFF" CornerRadius="10" BorderColor="#CCCCCC" HeightRequest="45">
+                        <Entry Keyboard="Numeric" Background="#FFFFFF" Margin="10,1" Placeholder="문서함 번호를 입력해주세요." PlaceholderColor="LightGray" Text="{Binding BarcodeText}" VerticalOptions="Center" TextColor="#1F1F21"/>
+                    </Frame>
+
+                    <Button Text="수동 입력" TextColor="#FFFFFF" FontSize="15" BackgroundColor="#3A7DFF" HorizontalOptions="FillAndExpand" Margin="15,15" HeightRequest="40" FontAttributes="Bold"
+                        Command="{Binding RecognitionCommand}" CommandParameter="QRRecogPage"/>
+
+                </StackLayout>
+            </Frame>
+        </StackLayout>
+
+        <StackLayout IsVisible="{Binding IsLoading}" Padding="12"
+                 AbsoluteLayout.LayoutFlags="PositionProportional"
+                 AbsoluteLayout.LayoutBounds="0.5,0.5,-1,-1">
+
+            <ActivityIndicator IsRunning="{Binding IsLoading}" Color ="Blue"/>
+
+            <Label Text="Loading..." HorizontalOptions="Center" TextColor="White"/>
+
+        </StackLayout>
+
+    </AbsoluteLayout>
+</ContentPage>

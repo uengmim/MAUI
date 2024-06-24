@@ -1,10 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net7.0-ios;net7.0-android</TargetFrameworks>
-		
+		<TargetFrameworks>net8.0-android;net8.0-ios;</TargetFrameworks>
+
 		<!-- Uncomment to also build the tizen app. You will need to install tizen by following this: https://github.com/Samsung/Tizen.NET -->
-		<!-- <TargetFrameworks>$(TargetFrameworks);net7.0-tizen</TargetFrameworks> -->
+		<!-- <TargetFrameworks>$(TargetFrameworks);net8.0-tizen</TargetFrameworks> -->
 		<OutputType>Exe</OutputType>
 		<RootNamespace>WorkerScreen</RootNamespace>
 		<UseMaui>true</UseMaui>
@@ -22,12 +22,12 @@
 		<ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
 		<ApplicationVersion>1</ApplicationVersion>
 
-		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">11.0</SupportedOSPlatformVersion>
-		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">13.1</SupportedOSPlatformVersion>
-		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21.0</SupportedOSPlatformVersion>
-		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
-		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
-		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">15.4</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">31.0</SupportedOSPlatformVersion>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0-android|AnyCPU'">
+		<AndroidPackageFormat>apk</AndroidPackageFormat>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -35,7 +35,7 @@
 		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
 
 		<!-- Splash Screen -->
-		<MauiSplashScreen Include="Resources\Splash\lockimage.svg" Color="#376199" BaseSize="128,128" />
+		<MauiSplashScreen Include="Resources\Splash\login_image.svg" Color="#FFFFFF" BaseSize="128,128" />
 
 		<!-- Images -->
 		<MauiImage Include="Resources\Images\*" />
@@ -49,95 +49,162 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<None Remove="Resources\Images\arrow_left.png" />
+		<None Remove="Resources\Images\arrow_left2x.png" />
+		<None Remove="Resources\Images\arrow_left_white.png" />
+		<None Remove="Resources\Images\arrow_left_white2x.png" />
+		<None Remove="Resources\Images\crushing.png" />
 		<None Remove="Resources\Images\DoubleDown.png" />
 		<None Remove="Resources\Images\DoubleUp.png" />
 		<None Remove="Resources\Images\Lock.png" />
+		<None Remove="Resources\Images\login_image.png" />
+		<None Remove="Resources\Images\login_image2x.png" />
 		<None Remove="Resources\Images\loock.png" />
-		<None Remove="Resources\Splash\dotnet_bot.svg" />
 	</ItemGroup>
 
-	<ItemGroup>
-		<MauiImage Include="Resources\Splash\dotnet_bot.svg">
-			<BaseSize>168,208</BaseSize>
-		</MauiImage>
-	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Acr.UserDialogs" Version="8.1.0-alpha-0009" />
 		<PackageReference Include="Camera.MAUI" Version="1.4.4" />
 		<PackageReference Include="BarcodeQRCodeSDK" Version="2.3.4" />
-		<PackageReference Include="CommunityToolkit.Maui" Version="5.3.0" />
-		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
-		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.0.0-preview3" />
-		<PackageReference Include="SkiaSharp" Version="2.88.6" />
-		<PackageReference Include="SkiaSharp.Views" Version="2.88.6" />
-		<PackageReference Include="SkiaSharp.Views.Maui.Controls" Version="2.88.6" />
+		<PackageReference Include="CommunityToolkit.Maui" Version="7.0.1" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
+		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
+		<PackageReference Include="SkiaSharp" Version="2.88.7" />
+		<PackageReference Include="SkiaSharp.Views" Version="2.88.7" />
+		<PackageReference Include="SkiaSharp.Views.Maui.Controls" Version="2.88.7" />
 		<PackageReference Include="sqlite-net-pcl" Version="1.8.116" />
-		<PackageReference Include="XNDIM" Version="1.5.0" />
-		<PackageReference Include="XNDIMEXCore" Version="1.5.1" />
-
-	</ItemGroup>
-
-	<ItemGroup Condition="$(TargetFramework.Contains('-android')) == true">
-		<ProjectReference Include="..\TTlockLib\TTlockLib.csproj" />
-	</ItemGroup>
-	
-	<ItemGroup>
-	  <ProjectReference Include="..\ShreDocProxyModel\ShreDocProxyModel.csproj" />
+		<PackageReference Include="Xamarin.Essentials" Version="1.8.1" />
+		<PackageReference Include="XNDIM" Version="1.6.0" />
+		<PackageReference Include="XNDIMEXCore" Version="1.6.0" />
+		<PackageReference Include="Microsoft.Maui.Controls" Version="8.0.7" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Update="Platforms\Android\BluetoothPermissions.Android.cs">
-	    <ExcludeFromCurrentConfiguration>false</ExcludeFromCurrentConfiguration>
-	  </Compile>
-	  <Compile Update="Platforms\Android\TTlockHelper.Android.cs">
-	    <ExcludeFromCurrentConfiguration>false</ExcludeFromCurrentConfiguration>
-	  </Compile>
-	  <Compile Update="Properties\Resources.Designer.cs">
-	    <DesignTime>True</DesignTime>
-	    <AutoGen>True</AutoGen>
-	    <DependentUpon>Resources.resx</DependentUpon>
-	  </Compile>
-	  <Compile Update="Views\GetOffDocument.xaml.cs">
-	    <DependentUpon>GetOffDocument.xaml</DependentUpon>
-	  </Compile>
-	  <Compile Update="Views\GetOffDocDetail.xaml.cs">
-	    <DependentUpon>GetOffDocDetail.xaml</DependentUpon>
-	  </Compile>
-	  <Compile Update="Views\GetOnDocument.xaml.cs">
-	    <DependentUpon>GetOnDocument.xaml</DependentUpon>
-	  </Compile>
-	  <Compile Update="Views\LockClosePage.xaml.cs">
-	    <DependentUpon>LockClosePage.xaml</DependentUpon>
-	  </Compile>
-	  <Compile Update="Views\GetOnDocDetail.xaml.cs">
-	    <DependentUpon>GetOnDocDetail.xaml</DependentUpon>
-	  </Compile>
+		<ProjectReference Include="..\ShreDocProxyModel\ShreDocProxyModel.csproj" />
+		<ProjectReference Include="..\TTLockMauiLib\TTLockMauiLib.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <EmbeddedResource Update="Properties\Resources.resx">
-	    <Generator>ResXFileCodeGenerator</Generator>
-	    <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-	  </EmbeddedResource>
+		<Compile Update="Platforms\iOS\KeyboardHelper.iOS.cs">
+		  <ExcludeFromCurrentConfiguration>false</ExcludeFromCurrentConfiguration>
+		</Compile>
+		<Compile Update="Properties\Resources.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>Resources.resx</DependentUpon>
+		</Compile>
+		<Compile Update="Views\Common\AllWorkerHomePage.xaml.cs">
+		  <DependentUpon>AllWorkerHomePage.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="Views\Common\CRWorkerHomePage.xaml.cs">
+			<DependentUpon>CRWorkerHomePage.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="Views\Common\PUWorkerHomePage.xaml.cs">
+			<DependentUpon>PUWorkerHomePage.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="Views\Common\LoginPage.xaml.cs">
+			<DependentUpon>LoginPage.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="Views\CrushingWorker\CrushingCameraPage.xaml.cs">
+			<DependentUpon>CrushingCameraPage.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="Views\CrushingWorker\CrushingDocDetail.xaml.cs">
+			<DependentUpon>CrushingDocDetail.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="Views\CrushingWorker\CrushingImagePage.xaml.cs">
+		  <DependentUpon>CrushingImagePage.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="Views\CrushingWorker\CrushingDocument.xaml.cs">
+			<DependentUpon>CrushingDocument.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="Views\CrushingWorker\CrushingInputData.xaml.cs">
+			<DependentUpon>CrushingInputData.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="Views\PickUpWorker\GetOffDocument.xaml.cs">
+			<DependentUpon>GetOffDocument.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="Views\PickUpWorker\GetOffDocDetail.xaml.cs">
+			<DependentUpon>GetOffDocDetail.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="Views\PickUpWorker\GetOnDocument.xaml.cs">
+			<DependentUpon>GetOnDocument.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="Views\PickUpWorker\LockClosePage.xaml.cs">
+			<DependentUpon>LockClosePage.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="Views\PickUpWorker\GetOnDocDetail.xaml.cs">
+			<DependentUpon>GetOnDocDetail.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="Views\PickUpWorker\QRCodePage.xaml.cs">
+			<DependentUpon>QRCodePage.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="Views\PickUpWorker\QRRecogPage.xaml.cs">
+			<DependentUpon>QRRecogPage.xaml</DependentUpon>
+		</Compile>
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Update="Views\GetOffDocument.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Views\GetOffDocDetail.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Views\GetOnDocument.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Views\LockClosePage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Views\GetOnDocDetail.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
+		<EmbeddedResource Update="Properties\Resources.resx">
+			<Generator>ResXFileCodeGenerator</Generator>
+			<LastGenOutput>Resources.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
 	</ItemGroup>
 
+
+	<ItemGroup>
+		<MauiXaml Update="Views\Common\AllWorkerHomePage.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\Common\CRWorkerHomePage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\Common\PUWorkerHomePage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\Common\LoginPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\CrushingWorker\CrushingImagePage.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+	</ItemGroup>
+
+	<ItemGroup>
+		<MauiXaml Update="Views\PickUpWorker\GetOffDocument.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\PickUpWorker\GetOffDocDetail.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\PickUpWorker\GetOnDocument.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\PickUpWorker\LockClosePage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\PickUpWorker\GetOnDocDetail.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\PickUpWorker\QRCodePage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\PickUpWorker\QRRecogPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+	</ItemGroup>
+
+	<ItemGroup>
+		<MauiXaml Update="Views\CrushingWorker\CrushingCameraPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\CrushingWorker\CrushingDocDetail.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\CrushingWorker\CrushingDocument.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\CrushingWorker\CrushingInputData.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+	</ItemGroup>
 </Project>
