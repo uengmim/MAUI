@@ -1,0 +1,226 @@
+﻿@page "/collectionmonitoring"
+
+@using XNSC
+@using XNSC.DD.EX
+
+@using RES = ShreDocConsole.Properties.Resources
+@using Microsoft.Extensions.Localization
+@using System.Security.Claims
+@using ShreDocConsole.Service
+@using ShreDoc.ProxyModel
+@using Blazored.Toast.Configuration
+@using ShreDocConsole.Data
+@using ShreDocConsole.Shared.Component
+
+@inject NavigationManager NavManager
+@inject ImateApiHelperService ImateApiUtilService
+@inject ShreDocHelperService ShreDocUtilService
+@inject AuthenticationStateProvider  AuthenticationStateProvider
+@inject IStringLocalizer<CollectionMonitoring> L
+@inject IJSRuntime JsRuntime;
+
+@inject IToastService toastService
+
+<style>
+    .grid_height_100p {
+        height: 100%
+    }
+</style>
+
+
+@if (wkplDatas == null)
+{
+    <div class="w-100">
+        <div class="splash-screen">
+            <div class="spinner-border"></div>
+            <div class="splash-screen-caption">@RES.STR_SYSTEM_NAME</div>
+            <div class="splash-screen-text">@RES.STR_PAGE_LOADING</div>
+        </div>
+    </div>
+} else {
+<div class="card w-100">
+    <div class="card-body">
+        <DxToolbar ItemRenderStyleMode="ToolbarRenderStyleMode.Plain" SizeMode="SizeMode.Small">
+            <DxToolbarItem>
+                <Template>
+                    <DxComboBox Data="@wkplDatas"
+                                Value="@selectedWkpl"
+                                FilteringMode="DataGridFilteringMode.Contains"
+                                NullText="@L["WkplSelected"]"
+                                ValueChanged="@((WkplmstModel wkplDatas) => OnSelectedWkplChanged(wkplDatas))"
+                                EditFormat="{0} {1}">
+                        <DxListEditorColumn FieldName="@nameof(WkplmstModel.WKPL)" Caption="@GetWorkplaceCaption(nameof(WkplmstModel.WKPL))" Width="60px" />
+                        <DxListEditorColumn FieldName="@nameof(WkplmstModel.WKPLNM)" Caption="@GetWorkplaceCaption(nameof(WkplmstModel.WKPLNM))" />
+                    </DxComboBox>
+                </Template>
+            </DxToolbarItem>
+            @* <DxToolbarItem IconCssClass="fas fa-user-tie" Alignment="ToolbarItemAlignment.Left" BeginGroup="true">
+                <Template>
+                        <div style="float:left">
+                            <DxDateEdit @bind-Date="@selectedSDate"
+                                        Format="yyyy-MM-dd" style="float:left" />
+                            <div style="float:left;margin-left:5px;margin-right:5px;">~</div>
+                            <DxDateEdit @bind-Date="@selectedEDate"
+                                        Format="yyyy-MM-dd" style="float:left" />
+                    </div>
+                </Template>
+            </DxToolbarItem> *@
+                <DxToolbarItem Text="커스텀펑션테스트" IconCssClass="oi oi-reload" Alignment="ToolbarItemAlignment.Right" BeginGroup="true"
+                               Click="@(() => CFTest())" />
+            <DxToolbarItem Text="@L["REFRESH"]" IconCssClass="oi oi-reload" Alignment="ToolbarItemAlignment.Right" BeginGroup="true"
+                        Click="@(() => Reload(false))" />
+            <DxToolbarItem Text="@L["DOWNLOAD_CSV"]" IconCssClass="oi oi-data-transfer-download" Alignment="ToolbarItemAlignment.Right"
+                        Click="@(() => OnDownLoadXLS())" />
+        </DxToolbar>
+    </div>
+</div>
+
+<div class="card w-100">
+    <div class="card-body">
+            <DxFormLayout CssClass="w-100">
+                <DxFormLayoutGroup Caption="@L["SUMMARY_TITLE"]" ColSpanMd="10">
+                    <DxFormLayoutItem Caption="@GetSummaryCaption(nameof(MonitoringSummaryModel.SUMA))" ColSpanLg="2">
+                        <DxTextBox @bind-Text="@SummaryA" Enabled="false" DisplayFormat="#,###" />
+                    </DxFormLayoutItem>
+                    <DxFormLayoutItem Caption="@GetSummaryCaption(nameof(MonitoringSummaryModel.SUMB))" ColSpanLg="2">
+                        <DxTextBox @bind-Text="@SummaryB" Enabled="false" DisplayFormat="#,###" />
+                    </DxFormLayoutItem>
+                    <DxFormLayoutItem Caption="@GetSummaryCaption(nameof(MonitoringSummaryModel.SUMC))" ColSpanLg="2">
+                        <DxTextBox @bind-Text="@SummaryC" Enabled="false" DisplayFormat="#,###" />
+                    </DxFormLayoutItem>
+                    <DxFormLayoutItem Caption="@GetSummaryCaption(nameof(MonitoringSummaryModel.SUMD))" ColSpanLg="2">
+                        <DxTextBox @bind-Text="@SummaryD" Enabled="false" DisplayFormat="#,###" />
+                    </DxFormLayoutItem>
+                    <DxFormLayoutItem Caption="@GetSummaryCaption(nameof(MonitoringSummaryModel.SUME))" ColSpanLg="2">
+                        <DxTextBox @bind-Text="@SummaryE" Enabled="false" DisplayFormat="#,###" />                
+                    </DxFormLayoutItem>
+                </DxFormLayoutGroup>
+            </DxFormLayout>
+    </div>
+</div>
+    <DxLayoutBreakpoint DeviceSize="DeviceSize.XSmall" @bind-IsActive="@isXSmallScreen" />
+    <div style="display:none">
+        @if (isXSmallScreen)
+        {
+            @(() => changeMapWidth("Calc(100vw"))
+        }
+        else
+        {
+            @(() => changeMapWidth("Calc(50vw"))
+        }
+    </div>
+    
+<div class="card w-100">
+    <div class="card-body">
+            <DxGridLayout CssClass="w-100">
+                <Rows>
+                    @if (isXSmallScreen)
+                    {
+                        <DxGridLayoutRow Areas="item1" />
+                        <DxGridLayoutRow Areas="item2" />
+                    }
+                    else
+                    {
+                        <DxGridLayoutRow Areas="item1 item2" Height="Calc(100vh - 300px)" />
+                    }
+                </Rows>
+                <Columns>
+                    <DxGridLayoutColumn />
+                    @if (!isXSmallScreen)
+                    {
+                        <DxGridLayoutColumn />
+                    }
+                </Columns>
+                <Items>
+                    <DxGridLayoutItem Area="item1">
+                        <Template>
+                    <DxGrid @ref="MonitoringGrid" Data="@MonitoringHeaderList"
+                                KeyFieldName="CONFNO"
+                                CssClass="grid_height_100p grid-hc1 grid-hc2 grid-hc3 grid-hc4 grid-hc5 grid-hc6"
+                                ColumnResizeMode="GridColumnResizeMode.NextColumn"
+                                SelectionMode="GridSelectionMode.Single"
+                                SelectedDataItem="@selectedMonitoringModel"
+                                ShowFilterRow="true"
+                                EditFormButtonsVisible="false"
+                                FocusedRowEnabled="false"
+                                PageSize="20"
+                                PagerAutoHideNavButtons="true"
+                                PagerNavigationMode="PagerNavigationMode.Auto"
+                                PageSizeSelectorVisible="true"
+                                PageSizeSelectorAllRowsItemVisible="true"
+                                PageSizeSelectorItems=@(new int[] {10,20,40,50,100})>
+                            <Columns>
+
+                                <!-- 발생일자 -->
+                                <DxGridDataColumn Width="100px" FieldName="@nameof(MonitoringModel.EVTDT)" Caption="@GetCaption(nameof(MonitoringModel.EVTDT))" DisplayFormat="yyyy-MM-dd">
+                                </DxGridDataColumn>
+                                <!-- 부서명 -->
+                                <DxGridDataColumn Width="150px" FieldName="@nameof(MonitoringModel.DEPTNM)" Caption="@GetCaption(nameof(MonitoringModel.DEPTNM))">
+                                </DxGridDataColumn>
+                                <!-- 작업자 -->
+                                <DxGridDataColumn Width="100px" FieldName="@nameof(MonitoringModel.WORKER)" Caption="@GetCaption(nameof(MonitoringModel.WORKER))">
+                                </DxGridDataColumn>
+                                <!-- 지역 -->
+                                <DxGridDataColumn Width="200px" FieldName="@nameof(MonitoringModel.AREANM)" Caption="@GetCaption(nameof(MonitoringModel.AREANM))">
+                                </DxGridDataColumn>
+                                <!-- 승인번호 -->
+                                @* <DxGridDataColumn Width="400px" FieldName="@nameof(MonitoringModel.CONFNO)" Caption="@GetCaption(nameof(MonitoringModel.CONFNO))">
+                            </DxGridDataColumn> *@
+                                <!--위치 지도보기-->
+                                    <DxGridCommandColumn Width="80px" ClearFilterButtonVisible="false" FixedPosition=GridColumnFixedPosition.Right>
+                                <HeaderTemplate Context="headerCTX">
+                                        <div class="grid-cell-align-center">
+                                            @GetCaption(nameof(MonitoringModel.RUNLOCATION))
+                                        </div>
+                                    </HeaderTemplate>
+                                <CellDisplayTemplate>
+                                        <div class="grid-cell-align-center">
+                                            <DxButton IconCssClass="fas fa-map-marked-alt"
+                                                      RenderStyle="ButtonRenderStyle.Info"
+                                                      Click="@(() => OnGirdMapBtnClicked((MonitoringModel)context.DataItem))" />
+                                        </div>
+                                    </CellDisplayTemplate>
+                                </DxGridCommandColumn>
+
+                            </Columns>
+
+                        <DetailRowTemplate>
+                                <ShreDocConsole.Pages.GridDetailContents.CollectionMonitoring_DetailContent Header="(MonitoringModel)context.DataItem" />
+                            </DetailRowTemplate>
+                        </DxGrid>
+                        </Template>
+                </DxGridLayoutItem>
+                
+                    <DxGridLayoutItem Area="item2">
+                        <Template>
+
+                            <RealTimeMap @ref="@mapLocationComponent" height="Calc(100vh - 240px)" Parameters="@mapParam"></RealTimeMap>
+</Template>
+                </DxGridLayoutItem>
+                </Items>
+            </DxGridLayout>
+
+    </div>
+</div>
+
+
+
+    @* <DxPopup @bind-Visible="@mapLocationPopupVisible"
+             ShowFooter="false"
+             Height="80vh"
+             Width="820px"
+             CloseOnOutsideClick=false
+             HeaderText="@L["MAP_LOCATION_TITLE"]">
+        <BodyTemplate>
+            <RealTimeMap @ref="@mapLocationComponent" width="820px" height="80vh" Parameters="@mapParam"></RealTimeMap>
+        </BodyTemplate>
+    </DxPopup> *@
+}
+
+<!-- Toast 메시지 -->
+<BlazoredToasts Position="ToastPosition.BottomCenter"
+                Timeout="3"
+                IconType="IconType.FontAwesome"
+                SuccessClass="success-toast-override"
+                SuccessIcon="fas fa-check-circle"
+                ErrorIcon="fas fa-exclamation-square" />
