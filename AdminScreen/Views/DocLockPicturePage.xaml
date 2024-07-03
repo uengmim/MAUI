@@ -3,11 +3,38 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:mapsui="clr-namespace:Mapsui.UI.Maui;assembly=Mapsui.UI.Maui"
              x:Class="AdminScreen.Views.DocLockPicturePage"
-             xmlns:local="clr-namespace:AdminScreen.ViewModels"
-             BackgroundColor="#285083"
+             Shell.BackgroundColor="#FFFFFF"
+             NavigationPage.HasNavigationBar="False"
              Title="문서 증빙 사진">
 
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior IsVisible="False" IsEnabled="False" />
+    </Shell.BackButtonBehavior>
 
+    <Shell.TitleView>
+        <VerticalStackLayout>
+            <Grid BackgroundColor="Transparent" HorizontalOptions="Fill">
+                <Button x:Name="BackBtn"
+                        BackgroundColor="Transparent"
+                        Clicked="BackBtn_Clicked"
+                        WidthRequest="50"
+                        HeightRequest="50"
+                        Margin="-10,0,0,0"
+                        HorizontalOptions="StartAndExpand">
+                    <Button.ImageSource>
+                        <FileImageSource File="arrow_left.png" />
+                    </Button.ImageSource>
+                </Button>
+                <Label Text="봉인 증빙 사진" FontAutoScalingEnabled="False" FontSize="20" Margin="0,0,0,0" TextColor="#1F1F21" FontAttributes="Bold" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+                </Label>
+            </Grid>
+        </VerticalStackLayout>
+    </Shell.TitleView>
+    <Grid VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Margin="10">
+        <WebView x:Name="pdfview" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"/>
+        <ActivityIndicator x:Name="loadingIndicator" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"  IsRunning="False" IsVisible="False" Color="Blue" />
 
-
+    </Grid>
+    
 </ContentPage>
+ 
