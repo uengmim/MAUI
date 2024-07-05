@@ -1,5 +1,4 @@
-﻿using Syncfusion.Maui.Maps;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -9,16 +8,37 @@ using System.Text;
 
 namespace AdminScreen.Models
 {
-    public class CustomMarker : MapMarker, INotifyPropertyChanged
+    public class CustomMarker : INotifyPropertyChanged
     {
-        public new event PropertyChangedEventHandler? PropertyChanged;
+        /// <summary>
+        /// 위도
+        /// </summary>
+        public double Latitude { get; set; }
 
+        /// <summary>
+        /// 경도
+        /// </summary>
+        public double Longitude { get; set; }
+
+        /// <summary>
+        /// 특성 변경 이벤트
+        /// </summary>
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        /// <summary>
+        /// 특성 변경
+        /// </summary>
+        /// <param name="propertyName"></param>
         protected virtual void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-        private string? name;
-        public string? Name
+
+        /// <summary>
+        /// 이름
+        /// </summary>
+        private string name;
+        public string Name
         {
             get
             {
@@ -34,8 +54,11 @@ namespace AdminScreen.Models
             }
         }
 
-        private string? state;
-        public string? State
+        /// <summary>
+        /// 상태
+        /// </summary>
+        private string state;
+        public string State
         {
             get
             {
@@ -51,8 +74,11 @@ namespace AdminScreen.Models
             }
         }
 
-        private string? country;
-        public string? Country
+        /// <summary>
+        /// 나라
+        /// </summary>
+        private string country;
+        public string Country
         {
             get
             {
@@ -68,8 +94,11 @@ namespace AdminScreen.Models
             }
         }
 
-        private string? time;
-        public string? Time
+        /// <summary>
+        /// 시간
+        /// </summary>
+        private string time;
+        public string Time
         {
             get
             {
