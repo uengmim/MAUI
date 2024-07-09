@@ -1,7 +1,6 @@
 ﻿using Android.Content;
 using Android.Views.InputMethods;
-using Com.Ttlock.BL.Sdk.Api;
-using Com.Ttlock.BL.Sdk.Callback;
+
 
 namespace AdminScreen
 {
