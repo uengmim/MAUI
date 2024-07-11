@@ -11,16 +11,23 @@ using XNSC.Net.NOKE;
 using System.Collections.ObjectModel;
 using AdminScreen.Models;
 using ShreDoc.Utils;
-using Kotlin.Reflect;
 
 namespace AdminScreen.ViewModels
 {
+    /// <summary>
+    /// 운송 경로 조회 화면
+    /// </summary>
     public class HistoryMapViewModel
     {
-
-        public ObservableCollection<CustomMarker>? Markers { get; set; }
+        /// <summary>
+        /// CustomMarker 모델
+        /// </summary>
+        public ObservableCollection<CustomMarker> Markers { get; set; }
 
         #region HistoryViewModel
+        /// <summary>
+        /// 위도 경도
+        /// </summary>
         public HistoryMapViewModel()
         {
             this.Markers = new ObservableCollection<CustomMarker>();
