@@ -1,18 +1,9 @@
-
-using AdminScreen.Model;
-using AdminScreen.Models;
 using AdminScreen.ViewModels;
-using Kotlin.Reflect;
-using Microsoft.Maui.Devices.Sensors;
-using ShreDoc.ProxyModel;
-using ShreDoc.Utils;
-using XNSC.DD.EX;
 
 namespace AdminScreen.Views;
 
 public partial class TaskMonitoringDetailPage : ContentPage
 {
-    IGeolocation geolocation;
 
     public TaskMonitoringDetailPage(string LSN, string LKNM, string MAC, string LKTYP, string CONFNO)
     {
@@ -37,16 +28,9 @@ public partial class TaskMonitoringDetailPage : ContentPage
         }
     }
 
-    //지도
-    public async void MapClicked(object sender, EventArgs e)
+    private void BackBtn_Clicked(object sender, EventArgs e)
     {
-        MonitoringDetailViewModel monitoringDetailViewModel = new MonitoringDetailViewModel();
-
-        await Navigation.PushAsync(new TaskMonitoringMapPage(monitoringDetailViewModel.CONFNO));
-    }
-    //파쇄 문서
-    public async void DocClicked(object sender, EventArgs e)
-    {
-        await Navigation.PushAsync(new TaskMonitoringDocPage());
+        //뒤로가기
+        Application.Current.MainPage.Navigation.PopAsync();
     }
 }
