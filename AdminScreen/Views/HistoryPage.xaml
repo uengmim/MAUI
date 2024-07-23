@@ -3,9 +3,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:AdminScreen.ViewModels"
              x:Class="AdminScreen.Views.HistoryPage"
+             Shell.BackgroundColor="#FFFFFF"
+             NavigationPage.HasNavigationBar="False"
              Title="작업 이력조회">
 
     <ContentPage.Resources>
+        <Color x:Key="SelectedBackgroundColor">#C2E7FF</Color>
         <Style TargetType="StackLayout">
             <Setter Property="VisualStateManager.VisualStateGroups">
                 <VisualStateGroupList>
@@ -14,7 +17,7 @@
                         <VisualState x:Name="Selected">
                             <VisualState.Setters>
                                 <Setter Property="BackgroundColor" 
-                                        Value="DeepSkyBlue" />
+                                    Value="{StaticResource SelectedBackgroundColor}" />
                             </VisualState.Setters>
                         </VisualState>
                     </VisualStateGroup>
@@ -23,76 +26,110 @@
         </Style>
     </ContentPage.Resources>
 
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior IsVisible="False" IsEnabled="False" />
+    </Shell.BackButtonBehavior>
+
+    <Shell.TitleView>
+        <VerticalStackLayout>
+            <Grid BackgroundColor="Transparent" HorizontalOptions="Fill">
+                <Button x:Name="BackBtn"
+                        BackgroundColor="Transparent"
+                        Clicked="BackBtn_Clicked"
+                        WidthRequest="50"
+                        HeightRequest="50"
+                        Margin="-10,0,0,0"
+                        HorizontalOptions="StartAndExpand">
+                    <Button.ImageSource>
+                        <FileImageSource File="arrow_left.png" />
+                    </Button.ImageSource>
+                </Button>
+                <Label Text="작업 이력 조회" FontAutoScalingEnabled="False" FontSize="20" Margin="0,0,0,0" TextColor="#1F1F21" FontAttributes="Bold" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+                </Label>
+            </Grid>
+        </VerticalStackLayout>
+    </Shell.TitleView>
+
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="ReNew" Clicked="Renew_Clicked" IconImageSource="{OnPlatform 'autorenew.png', iOS='autorenew.png', MacCatalyst='autorenew.png'}" />
+        <ToolbarItem Text="ReNew" Clicked="Renew_Clicked" IconImageSource="{OnPlatform 'arrow_refresh.png', iOS='arrow_refresh.png', MacCatalyst='arrow_refresh.png'}" />
     </ContentPage.ToolbarItems>
     <ContentPage.BindingContext>
         <local:HistoryViewModel />
     </ContentPage.BindingContext>
 
-    <AbsoluteLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+    <Grid BackgroundColor="#FFFFFF" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+        <!-- 행 정의 -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
 
-        <StackLayout BackgroundColor="#285083" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1">
-            <StackLayout Orientation="Horizontal">
-                <SearchBar
-                x:Name="searchBar"
-                Placeholder="자물쇠 검색"
-                Text="{Binding TextSearch}">
-                </SearchBar>
-            </StackLayout>
+        <!-- 검색창 프레임 -->
+        <Frame BorderColor="#CCCCCC" Margin="10,10" Padding="0" HeightRequest="50" BackgroundColor="#FFFFFF" Grid.Row="0">
+            <SearchBar
+            x:Name="searchBar"
+            Placeholder="자물쇠 검색"
+            FontAutoScalingEnabled="False"
+            Text="{Binding TextSearch}">
+            </SearchBar>
+        </Frame>
 
-            <Frame BorderColor="#376199" Margin="10,10" Padding="0" HeightRequest="600" BackgroundColor="#376199">
-                <StackLayout>
-                    <ScrollView>
+        <!-- 데이터 표시 스크롤 뷰 -->
+        <ScrollView Grid.Row="1">
+            <StackLayout Padding="10">
+                <!-- 데이터 표시 프레임 -->
+                <Frame BorderColor="#FFFFFF" Margin="0,10,0,0" Padding="0" BackgroundColor="#FFFFFF">
+                    <StackLayout>
+                        <!-- 데이터 표시 컬렉션뷰 등 -->
                         <CollectionView x:Name="notesCollection"
-                                    VerticalOptions="CenterAndExpand" 
-                                    HorizontalOptions="CenterAndExpand" 
-                                    ItemsSource="{Binding LockDataModel}"
-                                    SelectedItem="{Binding SelectedItem}"
-                                    SelectionMode="Single"
-                                    Margin="0" >
+                                        VerticalOptions="StartAndExpand" 
+                                        HorizontalOptions="StartAndExpand" 
+                                        ItemsSource="{Binding LockDataModel}"
+                                        SelectedItem="{Binding SelectedItem}"
+                                        SelectionMode="Single"
+                                        Margin="0" >
                             <CollectionView.ItemsLayout>
-                                <LinearItemsLayout Orientation="Vertical" ItemSpacing="0" />
+                                <LinearItemsLayout Orientation="Vertical" ItemSpacing="7" />
                             </CollectionView.ItemsLayout>
                             <CollectionView.ItemTemplate>
                                 <DataTemplate>
                                     <StackLayout Margin="0" Padding="0">
-                                        <Border HeightRequest="100" StrokeShape="RoundRectangle 0,15,15,0" Padding="5" Stroke="LightGray" BackgroundColor="{Binding StackgroundColor}" Margin="15,7,15,7">
-                                            <StackLayout Orientation="Vertical" Padding="0" HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand" Margin="0,0,5,0">
-                                                <Grid RowDefinitions="*" ColumnDefinitions="*,*,*" Margin="0,0,0,10">
-                                                    <Border x:Name="CommonStates" BackgroundColor="#B4C7E7" >
-                                                        <Label Margin="8,0,0,0" Grid.Row="0" Grid.Column="0" Text="{Binding LSN}" FontSize="18" TextColor="Black" FontAttributes="Bold" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand"/>
-                                                    </Border>
+                                        <Frame CornerRadius="15" Padding="0" BackgroundColor="#F1F5FB" Margin="7,0,7,0" InputTransparent="True" HeightRequest="120">
+                                            <Grid>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition/>
+                                                </Grid.RowDefinitions>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="110"/>
+                                                    <ColumnDefinition />
+                                                </Grid.ColumnDefinitions>
 
-                                                    <Label Grid.Row="0" Grid.Column="1" Text="{Binding LKTYP}" FontSize="18" TextColor="White" HorizontalOptions="EndAndExpand" FontAttributes="Bold" VerticalOptions="CenterAndExpand"/>
+                                                <Frame Grid.Row="0" Grid.Column="0" BackgroundColor="#FFFFFF" WidthRequest="100" HeightRequest="100" Margin="10,0,0,0" />
+                                                <StackLayout Grid.Row="0" Grid.Column="0" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+                                                    <Image Source="lock_red.png" WidthRequest="40" HeightRequest="40" Margin="5,0,0,0" />
+                                                </StackLayout>
 
-                                                    <Border Grid.Row="0" Grid.Column="2" StrokeShape="RoundRectangle 25" BackgroundColor="{Binding BackgroundColorSet}" HorizontalOptions="EndAndExpand" WidthRequest="25" HeightRequest="25" Margin="0,0,0,-5"/>
-                                                </Grid>
-                                                <Grid RowDefinitions="*" ColumnDefinitions="*" Margin="10,0,0,10">
-                                                    <Label Grid.Row="1" Grid.Column="0" Text="{Binding LKNM}" FontSize="18" TextColor="White" FontAttributes="Bold" VerticalOptions="CenterAndExpand"/>
-                                                </Grid>
-                                                <Grid RowDefinitions="*" ColumnDefinitions="*" Margin="10,0,0,5">
-                                                    <Label Grid.Row="2" Grid.Column="0" Text="{Binding MAC}" FontSize="12" TextColor="White" FontAttributes="Bold" HorizontalOptions="EndAndExpand" VerticalOptions="EndAndExpand"/>
-                                                </Grid>
-                                            </StackLayout>
-                                        </Border>
+                                                <StackLayout VerticalOptions="Center" Grid.Row="0" Grid.Column="1" HorizontalOptions="CenterAndExpand">
+                                                    <Label Text="{Binding LSN}" FontAutoScalingEnabled="False" FontSize="15" TextColor="black" FontAttributes="Bold" HorizontalOptions="StartAndExpand"  MaxLines="1"/>
+                                                    <Label Text="{Binding LKNM}" FontAutoScalingEnabled="False" FontSize="15" TextColor="black" HorizontalOptions="StartAndExpand" />
+                                                    <Label Text="{Binding MAC}" FontAutoScalingEnabled="False" FontSize="15" TextColor="black" HorizontalOptions="StartAndExpand" />
+                                                </StackLayout>
+                                            </Grid>
+                                        </Frame>
                                     </StackLayout>
                                 </DataTemplate>
                             </CollectionView.ItemTemplate>
                         </CollectionView>
-                    </ScrollView>
-                </StackLayout>
-            </Frame>
+                    </StackLayout>
+                </Frame>
+            </StackLayout>
+        </ScrollView>
+
+        <!-- 로딩 표시 부분 -->
+        <StackLayout IsVisible="{Binding IsLoading}" Padding="12" HorizontalOptions="Center" VerticalOptions="Center" Grid.RowSpan="3">
+            <ActivityIndicator IsRunning="{Binding IsLoading}" Color="Blue"/>
+            <Label Text="Loading..." HorizontalOptions="Center" FontAutoScalingEnabled="False" FontSize="15" TextColor="White"/>
         </StackLayout>
-        <StackLayout IsVisible="{Binding IsLoading}" Padding="12"
-                 AbsoluteLayout.LayoutFlags="PositionProportional"
-                 AbsoluteLayout.LayoutBounds="0.5,0.5,-1,-1">
-
-            <ActivityIndicator IsRunning="{Binding IsLoading}" Color ="Blue"/>
-
-            <Label Text="Loading..." HorizontalOptions="Center" TextColor="White"/>
-
-        </StackLayout>
-
-    </AbsoluteLayout>
+    </Grid>
 </ContentPage>

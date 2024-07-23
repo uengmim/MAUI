@@ -5,103 +5,143 @@
              x:Class="AdminScreen.Views.HistoryDetailPage"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:Name="Page"
+             Shell.BackgroundColor="#FFFFFF"
+             NavigationPage.HasNavigationBar="False"
              Title="작업 이력 조회">
 
     <ContentPage.BindingContext>
         <local:HistoryDetailViewModel />
     </ContentPage.BindingContext>
 
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior IsVisible="False" IsEnabled="False" />
+    </Shell.BackButtonBehavior>
+
+    <Shell.TitleView>
+        <VerticalStackLayout>
+            <Grid BackgroundColor="Transparent" HorizontalOptions="Fill">
+                <Button x:Name="BackBtn"
+                        BackgroundColor="Transparent"
+                        Clicked="BackBtn_Clicked"
+                        WidthRequest="50"
+                        HeightRequest="50"
+                        Margin="-10,0,0,0"
+                        HorizontalOptions="StartAndExpand">
+                    <Button.ImageSource>
+                        <FileImageSource File="arrow_left.png" />
+                    </Button.ImageSource>
+                </Button>
+            </Grid>
+        </VerticalStackLayout>
+    </Shell.TitleView>
+
     <AbsoluteLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+        <StackLayout BackgroundColor="#FFFFFF" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1">
+            <Frame Padding="2" Margin="10,0,17,0" BackgroundColor="#FFFFFF" BorderColor="#CCCCCC">
+                <Grid Margin="20,0,10,16" VerticalOptions="CenterAndExpand">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
 
-        <StackLayout BackgroundColor="#285083" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1">
+                    <StackLayout Grid.Row="0" Grid.Column="0" BackgroundColor="#FFFFFF" VerticalOptions="Center" Orientation="Horizontal">
+                        <Grid RowDefinitions="*" ColumnDefinitions="*,2*,*,2*" HorizontalOptions="StartAndExpand">
+                            <Label  Grid.Row="0" Grid.Column="0" Text="시작일" FontAutoScalingEnabled="False" FontSize="12" TextColor="#1F1F21" VerticalOptions="CenterAndExpand"/>
+                            <DatePicker  Grid.Row="0" Grid.Column="1" Background="#FFFFFF" FontAutoScalingEnabled="False" Margin="10,1" Date="{Binding SelectedStartDate, Mode=TwoWay}" Format="yy-MM-dd"  TextColor="#1F1F21" />
+                            <Label  Grid.Row="0" Grid.Column="2" Text="종료일" FontAutoScalingEnabled="False" FontSize="12" TextColor="#1F1F21" VerticalOptions="CenterAndExpand"/>
+                            <DatePicker  Grid.Row="0" Grid.Column="3" Background="#FFFFFF" FontAutoScalingEnabled="False" Margin="10,1" Date="{Binding SelectedEndDate, Mode=TwoWay}" Format="yy-MM-dd"  TextColor="#1F1F21" />
+                        </Grid>
+                    </StackLayout>
 
-            <Frame BorderColor="#376199" Margin="10,10,0,0" Padding="0" BackgroundColor="#376199">
-                <StackLayout BackgroundColor="#376199" VerticalOptions="Center" Orientation="Vertical" HorizontalOptions="FillAndExpand" Margin="20,0,0,0">
-                    <Grid RowDefinitions="*" ColumnDefinitions="*,2*,*,2*" Margin="0,0,0,0" HorizontalOptions="StartAndExpand">
-                        <Label  Grid.Row="0" Grid.Column="0" Text="조회 시작" TextColor="White" VerticalOptions="CenterAndExpand"/>
-                        <DatePicker  Grid.Row="0" Grid.Column="1" Background="#376199" Margin="10,1" Date="{Binding SelectedStartDate, Mode=TwoWay}" Format="yyyy-MM-dd"  TextColor="White" />
-                        <Label  Grid.Row="0" Grid.Column="2" Text="조회 종료" TextColor="White" VerticalOptions="CenterAndExpand"/>
-                        <DatePicker  Grid.Row="0" Grid.Column="3" Background="#376199" Margin="10,1" Date="{Binding SelectedEndDate, Mode=TwoWay}" Format="yyyy-MM-dd"  TextColor="White" />
-                    </Grid>
-                    <Grid RowDefinitions="*" ColumnDefinitions="*,*,*" Margin="0,0,5,5">
-                        <Button Command="{Binding DateSearchCommand}" Grid.Row="1" Grid.Column="2" Text="조회" TextColor="White" FontSize="12" BackgroundColor="#1295DB" Margin="0,0,0,0" VerticalOptions="CenterAndExpand" HorizontalOptions="EndAndExpand" HeightRequest="35" FontAttributes="Bold"/>
-                    </Grid>
-                </StackLayout>
-            </Frame>
-            
-            
-            <Frame BorderColor="#376199" Margin="10,10" Padding="0" BackgroundColor="#376199">
-
-                <StackLayout BackgroundColor="#376199" VerticalOptions="Center">
-                    <Frame Margin="5,5,5,5" Padding="0" BackgroundColor="#376199"  HeightRequest="45">
-                        <Label Background="#376199" Margin="10,10" Text="{Binding LSN, StringFormat='관리번호 :  {0}'}" VerticalOptions="Center" TextColor="White"/>
-                    </Frame>
-                    <Frame Margin="5,0,5,5" Padding="0" BackgroundColor="#376199"  HeightRequest="45">
-                        <Label Background="#376199" Margin="10,10" Text="{Binding LKNM, StringFormat='자물쇠 이름 :  {0}'}" VerticalOptions="Center" TextColor="White"/>
-                    </Frame>
-                </StackLayout>
+                    <Button Grid.Row="0" Grid.Column="1" Command="{Binding DateSearchCommand}" Text="조회" FontAutoScalingEnabled="False" Margin="0,10,10,0" TextColor="#1F1F21" FontSize="12" BackgroundColor="#F1F5FB" VerticalOptions="End" HorizontalOptions="End" HeightRequest="45" WidthRequest="60" FontAttributes="Bold"/>
+                </Grid>
             </Frame>
 
-            <Frame BorderColor="#376199" Margin="10,0" Padding="0" HeightRequest="500" BackgroundColor="#376199">
+            <StackLayout Margin="5,10,10,10" Padding="0">
+                <Frame CornerRadius="15" Padding="0" BackgroundColor="#F1F5FB" Margin="7,0,7,0" InputTransparent="True" HeightRequest="120">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="110"/>
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+
+                        <Frame Grid.Row="0" Grid.Column="0" BackgroundColor="#FFFFFF" WidthRequest="100" HeightRequest="100" Margin="10,0,0,0" />
+                        <StackLayout Grid.Row="0" Grid.Column="0" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+                            <Image Source="lock_red.png" WidthRequest="40" HeightRequest="40" Margin="5,0,0,0" />
+                        </StackLayout>
+
+
+                        <StackLayout VerticalOptions="Center" Grid.Row="0" Grid.Column="1" HorizontalOptions="CenterAndExpand">
+                            <Label Text="관리번호" FontAutoScalingEnabled="False" FontSize="15" TextColor="black" FontAttributes="Bold" HorizontalOptions="StartAndExpand"  MaxLines="1"/>
+                            <Label Text="{Binding LSN}" FontAutoScalingEnabled="False" FontSize="15" TextColor="black" HorizontalOptions="StartAndExpand" />
+                            <Label Text="자물쇠 이름" FontAutoScalingEnabled="False" FontSize="15" TextColor="black" FontAttributes="Bold" HorizontalOptions="StartAndExpand" />
+                            <Label Text="{Binding LKNM}" FontAutoScalingEnabled="False" FontSize="15" TextColor="black" HorizontalOptions="StartAndExpand" />
+                        </StackLayout>
+                    </Grid>
+                </Frame>
+            </StackLayout>
+
+            <Frame BorderColor="#FFFFFF" Margin="10,0" Padding="0" HeightRequest="450" BackgroundColor="#FFFFFF">
                 <StackLayout>
                     <ActivityIndicator x:Name="loadingIndicator" IsRunning="False" IsVisible="False" Color="Blue" />
-                    <ScrollView>
-                        <CollectionView x:Name="notesCollection"
-                                    VerticalOptions="CenterAndExpand" 
-                                    HorizontalOptions="CenterAndExpand" 
+                    <CollectionView x:Name="notesCollection"
+                                    VerticalOptions="StartAndExpand" 
+                                    HorizontalOptions="StartAndExpand" 
                                     ItemsSource="{Binding Items}"
                                     Margin="0" >
 
-                            <CollectionView.ItemsLayout>
-                                <LinearItemsLayout Orientation="Vertical" ItemSpacing="0" />
-                            </CollectionView.ItemsLayout>
-                            <CollectionView.ItemTemplate>
-                                <DataTemplate>
-                                    <StackLayout Margin="0" Padding="0">
-                                        <Border StrokeShape="RoundRectangle 15" Padding="5" Stroke="LightGray"  BackgroundColor="LightGray" Margin="15,7,15,7" HorizontalOptions="FillAndExpand">
-                                            <StackLayout Orientation="Vertical" Padding="0" HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand" Margin="0,0,5,0">
-                                                <toolkit:Expander Direction="Down">
-                                                    <toolkit:Expander.Header>
-                                                        <StackLayout Orientation="Vertical" Padding="0" HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand" Margin="10,10,10,0">
-
-                                                            <Grid RowDefinitions="*" ColumnDefinitions="*,*" Margin="0,0,0,0">
-                                                                <Label Grid.Row="0" Grid.Column="0" Text="{Binding ProvisionDate, StringFormat='지급 : {0:yyyy-MM-dd HH:mm}'}" FontSize="18" TextColor="black" FontAttributes="Bold" HorizontalOptions="StartAndExpand" />
-                                                                <Label Grid.Row="0" Grid.Column="1" Text="{Binding LKTYP,StringFormat='[{0}]'}" FontSize="18" TextColor="black" FontAttributes="Bold" HorizontalOptions="StartAndExpand"/>
+                        <CollectionView.ItemsLayout>
+                            <LinearItemsLayout Orientation="Vertical" ItemSpacing="0" />
+                        </CollectionView.ItemsLayout>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <StackLayout Margin="0" Padding="0">
+                                    <Frame CornerRadius="15" Padding="5" BackgroundColor="#F1F5FB" Margin="0,0,5,5">
+                                        <StackLayout Orientation="Vertical" Padding="0" HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand" Margin="0,0,5,0">
+                                            <toolkit:Expander Direction="Down">
+                                                <toolkit:Expander.Header>
+                                                    <StackLayout Orientation="Vertical" Padding="0" HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand" Margin="10,10,10,0">
+                                                        <Grid RowDefinitions="Auto, *" ColumnDefinitions="Auto, *,*" Margin="0,0,0,0">
+                                                            <Label Grid.Row="0" Grid.Column="0" FontAutoScalingEnabled="False" Text="{Binding ProvisionDate, StringFormat='지급 : {0:yyyy-MM-dd HH:mm}'}" FontSize="15" TextColor="black" FontAttributes="Bold" HorizontalOptions="StartAndExpand" Margin="5,0,0,0"/>
+                                                            <Label Grid.Row="0" Grid.Column="1" FontAutoScalingEnabled="False" Text="{Binding LKTYP,StringFormat='[{0}]'}" FontSize="15" TextColor="black" FontAttributes="Bold" HorizontalOptions="EndAndExpand"/>
+                                                        </Grid>
+                                                        <Label Grid.Row="1" Grid.Column="0" FontAutoScalingEnabled="False" Text="{Binding Name, StringFormat='작업자 : {0}'}" FontSize="15" TextColor="black" FontAttributes="Bold" Margin="5,0,0,0"/>
+                                                        <Label Grid.Row="2" Grid.Column="0" FontAutoScalingEnabled="False" Text="{Binding BoxName, StringFormat='보안 문서함 : {0}'}" FontSize="15" TextColor="black" FontAttributes="Bold" Margin="5,0,0,0"/>
+                                                        <Label Grid.Row="3" Grid.Column="0" FontAutoScalingEnabled="False" Text="{Binding Location, StringFormat='위치 : {0}'}" FontSize="15" TextColor="black" FontAttributes="Bold" Margin="5,0,0,0"/>
+                                                    </StackLayout>
+                                                </toolkit:Expander.Header>
+                                                <toolkit:Expander.Content>
+                                                    <StackLayout Orientation="Vertical" Padding="0" HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand" Margin="10,0,5,0">
+                                                        <BoxView BackgroundColor="Gray" HeightRequest="1" HorizontalOptions="FillAndExpand" VerticalOptions="End" Margin="0,0,0,10"/>
+                                                        <VerticalStackLayout >
+                                                            <Grid ColumnDefinitions="*,Auto,*">
+                                                                <Button Grid.Column="0" Text="운송 경로 조회" FontAutoScalingEnabled="False" TextColor="#1F1F21" FontSize="12" BackgroundColor="#FFFFFF" HorizontalOptions="FillAndExpand" Margin="5,5" HeightRequest="40" FontAttributes="Bold" CornerRadius="16"
+                                                                        ImageSource="truck.png" ContentLayout="left,10" Command="{Binding Source={x:Reference Page}, Path=BindingContext.MapCommand}" CommandParameter="{Binding .}"/>
+                                                                <Button Grid.Column="2" Text="증빙 문서 조회" FontAutoScalingEnabled="False" TextColor="#1F1F21" FontSize="12" BackgroundColor="#FFFFFF" HorizontalOptions="FillAndExpand" Margin="5,5" HeightRequest="40" FontAttributes="Bold" CornerRadius="16"
+                                                                        ImageSource="file_search_02.png" ContentLayout="left,10" Command="{Binding Source={x:Reference Page}, Path=BindingContext.DocCommand}" CommandParameter="{Binding .}"/>
                                                             </Grid>
-                                                            <Label Grid.Row="1" Grid.Column="0" Text="{Binding Name, StringFormat='작업자 : {0}'}" FontSize="18" TextColor="black" FontAttributes="Bold"/>
-                                                            <Label Grid.Row="2" Grid.Column="0" Text="{Binding BoxName, StringFormat='보안 문서함 : {0}'}" FontSize="18" TextColor="black" FontAttributes="Bold"/>
-
-                                                            <Grid RowDefinitions="*" ColumnDefinitions="7*,*" Margin="0,0,0,0"  HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand">
-                                                                <Label Grid.Row="3" Grid.Column="0" Text="{Binding Location, StringFormat='위치 : {0}'}" FontSize="18" TextColor="black" FontAttributes="Bold"/>
-                                                                <Button Grid.Row="0" Grid.Column="0" ImageSource="map.png" BackgroundColor="Transparent" HorizontalOptions="EndAndExpand" Margin="5,5" HeightRequest="30" WidthRequest="30" Command="{Binding Source={x:Reference Page}, Path=BindingContext.MapCommand}"/>
-                                                                <Button Grid.Row="0" Grid.Column="1" ImageSource="note.png" Clicked="DocClicked" BackgroundColor="Transparent" HorizontalOptions="EndAndExpand" Margin="5,5" HeightRequest="30" WidthRequest="30" Command="{Binding .}" CommandParameter="."/>
-                                                            </Grid>
-                                                        </StackLayout>
-                                                    </toolkit:Expander.Header>
-                                                    <toolkit:Expander.Content>
-                                                        <StackLayout Orientation="Vertical" Padding="0" HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand" Margin="10,0,5,0">
-                                                            <BoxView BackgroundColor="Gray" HeightRequest="1" HorizontalOptions="FillAndExpand" VerticalOptions="End" Margin="0,0,0,10"/>
-                                                            <!--<ScrollView Margin="0" HeightRequest="40"  Orientation="Vertical">
-                                                                <StackLayout>-->
-                                                                    <Label Grid.Row="0" Grid.Column="0" Text="{Binding LockPrepare, StringFormat='봉인 준비 : {0:yyyy-MM-dd HH:mm}'}" FontSize="18" TextColor="black" FontAttributes="Bold"/>
-                                                                    <Label Grid.Row="1" Grid.Column="0" Text="{Binding LockClose, StringFormat='봉인 : {0:yyyy-MM-dd HH:mm}'}" FontSize="18" TextColor="black" FontAttributes="Bold"/>
-                                                                    <Label Grid.Row="2" Grid.Column="0" Text="{Binding GetOn, StringFormat='상차 : {0:yyyy-MM-dd HH:mm}'}" FontSize="18" TextColor="black" FontAttributes="Bold"/>
-                                                                    <Label Grid.Row="3" Grid.Column="0" Text="{Binding GetOff, StringFormat='하차 : {0:yyyy-MM-dd HH:mm}'}" FontSize="18" TextColor="black" FontAttributes="Bold"/>
-                                                                    <Label Grid.Row="4" Grid.Column="0" Text="{Binding LockOff, StringFormat='봉인 해제 : {0:yyyy-MM-dd HH:mm}'}" FontSize="18" TextColor="black" FontAttributes="Bold"/>
-                                                                    <Label Grid.Row="5" Grid.Column="0" Text="{Binding Crushing, StringFormat='파쇄 : {0:yyyy-MM-dd HH:mm}'}" FontSize="18" TextColor="black" FontAttributes="Bold"/>
-                                                                <!--</StackLayout>
-                                                            </ScrollView>-->
-                                                        </StackLayout>
-                                                    </toolkit:Expander.Content>
-                                                </toolkit:Expander>
-                                            </StackLayout>
-                                        </Border>
-                                    </StackLayout>
-                                </DataTemplate>
-                            </CollectionView.ItemTemplate>
-                        </CollectionView>
-                    </ScrollView>
-
+                                                        </VerticalStackLayout>
+                                                        <Label Grid.Row="0" Grid.Column="0" FontAutoScalingEnabled="False" Text="{Binding LockPrepare, StringFormat='봉인 준비 : {0:yyyy-MM-dd HH:mm}'}" FontSize="15" TextColor="black" FontAttributes="Bold" Margin="5,0,0,0"/>
+                                                        <Label Grid.Row="1" Grid.Column="0" FontAutoScalingEnabled="False" Text="{Binding LockClose, StringFormat='봉인 : {0:yyyy-MM-dd HH:mm}'}" FontSize="15" TextColor="black" FontAttributes="Bold" Margin="5,0,0,0"/>
+                                                        <Label Grid.Row="2" Grid.Column="0" FontAutoScalingEnabled="False" Text="{Binding GetOn, StringFormat='상차 : {0:yyyy-MM-dd HH:mm}'}" FontSize="15" TextColor="black" FontAttributes="Bold" Margin="5,0,0,0"/>
+                                                        <Label Grid.Row="3" Grid.Column="0" FontAutoScalingEnabled="False" Text="{Binding GetOff, StringFormat='하차 : {0:yyyy-MM-dd HH:mm}'}" FontSize="15" TextColor="black" FontAttributes="Bold" Margin="5,0,0,0"/>
+                                                        <Label Grid.Row="4" Grid.Column="0" FontAutoScalingEnabled="False" Text="{Binding LockOff, StringFormat='봉인 해제 : {0:yyyy-MM-dd HH:mm}'}" FontSize="15" TextColor="black" FontAttributes="Bold" Margin="5,0,0,0"/>
+                                                        <Label Grid.Row="5" Grid.Column="0" FontAutoScalingEnabled="False" Text="{Binding Crushing, StringFormat='파쇄 : {0:yyyy-MM-dd HH:mm}'}" FontSize="15" TextColor="black" FontAttributes="Bold" Margin="5,0,0,0"/>
+                                                    </StackLayout>
+                                                </toolkit:Expander.Content>
+                                            </toolkit:Expander>
+                                        </StackLayout>
+                                    </Frame>
+                                </StackLayout>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
                 </StackLayout>
             </Frame>
 
@@ -112,7 +152,7 @@
 
             <ActivityIndicator IsRunning="{Binding IsLoading}" Color ="Blue"/>
 
-            <Label Text="Loading..." HorizontalOptions="Center" TextColor="White"/>
+            <Label Text="Loading..." HorizontalOptions="Center"  FontAutoScalingEnabled="False" FontSize="15" TextColor="White"/>
 
         </StackLayout>
 
