@@ -9,13 +9,13 @@ namespace AdminScreen.Model
     public class LoginInfo
     {
         /// <summary>
-        /// 로그인 아이디
+        /// 로그인 정보
         /// </summary>
-        public string ID { get; set; }
-
-        /// <summary>
-        /// 로그인 패스워드
-        /// </summary>
-        public string PW { get; set; }
+        public string AdminID { get; set; }
+        public string AdminPW { get; set; }
+        public string EMPNO { get; set; }
+        public string DEPTID { get; set; }
+        public string PIN { get; set; }
+        public string EMPNM { get; set; }
     }
 }

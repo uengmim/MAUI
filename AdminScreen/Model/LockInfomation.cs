@@ -101,9 +101,12 @@ namespace AdminScreen.Models
                 }
             };
 
-            var dataService = ImateHelper.GetSingleTone().Adapter;
-            var lkMstData = await dataService.SelectModelDataAsync<LkmstModelList>(App.ServerID, "ShreDocDataModel", "ShreDoc.DataModel.LkmstModelList",
-                        whereLKCondition, new Dictionary<string, XNSC.DIMSortOrder>(), QueryCacheType.None);
+            //var dataService = ImateHelper.GetSingleTone().Adapter;
+            //var lkMstData = await dataService.SelectModelDataAsync<LkmstModelList>(App.ServerID, "ShreDocDataModel", "ShreDoc.DataModel.LkmstModelList",
+            //            whereLKCondition, new Dictionary<string, XNSC.DIMSortOrder>(), QueryCacheType.None);
+
+            var lkMstData  = await ImateHelper.SelectModelData<LkmstModelList>(App.ServerID, whereLKCondition, new Dictionary<string, XNSC.DIMSortOrder>());
+
             if (lkMstData.Count > 0)
             {
                 var lkInfo = lkMstData.First();
