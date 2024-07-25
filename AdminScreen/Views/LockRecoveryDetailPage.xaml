@@ -4,9 +4,11 @@
              x:Class="AdminScreen.Views.LockRecoveryDetailPage"
              xmlns:local="clr-namespace:AdminScreen.ViewModels"
              Title="자물쇠 회수"
-             BackgroundColor="#285083">
+             NavigationPage.HasNavigationBar="False"
+             Shell.BackgroundColor="#FFFFFF">
 
     <ContentPage.Resources>
+        <Color x:Key="SelectedBackgroundColor">#C2E7FF</Color>
         <Style TargetType="StackLayout">
             <Setter Property="VisualStateManager.VisualStateGroups">
                 <VisualStateGroupList>
@@ -15,7 +17,7 @@
                         <VisualState x:Name="Selected">
                             <VisualState.Setters>
                                 <Setter Property="BackgroundColor" 
-                                        Value="DeepSkyBlue" />
+                                    Value="{StaticResource SelectedBackgroundColor}" />
                             </VisualState.Setters>
                         </VisualState>
                     </VisualStateGroup>
@@ -28,36 +30,95 @@
         <local:LockRecoveryDetailViewModel />
     </ContentPage.BindingContext>
 
-    <StackLayout BackgroundColor="#285083">
-        <Frame BorderColor="#376199" Margin="10" Padding="0" HeightRequest="650" BackgroundColor="#376199">
-            <StackLayout>
-                <CollectionView x:Name="notesCollection"
-                                    VerticalOptions="StartAndExpand" 
-                                    HorizontalOptions="StartAndExpand" 
-                                ItemsSource="{Binding SearchDataModel}"
-                                SelectionMode="Multiple"
-                                Margin="0" >
-                    <CollectionView.ItemsLayout>
-                        <LinearItemsLayout Orientation="Vertical" ItemSpacing="0" />
-                    </CollectionView.ItemsLayout>
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate>
-                            <StackLayout Margin="0" Padding="0">
-                                <Border HeightRequest="70" StrokeShape="RoundRectangle 15,15,15,15" Padding="5" Stroke="LightGray"  BackgroundColor="#1295DB" Margin="15,7,15,7">
-                                    <StackLayout Orientation="Vertical" Padding="0" Margin="0" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
-                                        <Label Grid.Column="0" Text="{Binding LSN, StringFormat= '관리번호 : {0}'}" FontSize="16" TextColor="White" FontAttributes="Bold" VerticalOptions="CenterAndExpand"/>
-                                        <Label Grid.Column="0" Text="{Binding LKNM, StringFormat='자물쇠 이름 : {0}'}" FontSize="16" TextColor="White" FontAttributes="Bold" VerticalOptions="CenterAndExpand"/>
-                                    </StackLayout>
-                                </Border>
-                            </StackLayout>
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>
-                <ActivityIndicator x:Name="loadingIndicator" VerticalOptions="StartAndExpand" HorizontalOptions="CenterAndExpand"  IsRunning="False" IsVisible="False" Color="Blue" />
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior IsVisible="False" IsEnabled="False" />
+    </Shell.BackButtonBehavior>
+
+    <Shell.TitleView>
+        <VerticalStackLayout>
+            <Grid BackgroundColor="Transparent" HorizontalOptions="Fill">
+                <Button x:Name="BackBtn"
+                        BackgroundColor="Transparent"
+                        Clicked="BackBtn_Clicked"
+                        WidthRequest="50"
+                        HeightRequest="50"
+                        Margin="-10,0,0,0"
+                        HorizontalOptions="StartAndExpand">
+                    <Button.ImageSource>
+                        <FileImageSource File="arrow_left.png" />
+                    </Button.ImageSource>
+                </Button>
+                <Label Text="자물쇠 회수" FontAutoScalingEnabled="False" FontSize="20" Margin="0,0,0,0" TextColor="#1F1F21" FontAttributes="Bold" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+                </Label>
+            </Grid>
+        </VerticalStackLayout>
+    </Shell.TitleView>
+
+    <Grid BackgroundColor="#FFFFFF" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+        <!-- 행 정의 -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!-- 데이터 표시 스크롤 뷰 -->
+        <ScrollView Grid.Row="0">
+            <StackLayout Padding="10">
+                <!-- CollectionView 내용 -->
+                <Frame BorderColor="#FFFFFF" Margin="0,10,0,0" Padding="0" BackgroundColor="#FFFFFF">
+                    <CollectionView x:Name="notesCollection"
+                            VerticalOptions="StartAndExpand" 
+                            HorizontalOptions="StartAndExpand" 
+                            ItemsSource="{Binding SearchDataModel}"
+                            SelectionMode="Multiple"
+                            Margin="0" >
+                        <CollectionView.ItemsLayout>
+                            <LinearItemsLayout Orientation="Vertical" ItemSpacing="7" />
+                        </CollectionView.ItemsLayout>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <StackLayout Margin="0" Padding="0">
+                                    <!-- 데이터 아이템 표시 -->
+                                    <Frame CornerRadius="15" Padding="5" BackgroundColor="#F1F5FB" Margin="7,0,7,0" InputTransparent="True" HeightRequest="120">
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition/>
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="110"/>
+                                                <ColumnDefinition />
+                                            </Grid.ColumnDefinitions>
+
+                                            <Frame Grid.Row="0" Grid.Column="0" BackgroundColor="#FFFFFF" WidthRequest="100" HeightRequest="100" Margin="10,0,0,0" />
+                                            <Image Grid.Row="0" Grid.Column="0" Source="lock_blue.png" WidthRequest="40" HeightRequest="40" Margin="5,0,0,0" />
+
+                                            <StackLayout VerticalOptions="Center" Grid.Row="0" Grid.Column="1" HorizontalOptions="CenterAndExpand">
+                                                <Label Text="{Binding LSN}" FontAutoScalingEnabled="False" FontSize="15" TextColor="black" FontAttributes="Bold" HorizontalOptions="StartAndExpand"  MaxLines="1"/>
+                                                <Label Text="{Binding LKNM}" FontAutoScalingEnabled="False" FontSize="15" TextColor="black" HorizontalOptions="StartAndExpand" />
+                                                <Label Text="{Binding Name, StringFormat='작업자 : {0}'}" FontAutoScalingEnabled="False" FontSize="15" TextColor="black" HorizontalOptions="StartAndExpand" />
+                                            </StackLayout>
+                                        </Grid>
+                                    </Frame>
+                                </StackLayout>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </Frame>
             </StackLayout>
-        </Frame>
-        <Button Text="회수" TextColor="White" FontSize="15" BackgroundColor="#1295DB" HorizontalOptions="FillAndExpand" Margin="10" HeightRequest="40" FontAttributes="Bold"  
-                Clicked="HandleSelectionButton_Clicked" CommandParameter="MainPage">
-        </Button>
-    </StackLayout>
+        </ScrollView>
+
+        <!-- 로딩 표시 부분 -->
+        <StackLayout IsVisible="{Binding IsLoading}" Padding="12" HorizontalOptions="Center" VerticalOptions="Center" Grid.RowSpan="2">
+            <ActivityIndicator IsRunning="{Binding IsLoading}" Color ="Blue"/>
+            <Label Text="Loading..." HorizontalOptions="Center"  FontAutoScalingEnabled="False" FontSize="15" TextColor="White"/>
+        </StackLayout>
+
+        <!-- 버튼 -->
+        <StackLayout Grid.Row="1" Margin="10,0,10,10" HorizontalOptions="FillAndExpand" VerticalOptions="EndAndExpand">
+            <Button Text="자물쇠 회수하기" FontAutoScalingEnabled="False" TextColor="White" FontSize="15" x:Name="start_btn" BackgroundColor="#3A7DFF" FontAttributes="Bold"
+                    Clicked="HandleSelectionButton_Clicked"
+                    HorizontalOptions="FillAndExpand" WidthRequest="380" HeightRequest="60">
+            </Button>
+        </StackLayout>
+    </Grid>
 </ContentPage>
