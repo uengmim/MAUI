@@ -2,24 +2,54 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="AdminScreen.Views.TaskMonitoringDocPage"
-             BackgroundColor="#285083"
+             xmlns:viewModel="clr-namespace:AdminScreen.ViewModels"
+             Shell.BackgroundColor="#FFFFFF"
+             NavigationPage.HasNavigationBar="False"
              Title="증빙 문서 조회">
+    
+    <ContentPage.BindingContext>
+        <viewModel:MonitoringDocViewModel />
+    </ContentPage.BindingContext>
 
-    <StackLayout BackgroundColor="#285083" Margin="0,30,0,0">
-        <Frame BorderColor="#376199" Margin="20,20" Padding="0" BackgroundColor="#376199">
-            <VerticalStackLayout BackgroundColor="#376199" VerticalOptions="CenterAndExpand">
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior IsVisible="False" IsEnabled="False" />
+    </Shell.BackButtonBehavior>
 
-                <Frame Margin="15" Padding="0" BackgroundColor="#376199" CornerRadius="10" BorderColor="White" HeightRequest="80">
-                    <Button Text="봉인 증빙 사진" TextColor="White" FontSize="15" BackgroundColor="#1295DB" HorizontalOptions="FillAndExpand" Margin="5,5" HeightRequest="70" FontAttributes="Bold"
-                        Clicked="LockPictureClicked" CommandParameter="DocLockPicturePage"/>
+    <Shell.TitleView>
+        <VerticalStackLayout>
+            <Grid BackgroundColor="Transparent" HorizontalOptions="Fill">
+                <Button x:Name="BackBtn"
+                        BackgroundColor="Transparent"
+                        Clicked="BackBtn_Clicked"
+                        WidthRequest="50"
+                        HeightRequest="50"
+                        Margin="-10,0,0,0"
+                        HorizontalOptions="StartAndExpand">
+                    <Button.ImageSource>
+                        <FileImageSource File="arrow_left.png" />
+                    </Button.ImageSource>
+                </Button>
+                <Label Text="증빙 문서 조회" FontAutoScalingEnabled="False" FontSize="20" Margin="0,0,0,0" TextColor="#1F1F21" FontAttributes="Bold" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+                </Label>
+            </Grid>
+        </VerticalStackLayout>
+    </Shell.TitleView>
+
+    <StackLayout BackgroundColor="#FFFFFF" Margin="0,30,0,0">
+        <Frame BorderColor="#FFFFFF" Margin="20,20" Padding="0" BackgroundColor="#FFFFFF">
+            <VerticalStackLayout BackgroundColor="#FFFFFF" VerticalOptions="CenterAndExpand">
+
+                <Frame Margin="15" Padding="0" BackgroundColor="#C2E7FF" CornerRadius="10" BorderColor="White" HeightRequest="80">
+                    <Button Text="봉인 증빙 사진" FontAutoScalingEnabled="False" TextColor="#1F1F21" FontSize="15" BackgroundColor="#C2E7FF" HorizontalOptions="FillAndExpand" Margin="5,5" HeightRequest="70" FontAttributes="Bold"
+                         Command="{Binding LockPictureCommand}" CommandParameter="DocLockPicturePage"/>
                 </Frame>
-                <Frame Margin="15" Padding="0" BackgroundColor="#376199" CornerRadius="10" BorderColor="White" HeightRequest="80">
-                    <Button Text="문서 폐기 보고서" TextColor="White" FontSize="15" BackgroundColor="#1295DB" HorizontalOptions="FillAndExpand" Margin="5,5" HeightRequest="70" FontAttributes="Bold"
-                        Clicked="CrushingReportClicked" CommandParameter="DocCrushingReportPage"/>
+                <Frame Margin="15" Padding="0" BackgroundColor="#C2E7FF" CornerRadius="10" BorderColor="White" HeightRequest="80">
+                    <Button Text="문서 폐기 보고서" FontAutoScalingEnabled="False" TextColor="#1F1F21" FontSize="15" BackgroundColor="#C2E7FF" HorizontalOptions="FillAndExpand" Margin="5,5" HeightRequest="70" FontAttributes="Bold"
+                         Command="{Binding CrushingReportCommand}" CommandParameter="DocCrushingReportPage"/>
                 </Frame>
-                <Frame Margin="15" Padding="0" BackgroundColor="#376199" CornerRadius="10" BorderColor="White" HeightRequest="80">
-                    <Button Text="파쇄 증명서" TextColor="White" FontSize="15" BackgroundColor="#1295DB" HorizontalOptions="FillAndExpand" Margin="5,5" HeightRequest="70" FontAttributes="Bold"
-                        Clicked="CrushingProofClicked" CommandParameter="DocCrushingProofPage"/>
+                <Frame Margin="15" Padding="0" BackgroundColor="#C2E7FF" CornerRadius="10" BorderColor="White" HeightRequest="80">
+                    <Button Text="파쇄 증명서" FontAutoScalingEnabled="False" TextColor="#1F1F21" FontSize="15" BackgroundColor="#C2E7FF" HorizontalOptions="FillAndExpand" Margin="5,5" HeightRequest="70" FontAttributes="Bold"
+                         Command="{Binding CrushingProofCommand}" CommandParameter="DocCrushingProofPage"/>
                 </Frame>
             </VerticalStackLayout>
         </Frame>

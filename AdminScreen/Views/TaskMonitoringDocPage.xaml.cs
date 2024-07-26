@@ -1,26 +1,30 @@
-﻿namespace AdminScreen.Views
+﻿using AdminScreen.ViewModels;
+
+namespace AdminScreen.Views
 {
     public partial class TaskMonitoringDocPage : ContentPage
     {
-
-        public TaskMonitoringDocPage()
+        /// <summary>
+        /// 문서 페이지
+        /// </summary>
+        /// <param name="LockClose">봉인 시간</param>
+        /// <param name="Crushing">파쇄 시간</param>
+        /// <param name="CONFNO">작업자</param>
+        public TaskMonitoringDocPage(DateTime? LockClose, DateTime? Crushing, string CONFNO)
         {
             InitializeComponent();
-        }
+            MonitoringDocViewModel monitoringDocViewModel = new MonitoringDocViewModel();
+            monitoringDocViewModel.LockCloseTime = (DateTime)LockClose;
+            monitoringDocViewModel.CrushingTime = (DateTime)Crushing;
+            monitoringDocViewModel.CONFNO = CONFNO;
 
+            this.BindingContext = monitoringDocViewModel;
 
-        public async void LockPictureClicked(object sender, EventArgs e)
-        {
-            await Navigation.PushAsync(new DocLockPicturePage());
         }
-
-        public async void CrushingReportClicked(object sender, EventArgs e)
+        private void BackBtn_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new DocCrushingReportPage());
-        }
-        public async void CrushingProofClicked(object sender, EventArgs e)
-        {
-            await Navigation.PushAsync(new DocCrushingProofPage());
+            //뒤로가기
+            Application.Current.MainPage.Navigation.PopAsync();
         }
     }
 }
