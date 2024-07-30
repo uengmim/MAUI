@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:AdminScreen"
+             x:Class="AdminScreen.Views.CustomAlertPage"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             BackgroundColor="#40808080" Padding="20">
+
+    <Frame BackgroundColor="White" Padding="30" CornerRadius="5" HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="350">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <!-- 첫 번째 줄: 제목 -->
+                <RowDefinition Height="*"/>
+                <!-- 두 번째 줄: 메시지 -->
+                <RowDefinition Height="Auto"/>
+                <!-- 세 번째 줄: 버튼 -->
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <!-- 첫 번째 열: 제목 -->
+                <ColumnDefinition Width="*"/>
+                <!-- 두 번째 열: 메시지 -->
+                <ColumnDefinition Width="*"/>
+                <!-- 세 번째 열: 버튼 -->
+            </Grid.ColumnDefinitions>
+
+            <!-- 제목 -->
+            <Label Text="{Binding CustomTitle}" FontSize="15" FontAutoScalingEnabled="False" FontAttributes="Bold" TextColor="Black" HorizontalOptions="Start" VerticalOptions="Start" Margin="5"/>
+
+            <!-- 메시지 -->
+            <Label x:Name="MessageLabel" FontSize="13" FontAutoScalingEnabled="False" TextColor="Black" Text="{Binding Message}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" HorizontalTextAlignment="Start" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Margin="5"/>
+
+            <!-- 확인 버튼 -->
+            <Button Text="{Binding Accept}" Command="{Binding AcceptCommand}" TextColor="Black" FontAutoScalingEnabled="False" FontSize="13" BackgroundColor="#FFFFFF" CornerRadius="10" HorizontalOptions="End" VerticalOptions="End" HeightRequest="40" Margin="0,0,0,0" Grid.Row="2" Grid.Column="2"/>
+            
+            <!-- 취소 버튼 -->
+            <Button Text="{Binding Cancel}" Command="{Binding CancelCommand}" TextColor="Black" FontAutoScalingEnabled="False" FontSize="13" BackgroundColor="#FFFFFF" CornerRadius="10" HorizontalOptions="Start" VerticalOptions="End" HeightRequest="40" Margin="0,0,0,0" Grid.Row="2" Grid.Column="2"/>
+
+        </Grid>
+    </Frame>
+</ContentPage>
