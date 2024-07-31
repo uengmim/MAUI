@@ -1,16 +1,8 @@
-﻿using AdminScreen.ViewModels;
-using Mapsui.Projections;
+﻿using Mapsui.Projections;
 using Mapsui.UI.Maui;
 using Color = Microsoft.Maui.Graphics.Color;
-using System.Diagnostics;
 using Mapsui;
 using Mapsui.Extensions;
-using System.Threading.Tasks;
-using Mapsui.Widgets.Zoom;
-using static Google.Android.Material.Tabs.TabLayout;
-using Mapsui.UI;
-using Mapsui.Layers;
-using Mapsui.Providers;
 using CommunityToolkit.Maui.Alerts;
 using ShreDoc.Utils;
 using XNSC.DD.EX;
@@ -32,6 +24,7 @@ namespace AdminScreen.Views
             location = new();
             DrawMap(confno);
         }
+
         public async void DrawMap(string confno)
         {
 
@@ -44,12 +37,12 @@ namespace AdminScreen.Views
                     condition = DIMGroupCondtion.AND,
                     joinCondtion = DIMGroupCondtion.AND,
                     whereFieldConditions = new DIMWhereFieldCondition[]
-{
-                    new DIMWhereFieldCondition{ fieldName = "CONFNO" , value = confno, condition = DIMWhereCondition.Equal}
-}
+                    {
+                        new DIMWhereFieldCondition{ fieldName = "CONFNO" , value = confno, condition = DIMWhereCondition.Equal}
+                    }
                 };
                 Dictionary<string, DIMSortOrder> sorts = new Dictionary<string, DIMSortOrder>();
-                sorts.Add("REPTYP", DIMSortOrder.Ascending);
+                sorts.Add("CRTDT", DIMSortOrder.Ascending);
 
                 var tksegInfoList = await dataService.Adapter.SelectModelDataAsync<TksegModelList>(App.ServerID, "ShreDocDataModel", "ShreDoc.DataModel.TksegModelList",
                                         whereCondition, sorts, QueryCacheType.None);
@@ -63,7 +56,7 @@ namespace AdminScreen.Views
                 //확대 및 중앙
                 var centerOfLondonOntario = new MPoint((double)LonData, (double)LatData);
                 var sphericalMercatorCoordinate = SphericalMercator.FromLonLat(centerOfLondonOntario.X, centerOfLondonOntario.Y).ToMPoint();
-                mapControl.Map.Home = n => n.CenterOnAndZoomTo(sphericalMercatorCoordinate, n.Resolutions[10]);
+                mapControl.Map.Home = n => n.CenterOnAndZoomTo(sphericalMercatorCoordinate, n.Resolutions[13]);
 
                 //맵 추가
                 mapControl.Map?.Layers.Add(Mapsui.Tiling.OpenStreetMap.CreateTileLayer());
@@ -83,6 +76,8 @@ namespace AdminScreen.Views
                         reptyp = "봉인";
                     else if (item.REPTYP == "C08000B")
                         reptyp = "상차";
+                    else if (item.REPTYP == "Trace")
+                        reptyp = "이동 중..";
                     else if (item.REPTYP == "C08000C")
                         reptyp = "하차";
                     else if (item.REPTYP == "C08000D")
@@ -96,7 +91,7 @@ namespace AdminScreen.Views
                     LonData = Double.Parse(Lon);
                     LatData = Double.Parse(Lat);
 
-                    if (item.REPTYP == "C08000A" || item.REPTYP == "C08000B" || item.REPTYP == "C08000C" || item.REPTYP == "C08000D" || item.REPTYP == "C08000E")
+                    if (item.REPTYP == "C08000A" || item.REPTYP == "C08000B" || item.REPTYP == "Trace" || item.REPTYP == "C08000C" || item.REPTYP == "C08000D" || item.REPTYP == "C08000E")
                     {
                         //핀 추가
                         AddPin((double)LatData, (double)LonData, Colors.Blue, item.EVTDT, reptyp);
@@ -108,11 +103,13 @@ namespace AdminScreen.Views
             }
             catch (Exception ex)
             {
-                await Application.Current.MainPage.DisplayAlert("통보", ex.Message, "OK");
+                await ShowCustomAlert("알림", ex.Message, "확인", "");
             }
         }
 
-        //핀 추가 이벤트
+        /// <summary>
+        /// 핀 추가 이벤트
+        /// </summary>
         public void AddPin(double latitude, double longitude, Color c, DateTime? PinTime, string RepTYP)
         {
 
@@ -126,7 +123,7 @@ namespace AdminScreen.Views
                 Label = formattedDate,
                 Address = "more text",
                 IsVisible = true,
-                Scale = 0.7F,
+                Scale = 0.8F,
                 Color = c,
             };
             myPin.Callout.Title = formattedDate;
@@ -139,21 +136,76 @@ namespace AdminScreen.Views
         private object loadingObj = new object();
         private bool isLoading;
 
-        private void OnPinClicked(object sender, PinClickedEventArgs e)
+        /// <summary>
+        /// 핀 클릭 이벤트
+        /// </summary>
+        private async void OnPinClicked(object sender, PinClickedEventArgs e)
         {
+            // isLoading 변수를 사용하여 중복 클릭 방지
+            if (isLoading)
+                return;
 
-            lock (loadingObj)
+            // 핀 클릭 상태를 표시하기 위해 isLoading을 true로 설정
+            isLoading = true;
+
+            try
             {
-                if (isLoading == true)
-                    return;
-                isLoading = true;
-            }
-            CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
+                string message = $"발생 시간 : {e.Pin.Callout.Title} \n유형 : {e.Pin.Callout.Subtitle} ";
 
-            var toast = Toast.Make($"발생 시간 : {e.Pin.Callout.Title} \n유형 : {e.Pin.Callout.Subtitle} ", CommunityToolkit.Maui.Core.ToastDuration.Long, 15);
-            toast.Show(cancellationTokenSource.Token);
-            isLoading = false;
+                // 토스트 메시지 내용을 설정
+                toastLabel.Text = message;
+
+                // 토스트 메시지 표시
+                toastMessage.IsVisible = true;
+                await toastMessage.FadeTo(1, 250);
+
+                // 토스트 메시지 표시 후 1.5초 대기
+                await Task.Delay(1500);
+
+                // 토스트 메시지 닫기
+                await toastMessage.FadeTo(0, 250);
+                toastMessage.IsVisible = false;
+            }
+            finally
+            {
+                // isLoading 변수를 false로 설정하여 다시 핀 클릭을 활성화
+                isLoading = false;
+            }
+        }
+
+        private void BackBtn_Clicked(object sender, EventArgs e)
+        {
+            //뒤로가기
+            Application.Current.MainPage.Navigation.PopAsync();
+        }
+
+        // 팝업 표시 상태를 나타내는 플래그
+        private bool isAlertShowing = false;
+
+        //팝업
+        private async Task ShowCustomAlert(string title, string message, string accept, string cancle)
+        {
+            // 이미 경고 팝업이 표시 중인 경우 추가적인 처리를 하지 않음
+            if (isAlertShowing)
+            {
+                return;
+            }
+
+            isAlertShowing = true; // 경고 팝업 표시 중임을 표시
+
+            // 팝업 애니메이션 비활성화
+            try
+            {
+                var alertPage = new CustomAlertPage(title, message, accept, cancle);
+                alertPage.Disappearing += (sender, e) => isAlertShowing = false;
+                await App.Current.MainPage.Navigation.PushModalAsync(alertPage, animated: false);
+            }
+            finally
+            {
+                isAlertShowing = true;
+            }
         }
     }
 }
+
 

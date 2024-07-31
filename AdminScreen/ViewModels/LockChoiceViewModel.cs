@@ -9,6 +9,9 @@ using Mapsui.UI.Maui;
 
 namespace AdminScreen.ViewModel
 {
+    /// <summary>
+    /// 등록 및 초기화 화면
+    /// </summary>
     public class LockChoiceViewModel : INotifyPropertyChanged
     {
 
@@ -17,11 +20,26 @@ namespace AdminScreen.ViewModel
         /// 로그인 Command 입니다.
         /// </summary>
         public INavigation Navigation { get; set; }
+
+        /// <summary>
+        /// 자물쇠 등록 Command
+        /// </summary>
         public ICommand RegistCommand => new Command(OnRegist);
+
+        /// <summary>
+        /// 자물쇠 초기화 Command
+        /// </summary>
         public ICommand InitCommand => new Command(OnInit);
 
+        /// <summary>
+        /// 특성 변경 이벤트
+        /// </summary>
         public event PropertyChangedEventHandler PropertyChanged;
 
+        /// <summary>
+        /// 특성 변경
+        /// </summary>
+        /// <param name="propertyName"></param>
         protected virtual void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
@@ -32,14 +50,16 @@ namespace AdminScreen.ViewModel
         // Methods
         #region HomePage
         /// <summary>
-        /// 메인 메뉴를 나타냅니다.
+        /// LockRegistPage 이동
         /// </summary>
-
         public async void OnRegist()
         {
             await Application.Current.MainPage.Navigation.PushAsync(new LockRegistPage());
         }
 
+        /// <summary>
+        /// LockInitRecogPage 이동
+        /// </summary>
         public async void OnInit()
         {
             await Application.Current.MainPage.Navigation.PushAsync(new LockInitRecogPage());
