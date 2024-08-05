@@ -5,9 +5,11 @@
              xmlns:local="clr-namespace:AdminScreen.ViewModels"
              Title="자물쇠 스캔"
              Loaded="ContentPage_Loaded"
-             BackgroundColor="#285083">
+             NavigationPage.HasNavigationBar="False"
+             Shell.BackgroundColor="#FFFFFF">
 
     <ContentPage.Resources>
+        <Color x:Key="SelectedBackgroundColor">#C2E7FF</Color>
         <Style TargetType="StackLayout">
             <Setter Property="VisualStateManager.VisualStateGroups">
                 <VisualStateGroupList>
@@ -16,7 +18,7 @@
                         <VisualState x:Name="Selected">
                             <VisualState.Setters>
                                 <Setter Property="BackgroundColor" 
-                                        Value="DeepSkyBlue" />
+                                    Value="{StaticResource SelectedBackgroundColor}" />
                             </VisualState.Setters>
                         </VisualState>
                     </VisualStateGroup>
@@ -25,37 +27,81 @@
         </Style>
     </ContentPage.Resources>
 
-    <!--<ContentPage.ToolbarItems>
-        <ToolbarItem Text="ReNew" IconImageSource="{OnPlatform 'autorenew.png', iOS='autorenew.png', MacCatalyst='autorenew.png'}" />
-    </ContentPage.ToolbarItems>-->
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior IsVisible="False" IsEnabled="False" />
+    </Shell.BackButtonBehavior>
+
+    <Shell.TitleView>
+            <Grid BackgroundColor="Transparent" HorizontalOptions="Fill">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="5"/>
+                <ColumnDefinition />
+                <ColumnDefinition Width="5"/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Row="0" Grid.Column="0" x:Name="BackBtn"
+                        BackgroundColor="Transparent"
+                        Clicked="BackBtn_Clicked"
+                        WidthRequest="50"
+                        HeightRequest="50"
+                        Margin="-10,0,0,0"
+                        HorizontalOptions="StartAndExpand">
+                    <Button.ImageSource>
+                        <FileImageSource File="arrow_left.png" />
+                    </Button.ImageSource>
+                </Button>
+            <Label Grid.Row="0" Grid.Column="1" Text="자물쇠 등록" FontAutoScalingEnabled="False" FontSize="20" Margin="0,0,0,0" TextColor="Black" FontAttributes="Bold" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+                </Label>
+            </Grid>
+    </Shell.TitleView>
 
     <ContentPage.BindingContext>
         <local:LockRegistDetailViewModel/>
     </ContentPage.BindingContext>
 
-    <StackLayout BackgroundColor="#285083">
-        <Frame BorderColor="#376199" Margin="10,20" Padding="0" HeightRequest="700" BackgroundColor="#376199">
+    <StackLayout BackgroundColor="#FFFFFF">
+        <FlexLayout JustifyContent="SpaceAround" HeightRequest="25" Margin="5">
+            <Label Text="등록할 자물쇠를 선택해 주세요" FontAutoScalingEnabled="False" HorizontalOptions="FillAndExpand" TextColor="#666666" FontAttributes="Bold" HeightRequest="25" Margin="0" FontSize="15">
+            </Label>
+        </FlexLayout>
+        <Frame BorderColor="#FFFFFF" Margin="0,0,0,0" Padding="0" BackgroundColor="#FFFFFF">
             <StackLayout>
                 <CollectionView x:Name="notesCollection"
-                                    VerticalOptions="StartAndExpand" 
-                                    HorizontalOptions="StartAndExpand" 
+                                VerticalOptions="StartAndExpand" 
+                                HorizontalOptions="StartAndExpand" 
                                 ItemsSource="{Binding LockDataModel}"
                                 SelectedItem="{Binding SelectedItem}"
                                 SelectionMode="Single"
                                 Margin="0" >
                     <CollectionView.ItemsLayout>
-                        <LinearItemsLayout Orientation="Vertical" ItemSpacing="0" />
+                        <LinearItemsLayout Orientation="Vertical" ItemSpacing="7" />
                     </CollectionView.ItemsLayout>
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
                             <StackLayout Margin="0" Padding="0">
-                                <Border HeightRequest="70" StrokeShape="RoundRectangle 15,15,15,15" Padding="5" Stroke="LightGray"  BackgroundColor="#1295DB" Margin="15,7,15,7">
-                                    <StackLayout Orientation="Vertical" Padding="0" Margin="0" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
-                                        <Label Grid.Column="0" Text="자물쇠 MAC 주소" FontSize="16" TextColor="White" FontAttributes="Bold" VerticalOptions="CenterAndExpand"/>
-                                        <Label Grid.Column="0" Text="{Binding LockMac}" FontSize="16" TextColor="White" FontAttributes="Bold" VerticalOptions="CenterAndExpand"/>
-                                        <Label Grid.Column="0" Text="{Binding LockName}" FontSize="16" TextColor="White" FontAttributes="Bold" VerticalOptions="CenterAndExpand"/>
-                                    </StackLayout>
-                                </Border>
+                                <Frame CornerRadius="15" Padding="0" Margin="7,0,7,0" BackgroundColor="#F1F5FB" InputTransparent="True" HeightRequest="120">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition/>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="110"/>
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+
+                                        <Frame Grid.Row="0" Grid.Column="0" BackgroundColor="#FFFFFF" WidthRequest="100" HeightRequest="100" Margin="10,0,0,0" />
+                                        <Image Grid.Row="0" Grid.Column="0" Source="lock_blue.png" WidthRequest="40" HeightRequest="40" Margin="5,0,0,0" />
+
+                                        <StackLayout VerticalOptions="Center" Grid.Row="0" Grid.Column="1" HorizontalOptions="CenterAndExpand">
+                                            <Label Text="자물쇠 MAC 주소" FontAutoScalingEnabled="False" FontSize="15" TextColor="black" FontAttributes="Bold" HorizontalOptions="StartAndExpand"  MaxLines="1"/>
+                                            <Label Text="{Binding LockMac}" FontAutoScalingEnabled="False" FontSize="15" TextColor="black" HorizontalOptions="StartAndExpand" />
+                                            <Label Text="{Binding LockName}" FontAutoScalingEnabled="False" FontSize="15" TextColor="black" HorizontalOptions="StartAndExpand" />
+                                        </StackLayout>
+                                    </Grid>
+                                    
+                                </Frame>
                             </StackLayout>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>

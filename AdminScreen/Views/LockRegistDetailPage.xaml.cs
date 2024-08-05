@@ -10,13 +10,24 @@ namespace AdminScreen.Views
     /// </summary>
     public partial class LockRegistDetailPage : ContentPage
     {
+        /// <summary>
+        /// lockinfo
+        /// </summary>
         private LockInfomation lockinfo;
 
+        /// <summary>
+        /// LockInfomation 모델
+        /// </summary>
         private ObservableCollection<LockInfomation> lockDataModel = new ObservableCollection<LockInfomation>();
 
+        /// <summary>
+        /// LockInfomation 모델
+        /// </summary>
         public ObservableCollection<LockInfomation> LockDataModel { get { return lockDataModel; } set { lockDataModel = value; OnPropertyChanged(nameof(LockDataModel)); } }
 
-
+        /// <summary>
+        /// LockInfo
+        /// </summary>
         public LockInfomation LockInfo
         {
             get { return lockinfo; }
@@ -41,9 +52,13 @@ namespace AdminScreen.Views
         /// </summary>
         public LockRegistDetailPage()
         {
+#if __ANDROID__
+            TTlockHelper.AndroidDeviceDic.Clear();
+
+#endif
             InitializeComponent();
             LockRegistDetailViewModel registerSearchModel = new LockRegistDetailViewModel();
-            BindingContext = registerSearchModel;
+            this.BindingContext = registerSearchModel;
 
             ttlockHelper = new TTlockHelper();
             holdInitBLE = new ManualResetEventSlim(false);
@@ -52,6 +67,7 @@ namespace AdminScreen.Views
             ttlockHelper.LockBluetoothInitEvent += TtlockHelper_LockBluetoothInitEvent;
             //블루투스 스캔 이벤트
             ttlockHelper.LockScanResultEvent += TtlockHelper_LockScanResultEvent;
+
         }
 
         /// <summary>
@@ -69,21 +85,34 @@ namespace AdminScreen.Views
         /// <param name="e"></param>
         private void TtlockHelper_LockScanResultEvent(SmartLock.Event.LockScanResultEventArgs e)
         {
-            if (!e.IsSuccess)
+            try
             {
-                Console.WriteLine($"{e.Device.Address}, {e.Error.ErrorMessage}");
-                return;
-            }
+                var viewmodel = (LockRegistDetailViewModel)this.BindingContext;
 
-            if (!LockDataModel.Any(l => l.LockMac == e.Device.Address))
+                if (!e.IsSuccess)
+                {
+                    Console.WriteLine($"{e.Device.Address}, {e.Error.ErrorMessage}");
+                    return;
+                }
+
+                if (!LockDataModel.Any(l => l.LockMac == e.Device.Address))
+                {
+                    //스캔한 Device를 표시한다.
+                    var lockInfo = new LockInfomation(e.Device);
+                    lockInfo.SetLockInfo();
+
+                    MainThread.BeginInvokeOnMainThread(() =>
+                    {
+                        LockDataModel.Add(lockInfo);
+                        viewmodel.LockDataModel = LockDataModel;
+                    });
+                }
+            }
+            catch (Exception ex)
             {
-                //스캔한 Device를 표시한다.
-                var lockInfo = new LockInfomation(e.Device);
-                lockInfo.SetLockInfo();
-
-                LockDataModel.Add(lockInfo);
+                Console.WriteLine(ex.Message);
             }
-        }
+        } 
 
         /// <summary>
         /// 페이지 로드후 이벤트 처리
@@ -106,14 +135,14 @@ namespace AdminScreen.Views
             }
             catch (Exception ex)
             {
-                await Application.Current.MainPage.DisplayAlert("오류", ex.Message, "확인");
+               await ShowCustomAlert("알림", ex.Message, "확인", "");
             }
         }
         
         /// <summary>
         /// Lock Sacn
         /// </summary>
-        private void LockScan()
+        private async void  LockScan()
         {
             try
             {
@@ -121,7 +150,40 @@ namespace AdminScreen.Views
             }
             catch (Exception ex)
             {
-                Application.Current.MainPage.DisplayAlert("오류", ex.Message, "확인");
+               await ShowCustomAlert("알림", ex.Message, "확인", "");
+            }
+        }
+
+        private void BackBtn_Clicked(object sender, EventArgs e)
+        {
+            //뒤로가기
+            Application.Current.MainPage.Navigation.PopAsync();
+        }
+
+        // 팝업 표시 상태를 나타내는 플래그
+        private bool isAlertShowing = false;
+
+        //팝업
+        private async Task ShowCustomAlert(string title, string message, string accept, string cancle)
+        {
+            // 이미 경고 팝업이 표시 중인 경우 추가적인 처리를 하지 않음
+            if (isAlertShowing)
+            {
+                return;
+            }
+
+            isAlertShowing = true; // 경고 팝업 표시 중임을 표시
+
+            // 팝업 애니메이션 비활성화
+            try
+            {
+                var alertPage = new CustomAlertPage(title, message, accept, cancle);
+                alertPage.Disappearing += (sender, e) => isAlertShowing = false;
+                await App.Current.MainPage.Navigation.PushModalAsync(alertPage, animated: false);
+            }
+            finally
+            {
+                isAlertShowing = true;
             }
         }
     }
