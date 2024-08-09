@@ -9,7 +9,7 @@
     <Shell.Resources>
         <Style x:Key="BaseStyle" TargetType="Element">
             <Setter Property="Shell.NavBarHasShadow" Value="False"/>
-            <Setter Property="Shell.BackgroundColor" Value="#285083" />
+            <Setter Property="Shell.BackgroundColor" Value="#3A7DFF" />
             <Setter Property="Shell.ForegroundColor" Value="White" />
             <Setter Property="Shell.TitleColor" Value="White" />
             <Setter Property="Shell.DisabledColor" Value="#B4FFFFFF" />
@@ -38,7 +38,6 @@
 
         <ShellContent
             Title="Main"
-            Icon="dotnet_bot.png"
             Style="{StaticResource BaseStyle}"
             ContentTemplate="{DataTemplate views:MainPage}"
             Route="MainPage" />

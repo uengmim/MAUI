@@ -11,16 +11,28 @@ using XNSC.Net.NOKE;
 using System.Collections.ObjectModel;
 using AdminScreen.Models;
 using ShreDoc.Utils;
-using Kotlin.Reflect;
+using XNSC;
 
 namespace AdminScreen.ViewModels
 {
+    /// <summary>
+    /// 작업 모니터링 화면
+    /// </summary>
     public class MonitoringViewModel : INotifyPropertyChanged
     {
+        /// <summary>
+        /// LockInfoData 모델
+        /// </summary>
         public ObservableCollection<LockInfoData> LockDataModel { get { return lockDataModel; } set { lockDataModel = value; OnPropertyChanged(nameof(LockDataModel)); } }
 
-        public ObservableCollection<LockInfoData> lockDataModel = new ObservableCollection<LockInfoData>();
+        /// <summary>
+        /// LockInfoData 모델
+        /// </summary>
+        private ObservableCollection<LockInfoData> lockDataModel = new ObservableCollection<LockInfoData>();
 
+        /// <summary>
+        /// selectedItem값
+        /// </summary>
         private LockInfoData selectedItem;
 
         public LockInfoData SelectedItem
@@ -40,6 +52,9 @@ namespace AdminScreen.ViewModels
             }
         }
 
+        /// <summary>
+        /// TaskMonitoringDetailPage 이동
+        /// </summary>
         private async void PerformNavigation(string LSN, string LKNM, string MAC, string LKTYP, string CONFNO)
         {
             if (SelectedItem != null)
@@ -48,21 +63,30 @@ namespace AdminScreen.ViewModels
             }
             else
             {
-                await Application.Current.MainPage.DisplayAlert("오류", "선택된 자물쇠가 없습니다.", "OK");
+                await ShowCustomAlert("알림", "선택된 자물쇠가 없습니다.", "확인", "");
                 SelectedItem = null;
                 return;
             }
         }
+        /// <summary>
+        /// 로그인한 사용자의 정보
+        /// </summary>
         private string _boxNum = "";
         private string _location = "";
         private string _lockData = "";
         private string _lockName = "";
         private string _confno = "";
+
+        /// <summary>
+        /// 자물쇠 조회
+        /// </summary>
         private string _textSearch = "";
 
         #region Properties
 
-
+        /// <summary>
+        /// 자물쇠 조회
+        /// </summary>
         public string TextSearch
         {
             get => _textSearch;
@@ -84,6 +108,9 @@ namespace AdminScreen.ViewModels
             }
         }
 
+        /// <summary>
+        /// isLoading
+        /// </summary>
         private bool isLoading;
 
         public bool IsLoading
@@ -99,6 +126,9 @@ namespace AdminScreen.ViewModels
             }
         }
 
+        /// <summary>
+        /// 보안 문서함
+        /// </summary>
         public string BoxNum
         {
             get => _boxNum;
@@ -108,6 +138,10 @@ namespace AdminScreen.ViewModels
                 OnPropertyChanged(nameof(BoxNum));
             }
         }
+
+        /// <summary>
+        /// 위치
+        /// </summary>
         public string Location
         {
             get => _location;
@@ -117,6 +151,10 @@ namespace AdminScreen.ViewModels
                 OnPropertyChanged(nameof(Location));
             }
         }
+
+        /// <summary>
+        /// Lock Data
+        /// </summary>
         public string LockData
         {
             get => _lockData;
@@ -126,6 +164,10 @@ namespace AdminScreen.ViewModels
                 OnPropertyChanged(nameof(LockData));
             }
         }
+
+        /// <summary>
+        /// Lock 이름
+        /// </summary>
         public string LockName
         {
             get => _lockName;
@@ -135,6 +177,10 @@ namespace AdminScreen.ViewModels
                 OnPropertyChanged(nameof(LockName));
             }
         }
+
+        /// <summary>
+        /// Confno
+        /// </summary>
         public string CONFNO
         {
             get => _confno;
@@ -144,20 +190,21 @@ namespace AdminScreen.ViewModels
                 OnPropertyChanged(nameof(CONFNO));
             }
         }
-        private Color backgroundColorSet;
-        public Color BackgroundColorSet
+
+        private string myimage;
+        public string MyImage
         {
-            get { return backgroundColorSet; }
+            get => myimage;
             set
             {
-                if (backgroundColorSet != value)
-                {
-                    backgroundColorSet = value;
-                    OnPropertyChanged(nameof(BackgroundColorSet));
-                }
+                myimage = value;
+                OnPropertyChanged(nameof(MyImage));
             }
         }
 
+        /// <summary>
+        /// 스택그라운드 색상
+        /// </summary>
         private Color stackBackgroundColor;
         public Color StackBackgroundColor
         {
@@ -171,8 +218,16 @@ namespace AdminScreen.ViewModels
                 }
             }
         }
+
+        /// <summary>
+        /// 특성 변경 이벤트
+        /// </summary>
         public event PropertyChangedEventHandler PropertyChanged;
 
+        /// <summary>
+        /// 특성 변경
+        /// </summary>
+        /// <param name="propertyName"></param>
         protected virtual void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
@@ -221,10 +276,10 @@ namespace AdminScreen.ViewModels
                     condition = DIMGroupCondtion.OR,
                     joinCondtion = DIMGroupCondtion.AND,
                     whereFieldConditions = new DIMWhereFieldCondition[]
-    {
-                    new DIMWhereFieldCondition{ fieldName = "LKSTA" , value = "L", condition = DIMWhereCondition.Equal},
-                    new DIMWhereFieldCondition{ fieldName = "LKSTA" , value = "U", condition = DIMWhereCondition.Equal}
-    }
+                    {
+                        new DIMWhereFieldCondition{ fieldName = "LKSTA" , value = "L", condition = DIMWhereCondition.Equal},
+                        new DIMWhereFieldCondition{ fieldName = "LKSTA" , value = "U", condition = DIMWhereCondition.Equal}
+                    }
                 };
 
                 var lkMstData = await dataService.Adapter.SelectModelDataAsync<LkmstModelList>(App.ServerID, "ShreDocDataModel", "ShreDoc.DataModel.LkmstModelList",
@@ -237,11 +292,11 @@ namespace AdminScreen.ViewModels
 
                         if (item.LKSTA == "L")
                         {
-                            BackgroundColorSet = Colors.Red;
+                            MyImage = "lock_red.png";
                         }
                         else if (item.LKSTA == "U")
                         {
-                            BackgroundColorSet = Colors.Green;
+                            MyImage = "lock_open_green.png";
                         }
 
                         var whereSireqCondition = new DIMGroupFieldCondtion()
@@ -249,7 +304,9 @@ namespace AdminScreen.ViewModels
                             condition = DIMGroupCondtion.AND,
                             joinCondtion = DIMGroupCondtion.AND,
                             whereFieldConditions = new DIMWhereFieldCondition[]
-                            {new DIMWhereFieldCondition{ fieldName = "WEMPID" , value = item.REFDA1, condition = DIMWhereCondition.Equal}}
+                            {
+                                new DIMWhereFieldCondition{ fieldName = "WEMPID" , value = item.REFDA1, condition = DIMWhereCondition.Equal}
+                            }
                         };
                         var sireqData = await dataService.Adapter.SelectModelDataAsync<SireqModelList>(App.ServerID, "ShreDocDataModel", "ShreDoc.DataModel.SireqModelList",
                                     whereSireqCondition, new Dictionary<string, XNSC.DIMSortOrder>(), QueryCacheType.None);
@@ -260,10 +317,16 @@ namespace AdminScreen.ViewModels
                             condition = DIMGroupCondtion.AND,
                             joinCondtion = DIMGroupCondtion.AND,
                             whereFieldConditions = new DIMWhereFieldCondition[]
-                            {new DIMWhereFieldCondition{ fieldName = "LSN" , value = item.LSN, condition = DIMWhereCondition.Equal}}
+                            {
+                                new DIMWhereFieldCondition{ fieldName = "LSN" , value = item.LSN, condition = DIMWhereCondition.Equal}
+                            }
                         };
+
+                        Dictionary<string, DIMSortOrder> sorts = new Dictionary<string, DIMSortOrder>();
+                        sorts.Add("EVTDT", DIMSortOrder.Descending);
+
                         var siehisData = await dataService.Adapter.SelectModelDataAsync<SiehisModelList>(App.ServerID, "ShreDocDataModel", "ShreDoc.DataModel.SiehisModelList",
-                                    whereSiehisCondition, new Dictionary<string, XNSC.DIMSortOrder>(), QueryCacheType.None);
+                                    whereSiehisCondition, sorts, QueryCacheType.None);
 
                         var siehisConfNo = "";
 
@@ -278,7 +341,9 @@ namespace AdminScreen.ViewModels
                             condition = DIMGroupCondtion.AND,
                             joinCondtion = DIMGroupCondtion.AND,
                             whereFieldConditions = new DIMWhereFieldCondition[]
-                        {new DIMWhereFieldCondition{ fieldName = "CONFNO" , value = siehisConfNo, condition = DIMWhereCondition.Equal}}
+                            {
+                                new DIMWhereFieldCondition{ fieldName = "CONFNO" , value = siehisConfNo, condition = DIMWhereCondition.Equal}
+                            }
                         };
 
                         var sierepData = await dataService.Adapter.SelectModelDataAsync<SierepModelList>(App.ServerID, "ShreDocDataModel", "ShreDoc.DataModel.SierepModelList",
@@ -297,7 +362,10 @@ namespace AdminScreen.ViewModels
                             lockStatus = "회수";
 
                         else if (item.ILSID == null && item.REFDA1 != null)
+                        { 
                             lockStatus = "지급";
+                            siehisConfNo = "";
+                        }
 
                         else if (item.ILSID != null && sierepData.Count == 0)
                             lockStatus = "봉인준비";
@@ -312,14 +380,12 @@ namespace AdminScreen.ViewModels
                         {
                             lockStatus = "상차";
                             //StackBackgroundColor = Colors.Crimson;
-
                         }
 
                         else if (item.ILSID != null && sierepData.Count > 0 && sierepREPTYPC != null && sierepREPTYPD == null && sierepREPTYPE == null)
                         {
                             lockStatus = "하차";
                             //StackBackgroundColor = Colors.OliveDrab;
-
                         }
 
                         else if (item.ILSID != null && sierepData.Count > 0 && sierepREPTYPD != null && sierepREPTYPE == null)
@@ -334,9 +400,9 @@ namespace AdminScreen.ViewModels
                         else if (sireqData.Count == 0)
                             lockStatus = "등록";
 
-                        if (lockStatus != "회수")
+                        if (lockStatus != "회수" && lockStatus != "등록")
                         {
-                            LockDataModel.Add(new LockInfoData(item.LSN, item.MAC, lockStatus, item.LKNM, siehisConfNo, BackgroundColorSet, StackBackgroundColor));
+                            LockDataModel.Add(new LockInfoData(item.LSN, item.MAC, lockStatus, item.LKNM, siehisConfNo, MyImage));
                         }
                     }
                     IsLoading = false;
@@ -345,14 +411,13 @@ namespace AdminScreen.ViewModels
                 }
                 if (lkMstData.Count == 0)
                 {
-                    await Application.Current.MainPage.DisplayAlert("오류", "검색된 자물쇠가 없습니다.", "OK");
+                    await ShowCustomAlert("알림", "검색된 자물쇠가 없습니다.", "확인", "");
                     IsLoading = false;
-
                 }
             }
             catch (Exception ex)
             {
-                await Application.Current.MainPage.DisplayAlert("통보", ex.Message, "OK");
+                await ShowCustomAlert("알림", ex.Message, "확인", "");
                 IsLoading = false;
                 return;
             }
@@ -366,6 +431,33 @@ namespace AdminScreen.ViewModels
             SearchEmptyLoadContactCommand = new Command(async () => await ExecuteMyCommand());
             CollectionView collectionView = new CollectionView();
             collectionView.SetBinding(ItemsView.ItemsSourceProperty, "LockInfom");
+        }
+
+        // 팝업 표시 상태를 나타내는 플래그
+        private bool isAlertShowing = false;
+
+        //팝업
+        private async Task ShowCustomAlert(string title, string message, string accept, string cancle)
+        {
+            // 이미 경고 팝업이 표시 중인 경우 추가적인 처리를 하지 않음
+            if (isAlertShowing)
+            {
+                return;
+            }
+
+            isAlertShowing = true; // 경고 팝업 표시 중임을 표시
+
+            // 팝업 애니메이션 비활성화
+            try
+            {
+                var alertPage = new CustomAlertPage(title, message, accept, cancle);
+                alertPage.Disappearing += (sender, e) => isAlertShowing = false;
+                await App.Current.MainPage.Navigation.PushModalAsync(alertPage, animated: false);
+            }
+            finally
+            {
+                isAlertShowing = true;
+            }
         }
 
     }

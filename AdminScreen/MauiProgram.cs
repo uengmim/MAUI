@@ -1,7 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 using CommunityToolkit.Maui;
 using SkiaSharp.Views.Maui.Controls.Hosting;
-using Syncfusion.Maui.Core.Hosting;
 
 namespace AdminScreen
 {
@@ -14,7 +13,6 @@ namespace AdminScreen
                 .UseMauiApp<App>()
                 .UseSkiaSharp(true)
                 .UseMauiCommunityToolkit()
-                .ConfigureSyncfusionCore()
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");

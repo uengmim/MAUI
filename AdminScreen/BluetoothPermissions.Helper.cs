@@ -13,7 +13,7 @@
             }
             catch (Exception ex)
             {
-                // logger.LogError(ex);
+                Console.WriteLine(ex.Message);
                 return false;
             }
         }
@@ -27,7 +27,7 @@
             }
             catch (Exception ex)
             {
-                // logger.LogError(ex);
+                Console.WriteLine(ex.Message);
                 return false;
             }
         }

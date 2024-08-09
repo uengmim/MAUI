@@ -5,8 +5,14 @@ using System.Windows.Input;
 
 namespace AdminScreen.ViewModels
 {
+    /// <summary>
+    /// 운송 경로 조회 화면
+    /// </summary>
     public class MonitoringMapViewModel : INotifyPropertyChanged
     {
+        /// <summary>
+        /// 특성 변경 이벤트
+        /// </summary>
         public event PropertyChangedEventHandler PropertyChanged;
         //public LoginInfo LoginInfo
         //{
@@ -19,6 +25,10 @@ namespace AdminScreen.ViewModels
         //}
         //private LoginInfo loginInfo;
 
+        /// <summary>
+        /// 특성 변경
+        /// </summary>
+        /// <param name="propertyName"></param>
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
